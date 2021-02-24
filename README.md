@@ -25,3 +25,14 @@ Keep this safe, and **never share it with anyone!** This token will be useful la
 <img src="https://i.imgur.com/iBPZZ4J.png">
 Now we can get into the coding part! Grab your token from before and paste it into the token part of botConfig.js While you're here you can also choose your prefix for your bot(the prefix is like the ! in !help or something like that) 
 <img src="https://i.imgur.com/bqbJlMI.png">
+Now you have done this, congrats! Your bot is completely setup and ready to use! But we need to get the bot online! This moves on to the next step:
+
+## Hosting the Bot
+For beginners I would recommend using repl.it, the free online IDE service. You can run the bot and host it using uptime robot for free, 24/7.
+
+
+However, if you are more experienced, I would recommend using heroku. You can deploy to heroku using the link below.
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/aspekts/AspektsAllin1Bot)
+
+
