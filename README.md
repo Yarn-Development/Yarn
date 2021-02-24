@@ -12,3 +12,4 @@ INSIDE "" TO MAKE YOUR BOT FUNCTION PROPERLY!**
 -   <img src="https://i.imgur.com/I1MGCQ9.png" alt="Discord.js" width="29" align="center"> [`@discord.js`] Main lib used to build this client.
 ## Links
 -   <img src="https://i.imgur.com/AoMmUW4.png" alt="SupportServer" width="29" align="center"> [`SupportServer`] Join this server if you have any issues!
+[Support Server](https://discord.gg/HfUFThtgPq)
