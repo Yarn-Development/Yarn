@@ -17,4 +17,7 @@ INSIDE "" TO MAKE YOUR BOT FUNCTION PROPERLY!**
  
  [`Disord Developer Portal`] First things first, we need to create the application that'll be used to make the bot.
  [Head to this site](https://discord.com/developers/applications) and then click on create application.
- <img src="https://i.imgur.com/9QcFMdq.jpg" alt="DiscDevApp"> It should look like this
+ <img src="https://i.imgur.com/4TzAGW4.jpg" alt="DiscDevApp"> It should look like this, or something similar.
+Afterwards, head to the bot section. You should see something like this:
+<img src="https://i.imgur.com/nmuUWYS.png" alt="DisDevBotPage"> After this, go ahead and click on add bot.
+                                                             
