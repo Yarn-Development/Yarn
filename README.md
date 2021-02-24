@@ -1,7 +1,6 @@
 ## 💖 Aspekts All in one Bot 💖
 **This bot was created by Aspekts#6969**
-**The CountChannel var is for if you want to set a channel to count for users if not just leave it blank AND EVERYTHING ELSE IS SELF EXPLANATORY JUST CHANGE THE VALUES 
-INSIDE "" TO MAKE YOUR BOT FUNCTION PROPERLY!**
+**The CountChannel variable is for if you want to set a channel to count for users if not just leave it blank.**
 ## Knowledge requirements
 
 -   <img src="https://i.imgur.com/c5d7pwC.png" alt="Javascript" width="36" align="center"> [`Javascript`] To edit the code or add more stuff.
@@ -20,4 +19,9 @@ INSIDE "" TO MAKE YOUR BOT FUNCTION PROPERLY!**
  <img src="https://i.imgur.com/4TzAGW4.jpg" alt="DiscDevApp"> It should look like this, or something similar.
 Afterwards, head to the bot section. You should see something like this:
 <img src="https://i.imgur.com/nmuUWYS.png" alt="DisDevBotPage"> After this, go ahead and click on add bot.
-                                                             
+Congratulations! You have finally made yourself a bot! But thats not it! Copy your token from the bot like so:                                                           
+<img src="https://i.imgur.com/TqPleCm.jpg" alt"DiscDevBotToken"> Keep this safe, and never share it with anyone! This token will be useful later! 
+After you've gotten your token, scroll down a bit and turn on prescence and server member intents. This will be useful for serverinfo commands 
+<img src="https://i.imgur.com/iBPZZ4J.jpg" alt"Intents"> Now we can get into the coding part!
+Grab your token from before and paste it into the token part of botConfig.js While you're here you can also choose your prefix for your bot(the prefix is like the ! in !help or something like that) 
+<img src="https://i.imgur.com/bqbJlMI.png" alt"DiscDevBotConfig">
