@@ -1,6 +1,6 @@
 #💖 Aspekts All in one Bot 💖
 **This bot was created by Aspekts#6969**
-**The CountChannel var is for if you want to set a channel to count for users if not just leave it blank AND EVERYTHING ELSE IS SELF EPLAINATORY JUST CHANGE THE VALUES 
+**The CountChannel var is for if you want to set a channel to count for users if not just leave it blank AND EVERYTHING ELSE IS SELF EXPLANATORY JUST CHANGE THE VALUES 
 INSIDE "" TO MAKE YOUR BOT FUNCTION PROPERLY!**
 ## Knowledge requirements
 
