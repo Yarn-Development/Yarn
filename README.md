@@ -13,3 +13,8 @@ INSIDE "" TO MAKE YOUR BOT FUNCTION PROPERLY!**
 ## Links
 -   <img src="https://i.imgur.com/AoMmUW4.png" alt="SupportServer" width="29" align="center"> [`SupportServer`] Join this server if you have any issues!
 [Support Server](https://discord.gg/HfUFThtgPq)
+ ## How do you set this discord bot up?
+ 
+ [`Disord Developer Portal`] First things first, we need to create the application that'll be used to make the bot.
+ [Head to this site](https://discord.com/developers/applications) and then click on create application.
+ <img src="https://i.imgur.com/9QcFMdq.jpg" alt="DiscDevApp"> It should look like this
