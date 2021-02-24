@@ -29,6 +29,13 @@ Now you have done this, congrats! Your bot is completely setup and ready to use!
 
 ## Hosting the Bot
 For beginners I would recommend using repl.it, the free online IDE service. You can run the bot and host it using uptime robot for free, 24/7.
+To do this first, click on the button below to get this code into your own repl
+
+[![Use on Repl.it](https://repl.it/badge/github/aspekts/AspektsAllin1Bot)](https://repl.it/github/aspekts/AspektsAllin1Bot)
+
+Alternatively, new people can also use Glitch, in which you can use this link to deploy this code to Glitch
+
+[Click Here to Host On Glitch](https://glitch.com/edit/#!/import/git?url=https://github.com/aspekts/AspektsAllin1Bot)
 
 
 However, if you are more experienced, I would recommend using heroku. You can deploy to heroku using the link below.
