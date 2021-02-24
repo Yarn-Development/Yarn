@@ -11,4 +11,4 @@ INSIDE "" TO MAKE YOUR BOT FUNCTION PROPERLY!**
 -   <img src="https://i.imgur.com/c5d7pwC.png" alt="Javascript" width="36" align="center"> [`Javascript`] Used to code & build the client.
 -   <img src="https://i.imgur.com/I1MGCQ9.png" alt="Discord.js" width="29" align="center"> [`@discord.js`] Main lib used to build this client.
 ## Links
-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeofN7_qjz3C01gB9NKixky2ukBb-FA-KK2Q&usqp=CAU" alt="SupportServer" width=36" align="center>[`Support Server`] Join this server if you have any issues!
+- <img src="https://imgur.com/gallery/3nZCiE5.png" alt="SupportServer" width=36" align="center>[`Support Server`] Join this server if you have any issues!
