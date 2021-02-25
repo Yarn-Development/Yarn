@@ -42,5 +42,5 @@ exports.execute = async (client, message) => {
 module.exports.help = {
   name: "afk",
   aliases:[],
-  usage: "afk or bt!afk <Your afk message>"
+  usage: `afk or ${botprefix}afk <Your afk message>`
 }
