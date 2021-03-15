@@ -15,7 +15,7 @@
     "bot",
     "discord.js",
     "discordjs",
-    "moderation",
+    "moderation"
   ],
   "dependencies": {
     "discord.js": "^12.3.1",
