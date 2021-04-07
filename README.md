@@ -35,7 +35,7 @@ To do this first, click on the button below to get this code into your own repl
 
 Alternatively, new people can also use Glitch, in which you can use this link to deploy this code to Glitch
 
-[Click Here to Host On Glitch](https://glitch.com/edit/#!/import/git?url=https://github.com/aspekts/AspektsAllin1Bot)
+[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/AspektsAIOBot/https://github.com/aspekts/AspektsAllin1Bot)
 
 
 However, if you are more experienced, I would recommend using heroku. You can deploy to heroku using the link below.
