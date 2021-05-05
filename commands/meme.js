@@ -13,8 +13,9 @@ module.exports.execute = async (client, message, args) => {
 			const memeImage = post.data.url;
 			const memeTitle = post.data.title;
 			const memeUpvotes = post.data.ups;
+      const memeAuthor = post.data.author;
 			const memeNumComments = post.data.num_comments;
-
+      embed.setAuthor(`Author: u/${memeAuthor}`);
 			embed.setTitle(`${memeTitle}`);
 			embed.setURL(`${memeUrl}`);
 			embed.setColor('RANDOM');
@@ -29,5 +30,6 @@ module.exports.execute = async (client, message, args) => {
 module.exports.help = {
 	name: 'meme',
 	aliases: [],
+  category:'Misc',
   usage: "meme"
 };

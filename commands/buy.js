@@ -2,16 +2,36 @@ const Discord = require('discord.js');
 
 
 
-exports.execute =  async(client, message, args) => {
+
+exports.execute = async(client, message, args) => {
 
     let user = message.author;
 
     let author = await client.db.fetch(`money_${message.guild.id}_${user.id}.pocket`)
-   switch(args[0]) {
+
+    let Embed = new Discord.MessageEmbed()
+    .setColor("#FFFFFF")
+    .setDescription(` You need 3500 🧶 to purchase Bronze VIP`);
+
+    switch(args[0]) {
+    case 'bronze':
+        if (author < 3500) return message.channel.send(Embed)
+        
+        await client.db.fetch(`bronze_${message.guild.id}_${user.id}`);
+        await client.db.set(`bronze_${message.guild.id}_${user.id}`, true)
+
+        let Embed2 = new Discord.MessageEmbed()
+        .setColor("#FFFFFF")
+        .setDescription(` Purchased Bronze VIP For 3500 🧶`);
+
+        await client.db.subtract(`money_${message.guild.id}_${user.id}.pocket`, 3500)
+        message.channel.send(Embed2)
+    break;
+
     case 'nikes':
         let Embedn = new Discord.MessageEmbed()
         .setColor("#FFFFFF")
-        .setDescription(` You need 600 coins to purchase some Nikes`);
+        .setDescription(` You need 600 🧶 to purchase some Nikes`);
 
         if (author < 600) return message.channel.send(Embedn)
        
@@ -20,7 +40,7 @@ exports.execute =  async(client, message, args) => {
 
         let Embed3 = new Discord.MessageEmbed()
         .setColor("#FFFFFF")
-        .setDescription(`:white_check_mark: Purchased Fresh Nikes For 600 Coins`);
+        .setDescription(` Purchased Fresh Nikes For 600 🧶`);
 
         await client.db.subtract(`money_${message.guild.id}_${user.id}.pocket`, 600)
         message.channel.send(Embed3)
@@ -29,7 +49,7 @@ exports.execute =  async(client, message, args) => {
     case 'car':
         let Embed4 = new Discord.MessageEmbed()
         .setColor("#FFFFFF")
-        .setDescription(`:x: You need 800 coins to purchase a new car`);
+        .setDescription(` You need 800 🧶 to purchase a new car`);
 
         if (author < 800) return message.channel.send(Embed4)
        
@@ -38,7 +58,7 @@ exports.execute =  async(client, message, args) => {
 
         let Embed5 = new Discord.MessageEmbed()
         .setColor("#FFFFFF")
-        .setDescription(`:white_check_mark: Purchased a New Car For 800 Coins`);
+        .setDescription(` Purchased a New Car For 800 🧶`);
 
         await client.db.subtract(`money_${message.guild.id}_${user.id}.pocket`, 800)
         message.channel.send(Embed5)
@@ -48,7 +68,7 @@ exports.execute =  async(client, message, args) => {
     case "fishing":
         let Embed6 = new Discord.MessageEmbed()
         .setColor("#FFFFFF")
-        .setDescription(`:x: You need 50 coins to purchase a fishing rod`);
+        .setDescription(` You need 50 🧶 to purchase a fishing rod`);
 
         if (author < 50) return message.channel.send(Embed6);
         let iffish = await client.db.get(`fish_${message.guild.id}_${user.id}`);
@@ -61,7 +81,7 @@ exports.execute =  async(client, message, args) => {
 
         let Embed7 = new Discord.MessageEmbed()
         .setColor("#FFFFFF")
-        .setDescription(` Purchased a Fishing rod For 50 Coins`);
+        .setDescription(` Purchased a Fishing rod For 50 🧶`);
 
         await client.db.subtract(`money_${message.guild.id}_${user.id}.pocket`, 50)
         message.channel.send(Embed7)
@@ -70,7 +90,7 @@ exports.execute =  async(client, message, args) => {
     case 'mansion':
         let Embed8 = new Discord.MessageEmbed()
         .setColor("#FFFFFF")
-        .setDescription(`:x: You need 1200 coins to purchase a Mansion`);
+        .setDescription(` You need 1200 🧶 to purchase a Mansion`);
 
         if (author < 1200) return message.channel.send(Embed8)
        
@@ -79,7 +99,7 @@ exports.execute =  async(client, message, args) => {
 
         let Embed9 = new Discord.MessageEmbed()
         .setColor("#FFFFFF")
-        .setDescription(`:white_check_mark: Purchased a Mansion For 1200 Coins`);
+        .setDescription(` Purchased a Mansion For 1200 🧶`);
 
         await client.db.subtract(`money_${message.guild.id}_${user.id}.pocket`, 1200)
         message.channel.send(Embed9)
@@ -94,11 +114,11 @@ exports.execute =  async(client, message, args) => {
 
         }
 	}
-  module.exports.help = {
+module.exports.help = {
+	
 		name: "buy",
 		description: "Buy something from the store!",
 		category: "Economy",
     aliases:[],
-    usage: 'buy <item>'
+    usage:'buy <item>'
 	}
-

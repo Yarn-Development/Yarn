@@ -42,6 +42,7 @@ const Discord = require('discord.js')
 
 exports.help = {
   name: 'invites',
+  category:'Misc',
   aliases:['invite'],
   usage:'invites'
 }

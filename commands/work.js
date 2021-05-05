@@ -3,7 +3,7 @@ const ms = require("parse-ms");
 
 
 	
-module.exports.execute =  async (client, message, args) => {
+exports.execute = async (client, message, args) => {
 
     let user = message.author;
     
@@ -16,7 +16,7 @@ module.exports.execute =  async (client, message, args) => {
     
         let timeEmbed = new Discord.MessageEmbed()
         .setColor("#FFFFFF")
-        .setDescription(`<a:false:737764891657633814> You have already worked recently\n\nTry again in ${time.minutes}m ${time.seconds}s `);
+        .setDescription(`You have already worked recently\n\nTry again in ${time.minutes}m ${time.seconds}s `);
         message.channel.send(timeEmbed)
       } else {
 
@@ -30,17 +30,19 @@ module.exports.execute =  async (client, message, args) => {
 
         let embed1 = new Discord.MessageEmbed()
         .setColor("#FFFFFF")
-        .setDescription(`:white_check_mark: You worked as a ${replies[result]} and earned ${amount} coins`);
+        .setDescription(`You worked as a ${replies[result]} and earned ${amount} 🧶`);
         message.channel.send(embed1)
         
         await client.db.add(`money_${message.guild.id}_${user.id}.pocket`, amount)
         await client.db.set(`work_${message.guild.id}_${user.id}`, Date.now())
 		};
 	}
+  module.exports.help = {
+	
+		name: "work",
+		description: "Work to get some money!",
+		category: "Economy",
+    aliases:['w'],
+    usage:'work'
+	}
 
-
-module.exports.help = {
-    name: 'work',
-    aliases: ["w"],
-    usage: 'work'
-}

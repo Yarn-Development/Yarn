@@ -20,13 +20,15 @@ exports.execute =  async(client, message, args) => {
   let moneyEmbed = new Discord.MessageEmbed()
   .setColor("#FFFFFF")
   .setDescription(`**${user}'s Balance**\n
-  **Pocket:** ${bal}
-  **Bank:** ${bank}
-  **Total:** ${TotalMoney}`);
+  **Pocket:** ${bal} 🧶
+  **Bank:** ${bank} 🧶
+  **Total:** ${TotalMoney} 🧶`);
   message.channel.send(moneyEmbed)
 	}
   exports.help = {
     name: "bal",
+    category:'Economy',
     aliases: ["money", "credits", "balance"],
     usage: `bal`
 }
+

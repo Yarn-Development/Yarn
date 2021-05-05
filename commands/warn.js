@@ -38,5 +38,6 @@ exports.execute = async (client, message, args) => {
     exports.help = {
       name : 'warn',
       aliases : [],
+      category:'Moderation',
       usage : 'warn @user'
     }

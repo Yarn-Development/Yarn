@@ -3,7 +3,7 @@ const ms = require("parse-ms");
 
 
 
-module.exports.execute = async (client, message, args) => {  
+exports.execute =  async (client, message, args) => {  
 
   let user =
     message.mentions.users.first() ||
@@ -22,14 +22,14 @@ if (author !== null && timeout - (Date.now() - author) > 0) {
 
     let timeEmbed = new Discord.MessageEmbed()
     .setColor("#FFFFFF")
-    .setDescription(`:x: You have already robbed someone\n\nTry again in ${time.minutes}m ${time.seconds}s `);
+    .setDescription(`You have already robbed someone\n\nTry again in ${time.minutes}m ${time.seconds}s `);
     message.channel.send(timeEmbed)
 
   } else {
 
     let moneyEmbed = new Discord.MessageEmbed()
   .setColor("#FFFFFF")
-  .setDescription(`:x: You need at least 200 coins in your wallet to rob someone`);
+  .setDescription(`You need at least 200 🧶 in your wallet to rob someone`);
 
 
   if (author2 < 200) {
@@ -38,7 +38,7 @@ if (author !== null && timeout - (Date.now() - author) > 0) {
 
   let moneyEmbed2 = new Discord.MessageEmbed()
   .setColor("#FFFFFF")
-  .setDescription(`:x: ${user.username} does not have anything you can rob. Cmon bruh don't try rob the broke guy.`);
+  .setDescription(`${user.username} does not have anything you can rob`);
 
   if (targetuser <= 0 || targetuser === null) {
     return message.channel.send(moneyEmbed2)
@@ -46,17 +46,20 @@ if (author !== null && timeout - (Date.now() - author) > 0) {
 
   let authorembed = new Discord.MessageEmbed()
   .setColor("#FFFFFF")
-  .setDescription(`:x: You cannot rob yourself!`);
+  .setDescription(`You cannot rob yourself!`);
 
   if(user.id === message.author.id) {
     return message.channel.send(authorembed)
   }
 
- random = Math.floor(Math.random() * 100) + 1;
+  let vip = await client.db.fetch(`bronze_${user.id}`)
+
+  if(vip === true) random = Math.floor(Math.random() * parseInt(targetuser)) + 1;
+  if(vip === null) random = Math.floor(Math.random() * 100) + 1;
 
 
   let embed = new Discord.MessageEmbed()
-   .setDescription(`:white_check_mark: You robbed ${user} and got away with ${random} coins`)
+   .setDescription(`You robbed ${user} and got away with ${random} 🧶`)
    .setColor("#FFFFFF")
 
    message.channel.send(embed)
@@ -68,8 +71,9 @@ await client.db.set(`rob_${message.guild.id}_${message.author.id}`, Date.now());
 		}
 	}
   module.exports.help = {
-		name: "rob",
+	 name: "rob",
+   aliases:[],
+   category:'Economy',
 		description: "Rob someone!",
-		aliases:[],
-    usage:'rob @user'
+		usage:'rob @user'
 	}

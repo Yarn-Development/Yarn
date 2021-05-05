@@ -35,7 +35,7 @@ const Discord = require('discord.js');
     name: "weather",
     description: "Checks a weather forecast",
     aliases: [],
-    usage:'weather <country>'
+    usage:'weather <city, country>'
 
 }
 

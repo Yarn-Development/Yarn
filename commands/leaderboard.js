@@ -1,85 +1,230 @@
-const Discord = require('discord.js')
-const db = require('quick.db')
+const Discord = require('discord.js');
+const { ReactionCollector } = require('discord.js-collector');
 
-module.exports.execute = async (client, message, args) => {
-    if(!message.content.startsWith('bt!'))return;  
+const db = require("quick.db")
 
-    const embed = new Discord.MessageEmbed()
-    .setDescription(`**Input a Leaderboard Option**\n\nCoin Leaderboard: bt!leaderboard coins\nFresh Nikes Leaderboard: bt!leaderboard nikes\nCar Leaderboard: bt!leaderboard car\nMansion Leaderboard: bt!leaderboard mansion`)
-    .setColor("#FFFFFF")
+exports.execute = async (client, message, args) => {
 
 
-  if(!args[0]) return message.channel.send(embed)
+let money = await db.startsWith(`money_${message.guild.id}`, { sort: '.data'});
+let contentm = "";
 
-    if (args[0] == 'coins') {
-    let money = db.has(`money_${message.guild.id}`, { sort: '.data'})
-    let content = "";
+for (let i = 0; i < money.length; i++) {
+    let user = client.users.cache.get(money[i].ID.split('_')[1]) || "Unregistered user";
+      contentm += `${i+1}. ${user} ~ ${money[i].data.pocket}\n`
+}
 
-    for (let i = 0; i < money.length; i++) {
-        let user = client.users.get(money[i].ID.split('_')[2]).username
+let bank =  await db.startsWith(`money_${message.guild.id}`, { sort: '.data'});
+let contentb = "";
 
-      
+for (let i = 0; i < bank.length; i++) {
+    let user = client.users.cache.get(bank[i].ID.split('_')[2]) || "Unregistered user";
+      contentb += `${i+1}. ${user} ~ ${money[i].data.bank}\n`
+}
 
-        content += `${i+1}. ${user} ~ ${money[i].data}\n`
-    
+let nike = await db.startsWith(`nikes_${message.guild.id}`, { sort: '.data'});
+let contentn = "";
+
+for (let i = 0; i < nike.length; i++) {
+    let user = client.users.cache.get(nike[i].ID.split('_')[2]) || "Unregistered user";
+      contentn += `${i+1}. ${user} ~ ${nike[i].data}\n`
+}
+
+let car = await db.startsWith(`car_${message.guild.id}`, { sort: '.data'});
+let contentc = "";
+
+for (let i = 0; i < car.length; i++) {
+    let user = client.users.cache.get(car[i].ID.split('_')[2]) || "Unregistered user";
+      contentm += `${i+1}. ${user} ~ ${car[i].data}\n`
+}
+
+let house = await db.startsWith(`house_${message.guild.id}`, { sort: '.data'});
+let contentma = "";
+
+for (let i = 0; i < house.length; i++) {
+    let user = client.users.cache.get(house[i].ID.split('_')[2]) || "Unregistered user";
+      contentma += `${i+1}. ${user} ~ ${house[i].data}\n`
+}
+
+
+const pages = {
+      "741742588998058074": {
+          id: 'money',
+          clearReactions: true,
+          content: '',
+          embed: {
+            description: `**${message.guild.name}'s 🧶 Leaderboard**\n\n${contentm}`
+          },
+          onMessage: (controller, message) => {
+            controller.stop();
+          }
+        },
+
+      '💰': {
+        id: 'bank',
+        clearReactions: true,
+        content: '',
+        embed: {
+          description: `**${message.guild.name}'s Bank Leaderboard**\n\n${contentb}`
+        },
+
+        onMessage: (controller, message) => {
+          controller.stop();
+        }
+      },
+
+      '👟': {
+        id: 'nike',
+        clearReactions: true,
+        content: '',
+        embed: {
+          description: `**${message.guild.name}'s Nike Leaderboard**\n\n${contentn}`
+        },
+        onMessage: (controller, message) => {
+          controller.stop();
+        }
+      },
+
+      '🚙': {
+        id: 'car',
+        clearReactions: true,
+        content: '',
+        embed: {
+          description: `**${message.guild.name}'s Car Leaderboard**\n\n${contentc}`
+        },
+        onMessage: (controller, message) => {
+          controller.stop();
+        }
+      },
+
+      '🏠': {
+        id: 'mansion',
+        clearReactions: true,
+        content: '',
+        embed: {
+          description: `**${message.guild.name}'s Mansion Leaderboard**\n\n${contentma}`
+        },
+        onMessage: (controller, message) => {
+          controller.stop();
+        }
       }
 
-    const embed = new Discord.MessageEmbed()
-    .setDescription(`**${message.guild.name}'s Coin Leaderboard**\n\n${content}`)
-    .setColor("#FFFFFF")
+};
 
-    message.channel.send(embed)
-  } else if(args[0] == 'nikes') {
-    let nike = db.has(`nikes_${message.guild.id}`, { sort: '.data'})
-    let content = "";
+  const botMessage = await message.reply(
+    `React with 💰 to see the money leaderboard. 
+    React with 👟 to see nikes leaderboard. 
+    React with 🚙 to see car leaderboard. 
+    React with 🏠 mansion to see mansion leaderboard`
+    );
 
-    for (let i = 0; i < nike.length; i++) {
-        let user = client.users.get(nike[i].ID.split('_')[2]).username
+  ReactionCollector.menu({ botMessage, user: message.author, pages });
 
-        content += `${i+1}. ${user} ~ ${nike[i].data}\n`
-    }
+  //   const embed = new Discord.MessageEmbed()
+  //   .setDescription(`**Input a Leaderboard Option**\n\n
+  //   Coin Leaderboard: ,leaderboard coins\n
+  //   Bank Leaderboard: 
+  //   Fresh Nikes Leaderboard: ,leaderboard nikes\n
+  //   Car Leaderboard: ,leaderboard car\n
+  //   Mansion Leaderboard: ,leaderboard mansion
+  //   `)
+  //   .setColor("#FFFFFF")
 
-    const embed = new Discord.MessageEmbed()
-    .setDescription(`**${message.guild.name}'s Fresh Nikes Leaderboard**\n\n${content}`)
-    .setColor("#FFFFFF")
+  // if(!args[0]) return message.channel.send(embed);
 
-    message.channel.send(embed)
-  } else if(args[0] == 'car') {
-    let cars = db.has(`car_${message.guild.id}`, { sort: '.data'})
-    let content = "";
+  // switch(args[0]) {
 
-    for (let i = 0; i < cars.length; i++) {
-        let user = client.users.get(cars[i].ID.split('_')[2]).username
+  //   case "coins":
+  //   case "money":
+  //   let money = await db.startsWith(`money_${message.guild.id}`, { sort: '.data'});
+  //   let content = "";
 
-        content += `${i+1}. ${user} ~ ${cars[i].data}\n`
-    }
+  //   for (let i = 0; i < money.length; i++) {
+  //       let user = client.users.cache.get(money[i].ID.split('_')[2]) || "Unregistered user";
 
-    const embed = new Discord.MessageEmbed()
-    .setDescription(`**${message.guild.name}'s Car Leaderboard**\n\n${content}`)
-    .setColor("#FFFFFF")
+  //       content += `${i+1}. ${user} ~ ${money[i].data}\n`
+    
+  //     }
 
-    message.channel.send(embed)
-  } else if(args[0] == 'mansion') {
-    let mansions = db.has(`house_${message.guild.id}`, { sort: '.data'})
-    let content = "";
+  //   const embed = new Discord.MessageEmbed()
+  //   .setDescription(`**${message.guild.name}'s Coin Leaderboard**\n\n${content}`)
+  //   .setColor("#FFFFFF")
 
-    for (let i = 0; i < mansions.length; i++) {
-        let user = client.users.get(mansions[i].ID.split('_')[2]).username
+  //   message.channel.send(embed);
 
-        content += `${i+1}. ${user} ~ ${mansions[i].data}\n`
-    }
+  //   case "bank":
+  //     let bank = await db.startsWith(`bank_${message.guild.id}`, { sort: '.data'});
+  //     let content = "";
+  
+  //     for (let i = 0; i < bank.length; i++) {
+  //         let user = client.users.cache.get(bank[i].ID.split('_')[2]) || "Unregistered user";
 
-    const embed = new Discord.MessageEmbed()
-    .setDescription(`**${message.guild.name}'s Mansion Leaderboard**\n\n${content}`)
-    .setColor("#FFFFFF")
+  //         content += `${i+1}. ${user} ~ ${bank[i].data}\n`
 
-    message.channel.send(embed)
+  //       }
+  
+  //     const embed = new Discord.MessageEmbed()
+  //     .setDescription(`**${message.guild.name}'s Coin Leaderboard**\n\n${content}`)
+  //     .setColor("#FFFFFF");
+  
+  //     message.channel.send(embed);
+
+  // case "nikes":
+  //   let nike = await db.startsWith(`nikes_${message.guild.id}`, { sort: '.data'})
+  //   let content = "";
+
+  //   for (let i = 0; i < nike.length; i++) {
+  //       let user = client.users.cache.get(nike[i].ID.split('_')[2]) || "Unregistered user";
+
+  //       content += `${i+1}. ${user} ~ ${nike[i].data}\n`
+  //   }
+
+  //   const embed = new Discord.MessageEmbed()
+  //   .setDescription(`**${message.guild.name}'s Fresh Nikes Leaderboard**\n\n${content}`)
+  //   .setColor("#FFFFFF")
+
+  //   message.channel.send(embed);
+
+  // case "car":
+  //   let cars = await db.startsWith(`car_${message.guild.id}`, { sort: '.data'})
+  //   let content = "";
+
+  //   for (let i = 0; i < cars.length; i++) {
+  //       let user = client.users.cache.get(cars[i].ID.split('_')[2]) || "Unregistered user";
+
+  //       content += `${i+1}. ${user} ~ ${cars[i].data}\n`
+  //   }
+
+  //   const embed = new Discord.MessageEmbed()
+  //   .setDescription(`**${message.guild.name}'s Car Leaderboard**\n\n${content}`)
+  //   .setColor("#FFFFFF")
+
+  //   message.channel.send(embed);
+
+  // case "mansion":
+  //   let mansions = await db.startsWith(`house_${message.guild.id}`, { sort: '.data'})
+  //   let content = "";
+
+  //   for (let i = 0; i < mansions.length; i++) {
+  //       let user = client.users.cache.get(mansions[i].ID.split('_')[2]) || "Unregistered user";
+
+  //       content += `${i+1}. ${user} ~ ${mansions[i].data}\n`
+  //   }
+
+  //   const embed = new Discord.MessageEmbed()
+  //   .setDescription(`**${message.guild.name}'s Mansion Leaderboard**\n\n${content}`)
+  //   .setColor("#FFFFFF")
+
+  //   message.channel.send(embed);
+
+  //   }
   }
+  module.exports.help = {
 
-}
+		name:"leaderboard",
+    description: "Get the leaderboard!",
+    aliases: ["lb"],
+		category: "Economy",
+    usage:'leaderboard'
+	}
 
-exports.help = {
-  name:'leaderboard',
-  aliases:['lb'],
-  usage: 'leaderboard'
-}

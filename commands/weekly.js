@@ -1,8 +1,8 @@
- const Discord = require("discord.js");
+const Discord = require("discord.js");
 const ms = require("parse-ms");
-exports.execute = async (client, message, args) => {
 
 
+exports.execute =  async (client, message, args) => {
 
   let user = message.author;
   let timeout = 604800000;
@@ -18,12 +18,12 @@ exports.execute = async (client, message, args) => {
   
     let timeEmbed = new Discord.MessageEmbed()
     .setColor("#FFFFFF")
-    .setDescription(`<a:false:737764891657633814> You have already collected your weekly reward\n\nCollect it again in ${time.days}d ${time.hours}h ${time.minutes}m ${time.seconds}s `);
+    .setDescription(` You have already collected your weekly reward\n\nCollect it again in ${time.days}d ${time.hours}h ${time.minutes}m ${time.seconds}s `);
     message.channel.send(timeEmbed)
   } else {
     let moneyEmbed = new Discord.MessageEmbed()
   .setColor("#FFFFFF")
-  .setDescription(`<a:yes:739569362440159252> You've collected your weekly reward of ${amount} coins`);
+  .setDescription(`You've collected your weekly reward of ${amount} 🧶`);
   message.channel.send(moneyEmbed);
 
   await client.db.add(`money_${message.guild.id}_${user.id}.pocket`, amount);
@@ -32,9 +32,12 @@ exports.execute = async (client, message, args) => {
 
 		}
 	}
-
-exports.help = {
-    name: "weekly",
-    aliases: ["week"],
-    usage: "weekly"
-}
+  module.exports.help = {
+	 
+		name: "weekly",
+		description: "Get your weekly money!",
+		category: "Economy",
+    aliases:['week'],
+    usage:'weekly'
+	}
+	
