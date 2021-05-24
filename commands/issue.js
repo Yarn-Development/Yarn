@@ -17,7 +17,7 @@ module.exports.execute = async (client, message, args) => {
     )
     .addField('Dm Aspekts#0001', 'Possible the best way to get a response. You can use the ymisc!report command to dm me directly.')
     .addField('Support Server', 'https://discord.gg/HfUFThtgPq')
-    .addField("Email", "aspektsbuisness@gmail.com");
+    .addField("Email", "aspekts@yarnbot.xyz");
   return message.channel.send(embed); //Sends issue message
 }
 

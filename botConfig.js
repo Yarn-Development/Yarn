@@ -1,14 +1,14 @@
 module.exports = {
     token: "ODE0MTc0MjI2MDM3ODY2NTM3.YDaA1g.IS0l8tXy_FC6KlzAcg8Q75z4E2M",
     prefix: "y!",
-    version:'v0.2.0',
+    version:'v1.0.2',
     debug: true,
     admins:'294870523438170112',
     unicolor:"#8015EA",
     everyoneMention:false,
      emojis: {
         off: ':x:',
-        error: ':warning:',
+        error: '<:server_error:668146823231307776>',
         queue: ':bar_chart:',
         music: ':musical_note:',
         success: ':white_check_mark:',
