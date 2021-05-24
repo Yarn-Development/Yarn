@@ -3,7 +3,7 @@ const ms = require("parse-ms");
 
 
 
-exports.execute= async(client, message, args) => {
+exports.execute = async(client, message, args) => {
 
   const rand = (min, max) => {
     return Math.floor(Math.random() * (max - min) ) + min;
@@ -13,7 +13,7 @@ exports.execute= async(client, message, args) => {
   let timeout = 60000;
   let fish = 
     ["Yellow Fish :tropical_fish:", 
-    "Fat Fish :blowfish:", 
+    "Blowfish :blowfish:", 
     "Blue Fish :fish:",
     "Coconut :coconut:",
     "Dolphin :dolphin:",
@@ -25,7 +25,7 @@ exports.execute= async(client, message, args) => {
     "Shrimp :shrimp:",
     "Octopus :octopus:",
     "Duck :duck:",
-    "Diamond :gem:"];
+    "Diamond :gem:! How fancy"];
 
   let randn = rand(0, parseInt(fish.length));
   let randrod = rand(15, 30);
@@ -39,12 +39,12 @@ exports.execute= async(client, message, args) => {
   let wait = await client.db.fetch(`fish_${message.guild.id}_${user.id}.wait`);
 
 
-  if(!rod) return message.channel.send(`:x:You have to buy a fishing rod!`);
+  if(!rod) return message.channel.send(`You have to buy a fishing rod!`);
 
  if(rodusage) {
    if(fishdb.rodusage >= randrod) {
      await client.db.delete(`fish_${message.guild.id}_${user.id}.rod`);
-     return message.reply(":X:Your fishing rod has broken! Go buy a new one!")
+     return message.reply("Your fishing rod has broken! Go buy a new one!")
    }
  }
 
@@ -53,11 +53,11 @@ exports.execute= async(client, message, args) => {
   if (wait !== null && timeout - (Date.now() - wait) > 0) {
     let time = ms(timeout - (Date.now() - wait));
 
-    message.channel.send(`:x: You have already fished!\nFish it again in ${time.seconds}s`);
+    message.channel.send(`You have already fished!\nFish it again in ${time.seconds}s`);
 
   } else {
 
-  message.channel.send(`:white_check_mark: You've fished and gotten a ${fishToWin}`);
+  message.channel.send(`You've fished and gotten a ${fishToWin}`);
 
   await client.db.push(`fish_${message.guild.id}_${user.id}.fish`, fishToWin);
   await client.db.set(`fish_${message.guild.id}_${user.id}.wait`, Date.now());
@@ -65,10 +65,13 @@ exports.execute= async(client, message, args) => {
 
     }
 	}
-  module.exports.help =  {
+  module.exports.help = {
+	
 		name: "fish",
 		description: "Fish some fish.",
 		category: "Economy",
     aliases:[],
     usage:'fish'
 	}
+
+

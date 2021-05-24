@@ -2,7 +2,8 @@ const Discord = require("discord.js"),
 ms_2 = require('parse-ms');
 
 
-exports.execute =  async(client, message, args) => {
+
+exports.execute = async(client, message, args) => {
    
   let user = message.author;
 
@@ -15,7 +16,7 @@ exports.execute =  async(client, message, args) => {
     let random = randoma * multiplier;
         
     if (author < 250) {
-          return message.channel.send(':x: You need at least 250$ to commit a crime')
+          return message.channel.send('You need at least 250🧶 to commit a crime')
       }
 
       let crime = await client.db.fetch(`crime_${message.author.id}`)
@@ -24,7 +25,7 @@ exports.execute =  async(client, message, args) => {
         
         let time = ms_2(timeout - (Date.now() - crime));
         
-        message.channel.send(`:x: You already commited a crime! Try again in ${time.seconds} seconds!`)
+        message.channel.send(`You already commited a crime! Try again in ${time.seconds} seconds!`)
 
       } else {
        
@@ -37,7 +38,7 @@ exports.execute =  async(client, message, args) => {
         
      if (awnser === "LOOSELOOSE") {
           
-      message.channel.send(":x: You were caught and had to pay `$250` to stay out of jail");
+      message.channel.send("You were caught and had to pay `$250` to stay out of jail");
          
       await client.db.subtract(`money_${message.guild.id}_${user.id}.pocket`, 250);
          
@@ -47,7 +48,7 @@ exports.execute =  async(client, message, args) => {
     let embed = new Discord.MessageEmbed()
       .setAuthor(message.author.tag, message.author.avatarURL())
       .setTitle("You Have Just Commited A Crime!")
-      .addField("Amount Robbed:", random)
+      .addField("Amount Robbed:", random + "🧶")
       .setColor("RANDOM")
       .setTimestamp();
       message.channel.send(embed)
@@ -58,12 +59,11 @@ exports.execute =  async(client, message, args) => {
       }
     } 
   }
-  module.exports.help = {
+module.exports.help = {
+
 		name: "crime",
 		description: "Commit a crime, but is it worth it?",
 		category: "Economy",
-    usage : 'crime',
-    aliases:[]
+    aliases:['c'],
+    usage:'crime'
 	}
-
-

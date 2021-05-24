@@ -1,46 +1,32 @@
-const Discord = require('discord.js');
-const { MessageEmbed } = require("discord.js");
-  	  db = require('quick.db');
-exports.execute = async (client, message) => {
+const db = require('quick.db')
+const Discord = require('discord.js')
+module.exports.execute = async (client,message,args) => {
 
-
-        const botprefix = 'bt!'; //put your prefix here
-
-    const messageArray = message.content.split(' ');
-    const args = messageArray.slice(1);
-    let reason = args.slice(0).join(' ');
-    //function to trim strings, ensuring they don't exceed X chars in length
-    trimStr = (str, max) => ((str.length > max) ? `${str.slice(0, max - 3)}...` : str);
-
-    if (message.guild) {
-
-
-        if (message.content.startsWith(`${botprefix}afk`)) {
-
-            const nick = message.member.nickname;
-            if (nick && nick.startsWith('[AFK]')) {
-                message.member.setNickname(message.member.displayName.replace('[AFK]', ''))
-                message.reply("Welcome back! I've removed your AFK status.");
-            } else {
-                const newNickname = trimStr(`[AFK] ${message.author.username}`);
+          
+                const newNickname = (`[AFK] ${message.member.displayName}`);
 
                 message.member.setNickname(newNickname).catch(err => {
-                    const errorEmbed = new Discord.MessageEmbed()
-                        .setTitle(err)
-                        .setDescription(`${message.author}, I could not set your nickname!`)
-                        .addField('Possible Reasons\n\n', `\n__Hierarchy Permissions__ - Your role is higher than mine!\n__Owner__ - You are the owner of the server!\n__Permission Missing__ - Missing permission \`MANAGE_NICKNAMES\`\n\n**Troubleshoot with the problems above until it works!** `)
-                        .setColor('RED')
+                  console.error
+                })
+                
+let content = args.join(" ")
+        await db.set(`afk-${message.author.id}+${message.guild.id}`, content)
+        if (!content){
+  content = 'AFK'
+  await db.set(`afk-${message.author.id}+${message.guild.id}`, content);
+};
+      
+        message.channel.send(`I have set you as afk\n**Reason :** ${content}\nSee you later!`)
+       
+          const startTime = Date.now();
+          module.exports = startTime
 
-                    return message.channel.send(errorEmbed)
-                });
-                if (!reason) return message.reply(`You are now afk for reason: **No Reason Given** | Do ${botprefix}afk again when you come back to remove it!`)
-                message.reply(`You are now afk for reason: **${reason}** | Do ${botprefix}afk again when you come back to remove it!`);
-            }
-        };
-    };
+        
+        
 }
-module.exports.help = {
+module.exports.help  = {
   name: "afk",
   aliases:[],
-  usage: `afk or ${botprefix}afk <Your afk message>`
+  category:'Misc',
+  usage: `afk or ymisc!afk <Your afk message>`
 }

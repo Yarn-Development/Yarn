@@ -12,6 +12,7 @@
     }
     exports.help = {
       name: 'warns',
+      category:'Moderation',
       aliases:['warnings'],
       usage:'warns @user'
 }

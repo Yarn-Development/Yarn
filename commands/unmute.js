@@ -15,6 +15,7 @@
     module.exports.help = {
       name:'unmute',
       aliases:[],
+      category:'Moderation',
       usage:'unmute @user'
     }
 

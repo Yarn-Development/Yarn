@@ -14,7 +14,7 @@ module.exports.execute = async (client, message, args) => {
         const noArgs = new Discord.MessageEmbed()
         .setTitle('Missing arguments')
         .setColor(0xFF0000)
-        .setDescription('You are missing some args (ex: >covid all || >covid Canada)')
+        .setDescription('You are missing some args (ex: ymisc!covid all || ymisc!covid Canada)')
         .setTimestamp()
 
         if(!args[0]) return message.channel.send(noArgs);
@@ -58,6 +58,7 @@ module.exports.execute = async (client, message, args) => {
 }       
   exports.help = {
     name: "covid",
-    aliases: ["c"],
+    aliases: ["c"], 
+  category:'Misc',
     usage: "covid"  
 }

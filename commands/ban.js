@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js")
 
 //ban command
@@ -44,5 +43,6 @@ module.exports.execute = async (client, message, args) => {
     exports.help = {
       name: 'ban',
       aliases:[],
+      category:'Moderation',
       usage:'ban @user'
 }

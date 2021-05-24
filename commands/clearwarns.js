@@ -22,6 +22,7 @@ const warnings = require('./warns');
     }
     exports.help = { 
       name: 'clearwarns',
+      category:'Moderation',
       aliases: ['deletewarns'],
       usage : 'clearwarns @user' ,
 }

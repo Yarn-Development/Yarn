@@ -8,16 +8,31 @@ exports.execute = async (client, message, args) => {
 
         if(!user) message.channel.send("This user can't be found anywhere in this server");
 
-        if(user.id === message.author.id) return message.channel.send("You cannot mute yourself you imbecile");
+        if(user.id === message.author.id) return message.channel.send("You cannot mute yourself! Be smart, not stupid.");
 
         let role = message.guild.roles.cache.find(x => x.name === "Muted");
 
-        if(!role) return message.channel.send("Cannot find the muted role");
-
+        if(!role){ 
+          message.channel.send("Cannot find the muted role. Creating new one now.");
+        mutedRole = await message.guild.roles.create({
+          data:{
+          name:"Muted",
+          color:"#000000",
+          permissions:[]
+          }
+        });
+        message.guild.channels.cache.forEach(async (channel) => {
+                await channel.overwritePermissions(mutedRole, {
+                    SEND_MESSAGES: false,
+                    ADD_REACTIONS: false
+                })
+        });
+message.channel.send("Done! The role was created.")
+}
         let reason = args.slice(1).join(" ");
         if(reason === null) reason = "Unspecified"
 
-        user.roles.add(role);
+        user.roles.add(role)||users.roles.add(mutedRole)
 
         await message.channel.send(`${user} has been muted for the following reason: ${reason}`)
 

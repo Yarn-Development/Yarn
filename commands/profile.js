@@ -2,19 +2,20 @@ const Discord = require("discord.js");
 
 
 
+
 exports.execute = async (client, message, args) => { 
 
-  let user = message.mentions.users.first() || message.author
-  client.users.cache.get(args[0]) ||
-  (args.join(" ").toLowerCase(), message.guild) ||
-  message.author;
+  let user = message.mentions.users.first() || message.author;
 
   let bal = await client.db.fetch(`money_${message.guild.id}_${user.id}.pocket`);
-  if (bal === undefined) bal = 0;
+  if (bal === null) bal = 0;
 
   let bank = await client.db.fetch(`money_${message.guild.id}_${user.id}.bank`);
-  if (bank === undefined) bank = 0;
+  if (bank === null) bank = 0;
 
+  let vip = await client.db.fetch(`bronze_${message.guild.id}_${user.id}`);
+    if(vip === null) vip = 'None'
+    if(vip === true) vip = 'Bronze'
 
   let shoes = await client.db.fetch(`nikes_${message.guild.id}_${user.id}`);
   if(shoes === null) shoes = 0;
@@ -30,7 +31,8 @@ exports.execute = async (client, message, args) => {
   let moneyEmbed = new Discord.MessageEmbed()
   .setColor("RANDOM")
   .setDescription(`**${user}'s Profile:**\n
-  **Net Worth:** ${+bank + +bal}
+  **Net Worth:** ${+bank + +bal} 🧶
+  **VIP Rank:** ${vip}
   \n**Inventory**
   \n**Nikes:** ${shoes}
   **Cars:** ${newcar}
@@ -41,11 +43,11 @@ exports.execute = async (client, message, args) => {
 
   message.channel.send(moneyEmbed);
 	}
-  module.exports.help =  {
+  module.exports.help = {
+	
 		name: "profile",
 		description: "Get the profile/Inventory of someone!",
 		aliases: ["inventory", "inv"],
 		category: "Economy",
-    usage : 'profile @user'
+    usage:'profile | ye!profile @user'
 	}
-
