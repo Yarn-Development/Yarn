@@ -17,7 +17,7 @@ exports.execute = async (client, message, args) =>{
 }
 exports.help = {
     name: "purge",
-    aliases: ["p"],
+    aliases: [],
     category:'Moderation',
     usage: "purge <messages>"
 }

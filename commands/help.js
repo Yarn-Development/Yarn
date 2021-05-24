@@ -1,12 +1,15 @@
 const { MessageEmbed } = require("discord.js");
-const EasyEmbedPages = require('easy-embed-pages');
+const pagination = require('discord.js-pagination')
+
+// Destructure the package
+
 exports.execute = async (client, message, args) => {
   if (!args[0]) {
-            const misc = message.client.commands.filter(x => x.help.category == 'Misc').map((x) => '`' + x.help.name + '`').join(', ');
-            const music = message.client.commands.filter(x => x.help.category == 'Music').map((x) => '`' + x.help.name + '`').join(', ');
-             const eco = message.client.commands.filter(x => x.help.category == 'Economy').map((x) => '`' + x.help.name + '`').join(', ');
-              const gw = message.client.commands.filter(x => x.help.category == 'Giveaway').map((x) => '`' + x.help.name + '`').join(', ');
-              const mod = message.client.commands.filter(x => x.help.category == 'Moderation').map((x) => '`' + x.help.name + '`').join(', ')
+            const misc = message.client.commands.filter(x => x.help.category == 'Misc').map((x) => '`' + x.help.name + '`').join(' ◦  ');
+            const music = message.client.commands.filter(x => x.help.category == 'Music').map((x) => '`' + x.help.name + '`').join(' ◦  ');
+             const eco = message.client.commands.filter(x => x.help.category == 'Economy').map((x) => '`' + x.help.name + '`').join(' ◦  ');
+              const gw = message.client.commands.filter(x => x.help.category == 'Giveaway').map((x) => '`' + x.help.name + '`').join(' ◦  ');
+              const mod = message.client.commands.filter(x => x.help.category == 'Moderation').map((x) => '`' + x.help.name + '`').join(' ◦  ')
 
 
     const embed = new MessageEmbed()
@@ -45,13 +48,13 @@ const embedmusic = new MessageEmbed()
     .setAuthor('Page 4 - Music')
     .setDescription('Do y!help <command> for more info on a command.')
     .addField(`Commands`, music)
-    .addField(`Music Filters`, client.filters.map((x) => '`' + x + '`').join(', '))
+    .addField(`Music Filters`, client.filters.map((x) => '`' + x + '`').join(' ◦  '))
     const embedxp = new MessageEmbed()
     .setTitle('Levelling Commands')
      .setThumbnail(client.user.displayAvatarURL())
     .setAuthor(`Page 5 - Levelling`)
     .setDescription('Do y!help <command> for more info on a command.')
-    .addField('Commands','`rank`, `xpleaderboard`')
+    .addField('Commands','`rank` ◦  `xpleaderboard`')
 
     const embedhyp = new MessageEmbed()
     .setTitle('Hypixel Commands')
@@ -59,7 +62,7 @@ const embedmusic = new MessageEmbed()
     .setAuthor('Page 6 - Hypixel')
     .setDescription('Do y!help <command> for more info on a command.')
     .addField('Hypixel Info', 'Hypixel is one of the largest and highest quality Minecraft Server Networks in the world, featuring original and fun games such as Skyblock, BedWars, SkyWars, and many more! To play on the Hypixel Server, you will need to own a Minecraft account for PC/Mac (sometimes known as the Java version). The commands below are used for users to be able to track their hypixel server statistics via Discord.')
-    .addField('Commands', '`hypixel`,`pit`,')
+    .addField('Commands', '`hypixel` ◦ `pit`')
     const embedgw = new MessageEmbed()
     .setTitle('Giveaway Commands')
     .setAuthor('Page 7 - Giveaways')
@@ -73,7 +76,7 @@ const embedmusic = new MessageEmbed()
      .setThumbnail(client.user.displayAvatarURL())
     .setDescription('Do y!help <command> for more info on a command.')
     .addField('Note','The hosting for the games side of Yarn (seperate to the rest of Yarn) is still under maintenance, so commands may be off for prolonged periods of time.')
-    .addField('Commands', '`tr`,`chess`,`hangman`,`connect4`,`snake`,`stop`')
+    .addField('Commands', '`tr` ◦ `chess` ◦ `hangman` ◦ `connect4` ◦ `snake` ◦ `stop`')
     const embedmisc = new MessageEmbed()
     .setTitle('Miscellaneous Commands')
      .setThumbnail(client.user.displayAvatarURL())
@@ -84,25 +87,14 @@ const embedmusic = new MessageEmbed()
     .setTitle('Useful Links')
      .setThumbnail(client.user.displayAvatarURL())
     .setAuthor('Page 10 - Useful Links')
-    .addField('Website','[https://www.yarnbot.ml](https://www.yarnbot.ml)')
-    .addField('Invite','[Invite Link](https://www.yarnbot.ml/invite)')
-    const pageembed = new EasyEmbedPages(message.channel, {
-    pages: [
-        embed.toJSON(),
-        embedeco.toJSON(),
-        embedmod.toJSON(),
-        embedmusic.toJSON(),
-        embedxp.toJSON(),
-        embedhyp.toJSON(),
-        embedgw.toJSON(),
-        embedgame.toJSON(),
-        embedmisc.toJSON(),
-        embedlinks.toJSON()
+    .addField('Website','[https://yarnbot.xyz](https://www.yarnbot.xyz)')
+    .addField('Invite','[Invite Link](https://invite.yarnbot.xyz)')
+    const pages = [embed, embedeco, embedmod, embedmusic, embedxp ,embedhyp ,embedgw ,embedgame, embedmisc, embedlinks];
+// Change pages when sending numbers.
+      const emojis = ['◀', '▶'];
+        const timeout = '100000'
 
-    ],
-});
-
-pageembed.start();
+        pagination(message, pages, emojis, timeout)
     }
     else {
             const command = message.client.commands.get(args.join(" ").toLowerCase()) || message.client.commands.find(x => x.aliases && x.aliases.includes(args.join(" ").toLowerCase()));

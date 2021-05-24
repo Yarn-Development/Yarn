@@ -1,5 +1,8 @@
 const Discord = require("discord.js")
+const got = require('got');
 module.exports = (client) => {
+
+
     console.log(`${client.user.tag} is online!`);
   console.log(`
 ╔██╗   ██╗ █████╗ ██████╗ ███╗  ██╗
@@ -40,7 +43,7 @@ client.channels.cache.get('829432185110790234').send(readyembed)
       type: "WATCHING",
     },
     {
-      activity: "www.yarnbot.ml",
+      activity: "yarn-bot.xyz",
       type: "LISTENING",
     },
     {
