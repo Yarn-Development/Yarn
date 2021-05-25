@@ -1,9 +1,12 @@
 ## 💖 Aspekts All in one Bot 💖
+[![Discord Bots](https://top.gg/api/widget/status/814174226037866537.svg)](https://top.gg/bot/814174226037866537)
+[![CodeFactor](https://www.codefactor.io/repository/github/aspekts/yarn/badge)](https://www.codefactor.io/repository/github/aspekts/yarn)
 **This bot was created by Aspekts#6969**
 **The CountChannel variable is for if you want to set a channel to count for users. If not, just leave it blank.**
 
+[![Discord Bots](https://top.gg/api/widget/814174226037866537.svg)](https://top.gg/bot/814174226037866537)
 ![Discord](https://img.shields.io/discord/658976660703543297?label=discord&logo=discord&style=for-the-badge)
-[![](https://www.codefactor.io/repository/github/aspekts/Yarn/badge)](https://www.codefactor.io/repository/github/aspekts/Yarn)
+
 ## Knowledge requirements
 
 -   <img src="https://i.imgur.com/c5d7pwC.png" alt="Javascript" width="36" align="center"> [`Javascript`] To edit the code or add more stuff.

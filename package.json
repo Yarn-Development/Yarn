@@ -35,6 +35,7 @@
     "discord.js-collector": "^1.8.9",
     "discord.js-commando": "^0.12.2",
     "discord.js-pagination": "^1.0.3",
+    "dotenv": "^10.0.0",
     "easy-embed-pages": "0.0.3",
     "ejs": "^3.1.6",
     "enmap": "^5.8.5",

@@ -6,7 +6,7 @@ const session = require('express-session');
 const db = require('quick.db');
 //START OF BOT CODE//
 const Discord = require("discord.js");
-
+require("dotenv")
 Discord.Constants.DefaultOptions.ws.properties.$browser = "Discord iOS"
 const client = new Discord.Client({ disableMentions: 'everyone' });
 const ms = require("ms")
@@ -762,7 +762,7 @@ client.on("guildDelete", guild => {
 
 
 
-client.login(client.config.token);
+client.login(process.env.TOKEN);
 
 const port = 80;
 app.set('port', port);
