@@ -3,8 +3,8 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/aspekts/yarn/badge)](https://www.codefactor.io/repository/github/aspekts/yarn)
 [![Discord](https://img.shields.io/discord/658976660703543297?label=discord&logo=discord&style=for-the-badge)](https://discord.gg/GxGTHBC)
 
-**This bot was created by Aspekts#6969**
-**The CountChannel variable is for if you want to set a channel to count for users. If not, just leave it blank.**
+**This bot was created by Aspekts#4616**
+
 
 [![Discord Bots](https://top.gg/api/widget/814174226037866537.svg)](https://top.gg/bot/814174226037866537)
 
