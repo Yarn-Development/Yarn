@@ -59,6 +59,6 @@ module.exports.execute = async (client, message, args) => {
   exports.help = {
     name: "covid",
     aliases: ["c"], 
-  category:'Misc',
+    category:'Misc',
     usage: "covid"  
 }
