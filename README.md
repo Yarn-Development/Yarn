@@ -83,5 +83,6 @@ npm start
 
 If you enjoy the bot experience feel free to join these nice stargazers and give it a star!
 
-<github-button type="stargazers" size="large" namespace="cipchk" repo="ng-github-button"></github-button>
+[![GitHub stars](https://img.shields.io/github/stars/aspekts/Yarn.svg?style=social&label=Star&maxAge=2592000)](https://github.com/aspekts/Yarn/stargazers/)
+
 
