@@ -53,4 +53,35 @@ However, if you are more experienced, I would recommend using heroku. You can de
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/aspekts/AspektsAllin1Bot)
 
+### Best Option: Virtual Private Server
+
+This is the best option for you in order to host anything. 
+You can start by running this command:
+```
+git clone https://github.com/aspekts/Yarn.git
+```
+Followed by:
+```
+npm install
+```
+This should give you all of the files from this github directly into your server.
+Then, best way to host your bot well, and ensure it is on 24/7 is to use pm2.
+You can install it by running `npm i pm2` or `npm i pm2 -g` to install it globally (keep in mind you need administrative permissions to run this.)
+
+## Running the bot
+
+For pm2, you'd run this by using the following command:
+
+```
+pm2 start index
+```
+
+However, for everything else, you should use npm, to run the bot via the command:
+```
+npm start
+```
+
+If you enjoy the bot experience feel free to join these nice stargazers and give it a star!
+
+<iframe src="https://stars.devunltd.com/badge.html?user=hodgef&amp;repo=simple-keyboard&amp;button=true&amp;stargazers=true" frameborder="0" scrolling="0" width="600" height="95" title="Star on GitHub"></iframe>
 
