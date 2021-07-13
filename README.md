@@ -83,5 +83,5 @@ npm start
 
 If you enjoy the bot experience feel free to join these nice stargazers and give it a star!
 
-<iframe src="https://stars.devunltd.com/badge.html?user=hodgef&amp;repo=simple-keyboard&amp;button=true&amp;stargazers=true" frameborder="0" scrolling="0" width="600" height="95" title="Star on GitHub"></iframe>
+<github-button type="stargazers" size="large" namespace="cipchk" repo="ng-github-button"></github-button>
 
