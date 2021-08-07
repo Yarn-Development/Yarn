@@ -925,4 +925,4 @@ require('./router')(app); // There is a router for Discord.js there, thanks to w
     if(tokenDb != token)return res.send({"error":true,"message":"An invalid key provided."}); // Check that this token is the same as this user.
     res.send({error: 'false',message: `you post this in body: ${JSON.stringify(req.body)}`}); // If all went well, return the data, do something with the received etc.
     //u can now do stuff with POSTED data and / or token's owner id
-  }); 
+  });

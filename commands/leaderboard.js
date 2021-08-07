@@ -1,12 +1,11 @@
 cord = require('discord.js');
 const { ReactionCollector } = require('discord.js-collector');
 
-const db = require("quick.db")
 
 exports.execute = async (client, message, args) => {
 
 
-let money = await db.startsWith(`money_${message.guild.id}`, { sort: '.data'});
+let money = await client.db.startsWith(`money_${message.guild.id}`, { sort: '.data'});
 let contentm = "";
 
 for (let i = 0; i < money.length; i++) {
@@ -14,7 +13,7 @@ for (let i = 0; i < money.length; i++) {
       contentm += `${i+1}. ${user} ~ ${money[i].data.pocket}\n`
 }
 
-let bank =  await db.startsWith(`money_${message.guild.id}`, { sort: '.data'});
+let bank =  await client.db.startsWith(`money_${message.guild.id}`, { sort: '.data'});
 let contentb = "";
 
 for (let i = 0; i < bank.length; i++) {
@@ -22,7 +21,7 @@ for (let i = 0; i < bank.length; i++) {
       contentb += `${i+1}. ${user} ~ ${money[i].data.bank}\n`
 }
 
-let nike = await db.startsWith(`nikes_${message.guild.id}`, { sort: '.data'});
+let nike = await client.db.startsWith(`nikes_${message.guild.id}`, { sort: '.data'});
 let contentn = "";
 
 for (let i = 0; i < nike.length; i++) {
@@ -30,7 +29,7 @@ for (let i = 0; i < nike.length; i++) {
       contentn += `${i+1}. ${user} ~ ${nike[i].data}\n`
 }
 
-let car = await db.startsWith(`car_${message.guild.id}`, { sort: '.data'});
+let car = await client.db.startsWith(`car_${message.guild.id}`, { sort: '.data'});
 let contentc = "";
 
 for (let i = 0; i < car.length; i++) {
@@ -38,7 +37,7 @@ for (let i = 0; i < car.length; i++) {
       contentm += `${i+1}. ${user} ~ ${car[i].data}\n`
 }
 
-let house = await db.startsWith(`house_${message.guild.id}`, { sort: '.data'});
+let house = await client.db.startsWith(`house_${message.guild.id}`, { sort: '.data'});
 let contentma = "";
 
 for (let i = 0; i < house.length; i++) {
@@ -136,7 +135,7 @@ const pages = {
 
   //   case "coins":
   //   case "money":
-  //   let money = await db.startsWith(`money_${message.guild.id}`, { sort: '.data'});
+  //   let money = await client.db.startsWith(`money_${message.guild.id}`, { sort: '.data'});
   //   let content = "";
 
   //   for (let i = 0; i < money.length; i++) {
@@ -153,7 +152,7 @@ const pages = {
   //   message.channel.send(embed);
 
   //   case "bank":
-  //     let bank = await db.startsWith(`bank_${message.guild.id}`, { sort: '.data'});
+  //     let bank = await client.db.startsWith(`bank_${message.guild.id}`, { sort: '.data'});
   //     let content = "";
   
   //     for (let i = 0; i < bank.length; i++) {
@@ -170,7 +169,7 @@ const pages = {
   //     message.channel.send(embed);
 
   // case "nikes":
-  //   let nike = await db.startsWith(`nikes_${message.guild.id}`, { sort: '.data'})
+  //   let nike = await client.db.startsWith(`nikes_${message.guild.id}`, { sort: '.data'})
   //   let content = "";
 
   //   for (let i = 0; i < nike.length; i++) {
@@ -186,7 +185,7 @@ const pages = {
   //   message.channel.send(embed);
 
   // case "car":
-  //   let cars = await db.startsWith(`car_${message.guild.id}`, { sort: '.data'})
+  //   let cars = await client.db.startsWith(`car_${message.guild.id}`, { sort: '.data'})
   //   let content = "";
 
   //   for (let i = 0; i < cars.length; i++) {
@@ -202,7 +201,7 @@ const pages = {
   //   message.channel.send(embed);
 
   // case "mansion":
-  //   let mansions = await db.startsWith(`house_${message.guild.id}`, { sort: '.data'})
+  //   let mansions = await client.db.startsWith(`house_${message.guild.id}`, { sort: '.data'})
   //   let content = "";
 
   //   for (let i = 0; i < mansions.length; i++) {

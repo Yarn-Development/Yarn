@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 
-const db = require('quick.db');
+
 exports.execute = async (client, message, args) => {
         if(!message.member.hasPermission("MANAGE_SERVER")) return message.channel.send('You can\'t use that');
 
@@ -18,19 +18,19 @@ exports.execute = async (client, message, args) => {
 
         if(!reason) reason = 'Unspecified';
 
-        let warnings = db.get(`warnings_${message.guild.id}_${user.id}`);
+        let warnings = client.db.get(`warnings_${message.guild.id}_${user.id}`);
 
         if(warnings === 3) return message.channel.send(`${user} has already reached three warnings`);
 
 
         if(warnings === null) {
-            db.set(`warnings_${message.guild.id}_${user.id}`, 1);
+            client.db.set(`warnings_${message.guild.id}_${user.id}`, 1);
             user.send(`You were warned in ${message.guild.name} for the follwoing reason: \`${reason}\``)
             await message.channel.send(`**${user.username}** has been warned. Reason : ${reason} .`)
         }
 
         if(warnings !== null){
-            db.add(`warnings_${message.guild.id}_${user.id}`, 1)
+            client.db.add(`warnings_${message.guild.id}_${user.id}`, 1)
             user.send(`You were warned in ${message.guild.name} for the follwoing reason: \`${reason}\``)
             await message.channel.send(`**${user.username}** has been warned.  They now have ${warnings} warning(s)`)
         }
