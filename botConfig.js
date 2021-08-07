@@ -3,7 +3,8 @@ module.exports = {
     prefix: "y!",
     version:'v1.0.2',
     debug: true,
-    admins:'294870523438170112',
+    admins:['294870523438170112',"510125883198144512"],
+    blacklisted:["865290978604482611","858711964587130941","865297130050551821",""],
     unicolor:"#8015EA",
     everyoneMention:false,
      emojis: {
