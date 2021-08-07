@@ -6,17 +6,29 @@ const session = require('express-session');
 const db = require('quick.db');
 //START OF BOT CODE//
 const Discord = require("discord.js");
-require("dotenv")
+require("dotenv").config();
 Discord.Constants.DefaultOptions.ws.properties.$browser = "Discord iOS"
 const client = new Discord.Client({ disableMentions: 'everyone' });
 const ms = require("ms")
 client.config = require("./botConfig");
+const canvacord = require("canvacord");
 const { Player } = require('discord-player');
 global.client = client
 client.player = new Player(client, {
   enableLive: true,
- leaveOnEnd: true
+ leaveOnEnd: true,
+ ytdlDownloadOptions: {
+  filter: "audioonly",
+  requestOptions: {
+      headers: {
+          cookie: "VISITOR_INFO1_LIVE=12n5yxo0Lqw; CONSENT=PENDING+008; HSID=AXdXyVSPhSvhH4YoO; SSID=AKlU44cbkZJLnjSed; APISID=4A8j8imK3SFp1r1J/ANU9SJHU1pQjq0UQK; SAPISID=dcY_XMbPEAtU60g_/AFkVICi_nqTKJ1NiW; __Secure-3PAPISID=dcY_XMbPEAtU60g_/AFkVICi_nqTKJ1NiW; LOGIN_INFO=AFmmF2swRQIhAJ9yvsYT-eZ_8sZtBlzsUbSckJmGT_oELLSjh0ykpur5AiA2KBoiHBSN2B6UMQ5H5j9NmZ5RmKH5TF9hlf3LInPCiQ:QUQ3MjNmeExyWVFZa0I0NHVYZHJvQWYwaE1WcVdLaGhNVndzZ0xDZFROaGJvUEZMZkotM2lraGh5V010ZThaMDFTSl9VTUN5bkRBVk81eC1CUEhzcUxDc3FhZVhRTWttdHNOaHZrVERnXzZ0MFNyN2wxcWNCZWdTYnBXV1hxRzRzNWJBOUVHQ2Y5ajdBaVJidTBPb0lRYUFCMmdCQ2V4YVg0Z0NDaHNtdUw4YTMyUjdFbzd4LVJVMVE2ZmdGRkhXcVp6VWpoSHJqTDl1ZzFKQ2RHMGxJN2VjQU1SelpXX2ZNdw==; PREF=tz=Europe.London&f4=4000000&f6=40000000&f5=30000; SID=-wcNK0tWmZPAgdWIaMzudDaOrmdfAyUYP0ZddbW2XUXnPPSzxO2zV0lzIdjWzQU7cPNk9w.; __Secure-3PSID=-wcNK0tWmZPAgdWIaMzudDaOrmdfAyUYP0ZddbW2XUXnPPSzr_Pa9GWqBNAzFa5y6ZBhXQ.; YSC=_IVeda5iQXU; SIDCC=AJi4QfFq4qPJLFECjHR-ZMPGkM14s9xWjr-ST0f6ntHz4qgctOT9F5pCb7LNnKz8S9VCwHXEZsM; __Secure-3PSIDCC=AJi4QfGRUr_5nc-F7i2d0Sg_gheXsun4pL2klyug_49Q8K3YTaK-1waXL45FId2YQdwMR62AR6Q"
+      }
+  }
+}
 });
+const { DiscordTogether } = require('discord-together');
+
+client.discordTogether = new DiscordTogether(client);
 const config = require("./config.json")
 client.emotes = client.config.emojis;
 client.filters = client.config.filters;
@@ -34,7 +46,7 @@ const cooldowns = {
 // Important Global Variables
 let
   key = `6566f98c-f567-41b7-8863-5387635bc51a`,           // CHANGE THIS OR THE BOT WONT WORK!
-  token = client.config.token,       // CHANGE THIS OR THE BOT WONT WORK!
+  token = process.env.TOKEN,       // CHANGE THIS OR THE BOT WONT WORK!
   prefix = client.prefix                       // Change this to yours!
   ;
 // API Helpers
@@ -192,7 +204,7 @@ client.on('message', m => {
   if (m.author.bot) return;
   ;
 
-  if (m.content.toLowerCase().startsWith("hypixel")) {
+  if (m.content.toLowerCase().startsWith(`${prefix}hypixel`)) {
     /* Cooldown */
     let cooldownT = 30 * 1000, cooldownG = cooldowns.hypixel.main.get(m.author.id);
     if (cooldownG) return m.channel.send(`Please wait ${humanizeDuration(cooldownG - Date.now(), { round: true })} before running this command again`);
@@ -304,7 +316,7 @@ client.on('message', m => {
     });
   }
 
-  if (m.content.toLowerCase().startsWith("pit")) {
+  if (m.content.toLowerCase().startsWith(`${prefix}pit`)){
     /* Cooldown */
     let cooldownT = 30 * 1000, cooldownG = cooldowns.hypixel.pit.get(m.author.id);
     if (cooldownG) return m.channel.send(`Please wait ${humanizeDuration(cooldownG - Date.now(), { round: true })} before running this command again`);
@@ -494,7 +506,7 @@ client.on("message", async message => {
   /////////////RANKING SYSTEM///////////////
   //////////////////////////////////////////
   //get the key of the user for this guild
-  const key = `${message.guild.id}-${message.author.id}`;
+  const rankkey = `${message.guild.id}-${message.author.id}`;
   // do some databasing
   client.points.ensure(`${message.guild.id}-${message.author.id}`, {
     user: message.author.id,
@@ -509,37 +521,37 @@ client.on("message", async message => {
     //get a random num between 0 and 2 rounded
     var randomnum = Math.floor((Math.random() * 2) * 100) / 100
     //basically databasing again
-    client.points.math(key, `+`, randomnum, `points`)
-    client.points.inc(key, `points`);
+    client.points.math(rankkey, `+`, randomnum, `points`)
+    client.points.inc(rankkey, `points`);
   }
   //if not too short do this
   else {
     //get a random num between rounded but it belongs to message length
     var randomnum = 1 + Math.floor(msgl * 100) / 100
     //basically databasing again
-    client.points.math(key, `+`, randomnum, `points`)
-    client.points.inc(key, `points`);
+    client.points.math(rankkey, `+`, randomnum, `points`)
+    client.points.inc(rankkey, `points`);
   }
   //get current level
-  const curLevel = Math.floor(0.1 * Math.sqrt(client.points.get(key, `points`)));
+  const curLevel = Math.floor(0.1 * Math.sqrt(client.points.get(rankkey, `points`)));
   //if its a new level then do this
-  if (client.points.get(key, `level`) < curLevel) {
-    if(!message.guild.id == "658976660703543297") return;
+  if (client.points.get(rankkey, `level`) < curLevel) {
+
     //define ranked embed
     const embed = new Discord.MessageEmbed()
       .setTitle(`Ranking of ${message.author.username}`)
       .setTimestamp()
-      .setDescription(`You've leveled up to Level: **\`${curLevel}\`**! (Points: \`${Math.floor(client.points.get(key, `points`) * 100) / 100}\`) `)
+      .setDescription(`You've leveled up to Level: **\`${curLevel}\`**! (Points: \`${Math.floor(client.points.get(rankkey, `points`) * 100) / 100}\`) `)
       .setColor("GREEN");
     //send ping and embed message
     message.channel.send(`<@` + message.author.id + `>`);
     message.channel.send(embed);
     //set the new level
-    client.points.set(key, curLevel, `level`);
+    client.points.set(rankkey, curLevel, `level`);
   }
   //else continue or commands...
   //
-  if (message.content.toLowerCase().startsWith(`${client.prefix}rank`)) {
+  if (message.content.toLowerCase().startsWith(`${prefix}rank`)) {
     //get the rankuser
     let rankuser = message.mentions.users.first() || message.author;
     client.points.ensure(`${message.guild.id}-${rankuser.id}`, {
@@ -564,13 +576,13 @@ client.on("message", async message => {
         break;
       }
     }
-    const key = `${message.guild.id}-${rankuser.id}`;
+    const rankkey = `${message.guild.id}-${rankuser.id}`;
     //math
-    let curpoints = Number(client.points.get(key, `points`).toFixed(2));
+    let curpoints = Number(client.points.get(rankkey, `points`).toFixed(2));
     //math
-    let curnextlevel = Number(((Number(1) + Number(client.points.get(key, `level`).toFixed(2))) * Number(10)) * ((Number(1) + Number(client.points.get(key, `level`).toFixed(2))) * Number(10)));
+    let curnextlevel = Number(((Number(1) + Number(client.points.get(rankkey, `level`).toFixed(2))) * Number(10)) * ((Number(1) + Number(client.points.get(rankkey, `level`).toFixed(2))) * Number(10)));
     //if not level == no rank
-    if (client.points.get(key, `level`) === undefined) i = `No Rank`;
+    if (client.points.get(rankkey, `level`) === undefined) i = `No Rank`;
     //define a temporary embed so its not coming delayed
     let tempmsg = await message.channel.send(new Discord.MessageEmbed().setColor("RED").setAuthor("Calculating...", "https://cdn.discordapp.com/emojis/769935094285860894.gif"))
     //global local color var.
@@ -594,7 +606,7 @@ client.on("message", async message => {
       .setLevelColor(color, "COLOR")
       .setUsername(rankuser.username, color)
       .setRank(Number(i), "Rank", true)
-      .setLevel(Number(client.points.get(key, `level`)), "Level", true)
+      .setLevel(Number(client.points.get(rankkey, `level`)), "Level", true)
       .setDiscriminator(rankuser.discriminator, color);
     rank.build()
       .then(async data => {
@@ -658,14 +670,46 @@ client.on("message", async message => {
   if (message.content.toLowerCase().startsWith('y!jointest')) {
     client.emit('guildCreate', message.guild)
   }
- 
+  if(client.config.blacklisted.includes(message.author.id)) return;
+  let set = db.fetch(`g_${message.guild.id}`);
+  if (message.channel.id === set) {
+   
+
+    if(message.guild.me.hasPermission("MANAGE_MESSAGES")){
+      message.delete()
+    const embed = new Discord.MessageEmbed()
+      embed.setAuthor(message.author.username,message.author.displayAvatarURL({dynamic:true}))
+      if(message.content){
+      embed.addField("Message:", message.content)
+      }
+      if(message.attachments.size > 0) {
+        const img = message.attachments.first().url
+        embed.setImage(img)
+      }
+      embed.setColor("NONE")
+      embed.setFooter(`Server: ${message.guild.name} || Members: ${message.guild.memberCount}`);
+
+
+      client.guilds.cache.forEach(g => {
+      try {
+        client.channels.cache.get(db.fetch(`g_${g.id}`)).send(embed);
+      } catch (e) {
+        return;
+      }
+    });
+  }
+  else return message.channel.send("I need the `MANAGE_MESSAGES` permission to run this in the best way possible");
+
+}
+
 
 });
 
 const fs = require("fs");
 
 client.on('ready', async () => {
-  console.log('Well done, prefix migration complete without errors.')
+    console.log('Well done, prefix migration complete without errors.')
+    console.log("Hello World!")
    const slashFiles = fs.readdirSync('./slash').filter(file => file.endsWith('.js'));
     for (const file of slashFiles) {
         const command = require(`./slash/${file}`);
@@ -709,8 +753,10 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
 })
 
 
-
-
+const ascii = require("ascii-table");
+let table = new ascii("Commands");
+table.setHeading("Command", "Load status");
+table.setBorder('*')
    
 fs.readdir("./events/", (err, files) => {
   if (err) return console.error(err);
@@ -723,15 +769,15 @@ fs.readdir("./events/", (err, files) => {
 });
 
 fs.readdir("./commands/", (err, files) => {
-  if (err) return console.error(err);
-  files.forEach(f => {
-    if (!f.endsWith(".js")) return;
-    let command = require(`./commands/${f}`);
-    client.commands.set(command.help.name, command);
-    command.help.aliases.forEach(alias => {
-      client.aliases.set(alias, command.help.name);
+    if (err) return console.error(err);
+    files.forEach(f => {
+        if (!f.endsWith(".js")) return;
+        let command = require(`./commands/${f}`);
+        client.commands.set(command.help.name, command);
+        command.help.aliases.forEach(alias => {
+            client.aliases.set(alias, command.help.name);
+        });
     });
-  });
 });
 const player = fs.readdirSync('./player').filter(file => file.endsWith('.js'));
 for (const file of player) {

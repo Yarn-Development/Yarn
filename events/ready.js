@@ -1,5 +1,6 @@
 const Discord = require("discord.js")
 const got = require('got');
+
 module.exports = (client) => {
 
 
@@ -17,8 +18,9 @@ module.exports = (client) => {
 			let version = client.config.version
 	const readyembed = new Discord.MessageEmbed()
 .setTitle("Online!")
+.setThumbnail(client.user.displayAvatarURL())
 .addField('Yarn Wrapped.', `Logged in successfully as ${client.user.tag}!`)
-.setFooter("This was at:")
+.setFooter("This was ")
 .setTimestamp()
 client.channels.cache.get('829432185110790234').send(readyembed)
   const status = [
@@ -43,7 +45,7 @@ client.channels.cache.get('829432185110790234').send(readyembed)
       type: "WATCHING",
     },
     {
-      activity: "yarn-bot.xyz",
+      activity: "yarndev.xyz",
       type: "LISTENING",
     },
     {

@@ -1,4 +1,4 @@
-const { Message } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const fetch = require("node-fetch");
 
 
@@ -28,10 +28,10 @@ ranks.set("VIP", "VIP")
  */
 exports.execute = async(client,message, args) => {
 
-     const prefix = "y!"
+     const prefix = client.prefix.toLowerCase()
 const hypixel = '6566f98c-f567-41b7-8863-5387635bc51a'
     if (args.length == 0) {
-        return message.channel.send(new ErrorEmbed(`${prefix}h <username>`))
+        return message.channel.send(new ErrorEmbed(`${prefix}hypixel <username>`))
     }
 
     if (cooldown.has(message.member.id)) {
@@ -50,7 +50,7 @@ const hypixel = '6566f98c-f567-41b7-8863-5387635bc51a'
         } else {
             remaining = `${seconds}s`
         }
-        return message.channel.send(`still on cooldown for \`${remaining}\``)
+        return message.channel.send(`This command is still on cooldown for \`${remaining}\``)
     }
 
     cooldown.set(message.member.id, new Date())
@@ -116,12 +116,12 @@ const hypixel = '6566f98c-f567-41b7-8863-5387635bc51a'
         quests = hypixelData.player.achievements.general_quest_master
 
         if (lastLog == 0) {
-            lastLog = "today`"
+            lastLog = "Today`"
         } else {
             lastLog = lastLog + "` days ago"
         }
 
-        if (!rank) rank = "Default"
+        if (!rank) rank = "NONE"
 
         if (hypixelData.player.monthlyPackageRank == "SUPERSTAR") rank = "MVP++"
 
@@ -171,12 +171,12 @@ const hypixel = '6566f98c-f567-41b7-8863-5387635bc51a'
 
     const embed = new MessageEmbed()
         .setTitle("[" + rank + "] " + uuid.name)
-        .addField("first login date", "`" + firstLog + "`", true)
-        .addField("logged in", "`" + lastLog, true)
-        .addField("streak ~ highest", "`" + streak + " ~ " + topStreak + "`", true)
-        .addField("level", "`" + level.toLocaleString() + "`", true)
-        .addField("karma", "`" + karma + "`", true)
-        .addField("quests ~ challenges", "`" + quests + " ~ " + challenges + "`", true)
+        .addField("First login date", "`" + firstLog + "`", true)
+        .addField("Logged in", "`" + lastLog, true)
+        .addField("Streak ~ highest", "`" + streak + " ~ " + topStreak + "`", true)
+        .addField("Level", "`" + level.toLocaleString() + "`", true)
+        .addField("Karma", "`" + karma + "`", true)
+        .addField("Quests ~ Challenges", "`" + quests + " ~ " + challenges + "`", true)
         .setURL(url)
         .setThumbnail(skin)
 

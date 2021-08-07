@@ -4,7 +4,6 @@ exports.execute = async (client,message,args) => {
     // send channel a message that you're resetting bot [optional]
     channel.send('Restarting...')
     .then(msg => client.destroy())
-    .then(() => client.login(client.config.token));
     channel.send('Restart Complete.')
 }
 resetBot(message.channel);
@@ -12,7 +11,7 @@ resetBot(message.channel);
 }
 exports.help ={
 name:'restart',
-aliases:['reset'],
+aliases:['reset','reboot'],
 usage:'restart',
 category:'Owner'
 }
