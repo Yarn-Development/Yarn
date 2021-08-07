@@ -3,7 +3,10 @@ const app = express();
 const partials = require('express-partials');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const db = require('quick.db');
+const { Database } = require("quickmongo");
+const db = new Database("mongodb://localhost/quickmongo");
+
+
 //START OF BOT CODE//
 const Discord = require("discord.js");
 require("dotenv").config();
@@ -260,7 +263,7 @@ client.on('message', m => {
           }
           if (user.player.prefix != undefined) {
             let prefix = user.player.prefix;
-            tinodata.rank.displayName = `[${prefix.replace(/[\[\]]|(\§a)|(\§b)|(\§c)|(\§d)|(\§e)|(\§f)|(\§0)|(\§9)|(\§8)|(\§7)|(\§6)|(\§5)|(\§4)|(\§3)|(\§2)|(\§1)|(\§b)|(\§l)|(\§c)|(\§s)|(\§n)|(\§r)/gmi, "").capitalizeFirst()}]`;
+            tinodata.rank.displayName = `[${prefix.replace(/[\[\]]|(\�a)|(\�b)|(\�c)|(\�d)|(\�e)|(\�f)|(\�0)|(\�9)|(\�8)|(\�7)|(\�6)|(\�5)|(\�4)|(\�3)|(\�2)|(\�1)|(\�b)|(\�l)|(\�c)|(\�s)|(\�n)|(\�r)/gmi, "").capitalizeFirst()}]`;
             tinodata.rank.name = tinodata.rank.displayName.slice(1, tinodata.rank.displayName.length - 1).capitalizeFirst();
             tinodata.rank.color = minecraftColorToHex("RED");
           }
@@ -397,7 +400,7 @@ const canvas = require('discord-canvas'),
   welcomeCanvas = new canvas.Welcome(),
   leaveCanvas = new canvas.Goodbye()
 
-const Eco = require("quick.eco");
+
 const { GiveawaysManager } = require('discord-giveaways');
 client.giveawaysManager = new GiveawaysManager(client, {
   storage: "./gwdb.json",
@@ -405,12 +408,12 @@ client.giveawaysManager = new GiveawaysManager(client, {
   default: {
     botsCanWin: false,
     embedColor: "#FF0000",
-    reaction: "🎉"
+    reaction: "<�"
   }
 });
 
-client.eco = new Eco.Manager(); // quick.eco
-client.db = Eco.db; // quick.db
+
+client.db = db; // mongo
 client.config = require("./botConfig");
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
@@ -922,4 +925,4 @@ require('./router')(app); // There is a router for Discord.js there, thanks to w
     if(tokenDb != token)return res.send({"error":true,"message":"An invalid key provided."}); // Check that this token is the same as this user.
     res.send({error: 'false',message: `you post this in body: ${JSON.stringify(req.body)}`}); // If all went well, return the data, do something with the received etc.
     //u can now do stuff with POSTED data and / or token's owner id
-  });
+  }); 
