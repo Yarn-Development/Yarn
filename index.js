@@ -11,7 +11,7 @@ const db = new Database("mongodb://localhost/quickmongo");
 const Discord = require("discord.js");
 require("dotenv").config();
 Discord.Constants.DefaultOptions.ws.properties.$browser = "Discord iOS"
-const client = new Discord.Client({ disableMentions: 'everyone' });
+
 const ms = require("ms")
 client.config = require("./botConfig");
 const canvacord = require("canvacord");
