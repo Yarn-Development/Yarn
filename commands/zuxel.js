@@ -1,10 +1,10 @@
-require("../ExtendedMessage.js");
+
 exports.execute = async(client,message,args) => {
 
    
 	message.channel.startTyping()
 	
-   message.inlineReply('Hi');
+   message.reply('Hi');
 	message.channel.stopTyping()
 
 }

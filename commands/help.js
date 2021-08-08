@@ -101,7 +101,7 @@ const embedmusic = new MessageEmbed()
 
             if (!command) return message.channel.send(`${client.emotes.error} - I did not find this command !`);
 
-            message.channel.send({
+            message.reply.send({
                 embed: {
                     color: 'ORANGE',
                     author: { name: 'Extra Command info' },

@@ -1,7 +1,7 @@
-require("../ExtendedMessage.js")
+
 
 exports.execute = async(client,message,args) => {
-  message.inlineReply("Monke")
+  message.reply("Monke")
 }
 exports.help = {
   name: "harambe",

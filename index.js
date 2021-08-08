@@ -3,14 +3,27 @@ const app = express();
 const partials = require('express-partials');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const { Database } = require("quickmongo");
-const db = new Database("mongodb://localhost/quickmongo");
+const db = require("quick.db")
 
 
 //START OF BOT CODE//
 const Discord = require("discord.js");
 require("dotenv").config();
-Discord.Constants.DefaultOptions.ws.properties.$browser = "Discord iOS"
+
+const { Intents } = require("discord.js")
+const ints = new Intents([
+  Intents.FLAGS.GUILDS,
+  Intents.FLAGS.GUILD_PRESENCES,
+  Intents.FLAGS.GUILD_MEMBERS,
+  Intents.FLAGS.GUILD_MESSAGES,
+  Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+  Intents.FLAGS.GUILD_VOICE_STATES,
+  Intents.FLAGS.DIRECT_MESSAGES
+])
+const client = new Discord.Client(
+  { intents: ints  },
+  { allowedMentions: { parse: ['users', 'roles'], repliedUser: true } }
+  );
 
 const ms = require("ms")
 client.config = require("./botConfig");
@@ -71,7 +84,7 @@ function sendErrorEmbed(channel, error, description) {
     .setThumbnail('https://hypixel.monster/assets/images/hypixel.png')              // Change this to yours!
     .setTimestamp()
     .setFooter(embedHelper.footer.text, embedHelper.footer.image.red)
-  return channel.send(exampleEmbed);
+  return channel.send({ embeds: exampleEmbed});
 }
 // Minecraft Color Name to Hex
 function minecraftColorToHex(colorname) {
@@ -373,7 +386,7 @@ client.on('message', m => {
         .setFooter(embedHelper.footer.text, embedHelper.footer.image.green)
       if (!user.player.stats.Pit.pit_stats_ptl) {
         embed.setDescription(`**The Pit**\nCould not retrieve **The Pit** Stats for this user, maybe he/she never joined The Pit!`);
-        return m.channel.send(embed);
+        return m.channel.send({ embeds: [embed]});
       }
       embed.addFields(
         { name: `**Kills**`, value: `${user.player.stats.Pit.pit_stats_ptl.kills}`, inline: true },
@@ -390,7 +403,7 @@ client.on('message', m => {
 
       cooldowns.hypixel.pit.set(m.author.id, Date.now() + cooldownT);
       setTimeout(() => cooldowns.hypixel.pit.delete(m.author.id), cooldownT);
-      return m.channel.send(embed);
+      return m.channel.send({ embeds: [embed]});
     });
   }
 });
@@ -548,7 +561,7 @@ client.on("message", async message => {
       .setColor("GREEN");
     //send ping and embed message
     message.channel.send(`<@` + message.author.id + `>`);
-    message.channel.send(embed);
+    message.channel.send({ embeds: [embed]});
     //set the new level
     client.points.set(rankkey, curLevel, `level`);
   }
@@ -622,7 +635,7 @@ client.on("message", async message => {
           .setImage("attachment://RankCard.png")
           .attachFiles(attachment)
         //send that embed
-        await message.channel.send(embed);
+        await message.channel.send({ embeds: [embed]});
         //delete that temp message
         await tempmsg.delete();
         return;
@@ -652,7 +665,7 @@ client.on("message", async message => {
       }
     }
     //schick das embed
-    return message.channel.send(embed);
+    return message.channel.send({ embeds: [embed]});
      function delay(delayInms) {
     return new Promise(resolve => {
       setTimeout(() => {
@@ -695,7 +708,7 @@ client.on("message", async message => {
 
       client.guilds.cache.forEach(g => {
       try {
-        client.channels.cache.get(db.fetch(`g_${g.id}`)).send(embed);
+        client.channels.cache.get(db.fetch(`g_${g.id}`)).send({ embeds: [embed]});
       } catch (e) {
         return;
       }
@@ -757,6 +770,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
 
 
 const ascii = require("ascii-table");
+
 let table = new ascii("Commands");
 table.setHeading("Command", "Load status");
 table.setBorder('*')
@@ -796,7 +810,7 @@ client.on("guildCreate", guild => {
     .setDescription(`Thank you for adding me to the server! My prefix here is y! but you can always change it using y!prefix <prefix> . Lets have a good time!`)
     .setColor("RANDOM")
     .setTimestamp()
-  guild.systemChannel.send(embed)
+  guild.systemChannel.send({ embeds: [embed]})
   client.channels.cache.get(`829432199261716480`).send(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
 
 });
