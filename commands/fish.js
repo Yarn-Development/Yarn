@@ -33,10 +33,10 @@ exports.execute = async(client, message, args) => {
   let fishToWin = fish[randn];
 
 
-  let fishdb = await client.db.fetch(`fish_${message.guild.id}_${user.id}`);
+  let fishdb = await client.db.get(`fish_${message.guild.id}_${user.id}`);
   let rod = await client.db.get(`fish_${message.guild.id}_${user.id}.rod`);
   let rodusage = await client.db.get(`fish_${message.guild.id}_${user.id}.rodusage`);
-  let wait = await client.db.fetch(`fish_${message.guild.id}_${user.id}.wait`);
+  let wait = await client.db.get(`fish_${message.guild.id}_${user.id}.wait`);
 
 
   if(!rod) return message.channel.send(`You have to buy a fishing rod!`);

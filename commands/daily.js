@@ -10,11 +10,11 @@ exports.execute = async(client, message, args) => {
   let timeout = 86400000;
 
   let daili = Math.floor(Math.random() * 200) + 1;
-  let multiplier = await client.db.fetch(`multiplier_${message.guild.id}`);
+  let multiplier = await client.db.get(`multiplier_${message.guild.id}`);
   if(!multiplier) multiplier = 1;
   let dailies =  daili * multiplier;
 
-  let daily = await client.db.fetch(`daily_${message.guild.id}_${user.id}`);
+  let daily = await client.db.get(`daily_${message.guild.id}_${user.id}`);
 
   if (daily !== null && timeout - (Date.now() - daily) > 0) {
     let time = ms(timeout - (Date.now() - daily));

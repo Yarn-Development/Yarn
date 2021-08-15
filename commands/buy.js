@@ -7,7 +7,7 @@ exports.execute = async(client, message, args) => {
 
     let user = message.author;
 
-    let author = await client.db.fetch(`money_${message.guild.id}_${user.id}.pocket`)
+    let author = await client.db.get(`money_${message.guild.id}_${user.id}.pocket`)
 
     let Embed = new Discord.MessageEmbed()
     .setColor("#FFFFFF")
@@ -17,7 +17,7 @@ exports.execute = async(client, message, args) => {
     case 'bronze':
         if (author < 3500) return message.channel.send({embeds:[Embed]})
         
-        await client.db.fetch(`bronze_${message.guild.id}_${user.id}`);
+        await client.db.get(`bronze_${message.guild.id}_${user.id}`);
         await client.db.set(`bronze_${message.guild.id}_${user.id}`, true)
 
         let Embed2 = new Discord.MessageEmbed()
@@ -35,7 +35,7 @@ exports.execute = async(client, message, args) => {
 
         if (author < 600) return message.channel.send({embeds:[Embedn]})
        
-        await client.db.fetch(`nikes_${message.guild.id}_${user.id}`)
+        await client.db.get(`nikes_${message.guild.id}_${user.id}`)
         await client.db.add(`nikes_${message.guild.id}_${user.id}`, 1)
 
         let Embed3 = new Discord.MessageEmbed()
@@ -53,7 +53,7 @@ exports.execute = async(client, message, args) => {
 
         if (author < 800) return message.channel.send({embeds:[Embed4]})
        
-        await client.db.fetch(`car_${message.guild.id}_${user.id}`)
+        await client.db.get(`car_${message.guild.id}_${user.id}`)
         await client.db.add(`car_${message.guild.id}_${user.id}`, 1)
 
         let Embed5 = new Discord.MessageEmbed()
@@ -75,7 +75,7 @@ exports.execute = async(client, message, args) => {
         if(iffish !== null) {
             if(iffish.rod === 1) return message.channel.send("You already have a fishing rod!");
         }
-        //await client.db.fetch(`fish_${message.guild.id}_${user.id}`)
+        //await client.db.get(`fish_${message.guild.id}_${user.id}`)
         await client.db.add(`fish_${message.guild.id}_${user.id}.rod`, 1);
         await client.db.set(`fish_${message.guild.id}_${user.id}.fish`, [])
 
@@ -94,7 +94,7 @@ exports.execute = async(client, message, args) => {
 
         if (author < 1200) return message.channel.send({embeds:[Embed8]})
        
-        await client.db.fetch(`house_${message.guild.id}_${user.id}`)
+        await client.db.get(`house_${message.guild.id}_${user.id}`)
         await client.db.add(`house_${message.guild.id}_${user.id}`, 1)
 
         let Embed9 = new Discord.MessageEmbed()

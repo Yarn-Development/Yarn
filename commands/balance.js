@@ -9,10 +9,10 @@ exports.execute =  async(client, message, args) => {
   (args.join(" ").toLowerCase(), message.guild) || 
   message.author;
 
-  let bal = await client.db.fetch(`money_${message.guild.id}_${user.id}.pocket`);
+  let bal = await client.db.get(`money_${message.guild.id}_${user.id}.pocket`);
   if (bal === null) bal = 0;
 
-  let bank = await client.db.fetch(`money_${message.guild.id}_${user.id}.bank`);
+  let bank = await client.db.get(`money_${message.guild.id}_${user.id}.bank`);
   if (bank === undefined) bank = 0;
 
   let TotalMoney = bank + bal;

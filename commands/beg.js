@@ -9,13 +9,13 @@ exports.execute =  async(client, message, args) => {
   let user = message.author;
   let timeout = 60000;
 
-  let multiplier = await client.db.fetch(`multiplier_${message.guild.id}`);
+  let multiplier = await client.db.get(`multiplier_${message.guild.id}`);
   if(!multiplier) multiplier = 1;
   let amounta = Math.floor(Math.random() * 30) + 1;
 
   let amounts = amounta * multiplier;
 
-  let beg = await client.db.fetch(`beg_${message.guild.id}_${user.id}`);
+  let beg = await client.db.get(`beg_${message.guild.id}_${user.id}`);
 
   if (beg !== null && timeout - (Date.now() - beg) > 0) {
     let time = ms(timeout - (Date.now() - beg));

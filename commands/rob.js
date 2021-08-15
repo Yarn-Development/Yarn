@@ -10,9 +10,9 @@ exports.execute =  async (client, message, args) => {
     client.users.cache.get(args[0]) ||
     (args.join(" ").toLowerCase(), message.guild);
 
-  let targetuser = await client.db.fetch(`money_${message.guild.id}_${user.id}.pocket`);
-  let author     = await client.db.fetch(`rob_${message.guild.id}_${message.author.id}`);
-  let author2    = await client.db.fetch(`money_${message.guild.id}_${message.author.id}.pocket`);
+  let targetuser = await client.db.get(`money_${message.guild.id}_${user.id}.pocket`);
+  let author     = await client.db.get(`rob_${message.guild.id}_${message.author.id}`);
+  let author2    = await client.db.get(`money_${message.guild.id}_${message.author.id}.pocket`);
 
   let timeout = 6000000;
 
@@ -52,7 +52,7 @@ if (author !== null && timeout - (Date.now() - author) > 0) {
     return message.channel.send({embeds:[authorembed]})
   }
 
-  let vip = await client.db.fetch(`bronze_${user.id}`)
+  let vip = await client.db.get(`bronze_${user.id}`)
 
   if(vip === true) random = Math.floor(Math.random() * parseInt(targetuser)) + 1;
   if(vip === null) random = Math.floor(Math.random() * 100) + 1;

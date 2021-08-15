@@ -8,7 +8,7 @@ const { clientId, clientSecret, scopes, redirectUri } = require('../config');
 const fetch = require('node-fetch');
 const FormData = require('form-data');
 
-const db = require('quick.db');
+;
 
 const forceAuth = (req, res, next) => {
     if (!req.session.user) return res.redirect('/authorize')
@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
 
 router.get('/callback', (req, res) => {
     if (req.session.user) return res.redirect('/');
-    
+
     const accessCode = req.query.code;
     if (!accessCode) throw new Error('No access code returned from Discord');
 
@@ -40,46 +40,46 @@ router.get('/callback', (req, res) => {
         method: 'POST',
         body: data
     })
-    .then(res => res.json())
-    .then(response => {
-        fetch('https://discordapp.com/api/users/@me', {
-            method: 'GET',
-            headers: {
-                authorization: `${response.token_type} ${response.access_token}`
-            },
-        })
-        .then(res2 => res2.json())
-        .then(async userResponse => {
-            userResponse.tag = `${userResponse.username}#${userResponse.discriminator}`;
-            userResponse.avatarURL = userResponse.avatar ? `https://cdn.discordapp.com/avatars/${userResponse.id}/${userResponse.avatar}.png?size=1024` : null;
+        .then(res => res.json())
+        .then(response => {
+            fetch('https://discordapp.com/api/users/@me', {
+                method: 'GET',
+                headers: {
+                    authorization: `${response.token_type} ${response.access_token}`
+                },
+            })
+                .then(res2 => res2.json())
+                .then(async userResponse => {
+                    userResponse.tag = `${userResponse.username}#${userResponse.discriminator}`;
+                    userResponse.avatarURL = userResponse.avatar ? `https://cdn.discordapp.com/avatars/${userResponse.id}/${userResponse.avatar}.png?size=1024` : null;
 
-            req.session.user = userResponse; // Save user data in the session.user
+                    req.session.user = userResponse; // Save user data in the session.user
 
-            const generateRandomString = function(length=10){
-                return Math.random().toString(20).substr(2, length); // Generates random string.
-            }
+                    const generateRandomString = function (length = 10) {
+                        return Math.random().toString(20).substr(2, length); // Generates random string.
+                    }
 
 
-            // Generate API key for the user if logged in for the first time.
-            let kod = db.get(`${userResponse.id}_hasAuthCode`);
-            if(!kod){
-                await db.set(`${userResponse.id}_token`, generateRandomString() + `${userResponse.id}` + generateRandomString());
-                await db.set(`${userResponse.id}_hasAuthCode`, true);
-            }
-            
+                    // Generate API key for the user if logged in for the first time.
+                    let kod = db.get(`${userResponse.id}_hasAuthCode`);
+                    if (!kod) {
+                        await db.set(`${userResponse.id}_token`, generateRandomString() + `${userResponse.id}` + generateRandomString());
+                        await db.set(`${userResponse.id}_hasAuthCode`, true);
+                    }
+
+                });
+            fetch('https://discordapp.com/api/users/@me/guilds', {
+                method: 'GET',
+                headers: {
+                    authorization: `${response.token_type} ${response.access_token}`
+                },
+            })
+                .then(res3 => res3.json())
+                .then(userGuilds => {
+                    req.session.guilds = userGuilds; // Save user guilds data in the session.guilds
+                    res.redirect('/');
+                });
         });
-        fetch('https://discordapp.com/api/users/@me/guilds', {
-            method: 'GET',
-            headers: {
-                authorization: `${response.token_type} ${response.access_token}`
-            },
-        })
-        .then(res3 => res3.json())
-        .then(userGuilds => {
-            req.session.guilds = userGuilds; // Save user guilds data in the session.guilds
-            res.redirect('/');
-        });
-    });
 });
 
 router.get('/logout', forceAuth, (req, res) => {

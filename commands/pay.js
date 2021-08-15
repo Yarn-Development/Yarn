@@ -7,7 +7,7 @@ exports.execute = async(client, message, args) => {
 
   let user = message.mentions.members.first()
 
-  let member = await client.db.fetch(`money_${message.guild.id}_${message.author.id}.pocket`);
+  let member = await client.db.get(`money_${message.guild.id}_${message.author.id}.pocket`);
 
   let embed1 = new Discord.MessageEmbed()
   .setColor("#FFFFFF")

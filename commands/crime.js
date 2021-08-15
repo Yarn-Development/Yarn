@@ -9,8 +9,8 @@ exports.execute = async(client, message, args) => {
 
   let timeout = 60000;
   
-    let author = await client.db.fetch(`money_${message.guild.id}_${user.id}.pocket`);
-    let multiplier = await client.db.fetch(`multiplier_${message.guild.id}`);
+    let author = await client.db.get(`money_${message.guild.id}_${user.id}.pocket`);
+    let multiplier = await client.db.get(`multiplier_${message.guild.id}`);
     if(!multiplier) multiplier = 1;
     let randoma = Math.floor(Math.random() * 200) + 1;
     let random = randoma * multiplier;
@@ -19,7 +19,7 @@ exports.execute = async(client, message, args) => {
           return message.channel.send('You need at least 250🧶 to commit a crime')
       }
 
-      let crime = await client.db.fetch(`crime_${message.author.id}`)
+      let crime = await client.db.get(`crime_${message.author.id}`)
 
       if (crime !== null && timeout - (Date.now() - crime) > 0) {
         

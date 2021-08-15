@@ -7,30 +7,30 @@ exports.execute = async (client, message, args) => {
 
     let user = message.author;
 
-    let moneydb = await client.db.fetch(`money_${message.guild.id}_${user.id}.pocket`)
+    let moneydb = await client.db.get(`money_${message.guild.id}_${user.id}.pocket`)
 
     let money = parseInt(args[0]);
 
     let win = false;
 
     let moneymore = new Discord.MessageEmbed()
-    .setColor("#FFFFFF")
-    .setDescription(` You are betting more than you have`);
+        .setColor("#FFFFFF")
+        .setDescription(` You are betting more than you have`);
 
     let moneyhelp = new Discord.MessageEmbed()
-    .setColor("#FFFFFF")
-    .setDescription(`Specify an amount`);
+        .setColor("#FFFFFF")
+        .setDescription(`Specify an amount`);
 
-    if (!money) return message.channel.send({embeds:[moneyhelp]});
-    if (money > moneydb) return message.channel.send({embeds:[moneymore]});
+    if (!money) return message.channel.send({ embeds: [moneyhelp] });
+    if (money > moneydb) return message.channel.send({ embeds: [moneymore] });
 
     let number = []
     for (i = 0; i < 3; i++) { number[i] = Math.floor(Math.random() * slotItems.length); }
 
-    if (number[0] == number[1] && number[1] == number[2]) { 
+    if (number[0] == number[1] && number[1] == number[2]) {
         money *= 9
         win = true;
-    } else if (number[0] == number[1] || number[0] == number[2] || number[1] == number[2]) { 
+    } else if (number[0] == number[1] || number[0] == number[2] || number[1] == number[2]) {
         money *= 2
         win = true;
     }
@@ -38,22 +38,22 @@ exports.execute = async (client, message, args) => {
         let slotsEmbed1 = new Discord.MessageEmbed()
             .setDescription(`${slotItems[number[0]]} | ${slotItems[number[1]]} | ${slotItems[number[2]]}\n\nYou won ${money} 🧶`)
             .setColor("#FFFFFF")
-        message.channel.send({embeds:[slotsEmbed1]})
+        message.channel.send({ embeds: [slotsEmbed1] })
         await client.db.add(`money_${message.guild.id}_${user.id}.pocket`, money)
     } else {
         let slotsEmbed = new Discord.MessageEmbed()
             .setDescription(`${slotItems[number[0]]} | ${slotItems[number[1]]} | ${slotItems[number[2]]}\n\nYou lost ${money} 🧶`)
             .setColor("#FFFFFF")
-        message.channel.send({embeds:[slotsEmbed]})
+        message.channel.send({ embeds: [slotsEmbed] })
         await client.db.subtract(`money_${message.guild.id}_${user.id}.pocket`, money)
-		}
+    }
 
-	}
+}
 module.exports.help = {
 
-		name: "slots",
-		description: "Play slots!",
-		aliases: ["sl"],
-		category: "Economy",
-    usage:'slots <amount>'
-	}
+    name: "slots",
+    description: "Play slots!",
+    aliases: ["sl"],
+    category: "Economy",
+    usage: 'slots <amount>'
+}

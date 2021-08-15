@@ -3,8 +3,9 @@ const app = express();
 const partials = require('express-partials');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const db = require("quick.db")
-
+const { Database } = require("quickmongo");
+const db = new Database(process.env.URL)
+const Quickdb = require("quick.db");
 
 //START OF BOT CODE//
 const Discord = require("discord.js");
@@ -21,26 +22,31 @@ const ints = new Intents([
   Intents.FLAGS.DIRECT_MESSAGES
 ])
 const client = new Discord.Client(
-  { intents: ints  },
+  { intents: ints },
   { allowedMentions: { parse: ['users', 'roles'], repliedUser: true } }
-  );
+);
+client.db = db
 
+
+client.db.on("ready", async () => {
+  const ping = await client.db.fetchLatency()
+  console.log(`Database connected with a latency of around ${ping.average}ms!`)
+});
 const ms = require("ms")
 client.config = require("./botConfig");
 const canvacord = require("canvacord");
 const { Player } = require('discord-player');
-global.client = client
 client.player = new Player(client, {
   enableLive: true,
- leaveOnEnd: true,
- ytdlDownloadOptions: {
-  filter: "audioonly",
-  requestOptions: {
+  leaveOnEnd: true,
+  ytdlDownloadOptions: {
+    filter: "audioonly",
+    requestOptions: {
       headers: {
-          cookie: "VISITOR_INFO1_LIVE=12n5yxo0Lqw; CONSENT=PENDING+008; HSID=AXdXyVSPhSvhH4YoO; SSID=AKlU44cbkZJLnjSed; APISID=4A8j8imK3SFp1r1J/ANU9SJHU1pQjq0UQK; SAPISID=dcY_XMbPEAtU60g_/AFkVICi_nqTKJ1NiW; __Secure-3PAPISID=dcY_XMbPEAtU60g_/AFkVICi_nqTKJ1NiW; LOGIN_INFO=AFmmF2swRQIhAJ9yvsYT-eZ_8sZtBlzsUbSckJmGT_oELLSjh0ykpur5AiA2KBoiHBSN2B6UMQ5H5j9NmZ5RmKH5TF9hlf3LInPCiQ:QUQ3MjNmeExyWVFZa0I0NHVYZHJvQWYwaE1WcVdLaGhNVndzZ0xDZFROaGJvUEZMZkotM2lraGh5V010ZThaMDFTSl9VTUN5bkRBVk81eC1CUEhzcUxDc3FhZVhRTWttdHNOaHZrVERnXzZ0MFNyN2wxcWNCZWdTYnBXV1hxRzRzNWJBOUVHQ2Y5ajdBaVJidTBPb0lRYUFCMmdCQ2V4YVg0Z0NDaHNtdUw4YTMyUjdFbzd4LVJVMVE2ZmdGRkhXcVp6VWpoSHJqTDl1ZzFKQ2RHMGxJN2VjQU1SelpXX2ZNdw==; PREF=tz=Europe.London&f4=4000000&f6=40000000&f5=30000; SID=-wcNK0tWmZPAgdWIaMzudDaOrmdfAyUYP0ZddbW2XUXnPPSzxO2zV0lzIdjWzQU7cPNk9w.; __Secure-3PSID=-wcNK0tWmZPAgdWIaMzudDaOrmdfAyUYP0ZddbW2XUXnPPSzr_Pa9GWqBNAzFa5y6ZBhXQ.; YSC=_IVeda5iQXU; SIDCC=AJi4QfFq4qPJLFECjHR-ZMPGkM14s9xWjr-ST0f6ntHz4qgctOT9F5pCb7LNnKz8S9VCwHXEZsM; __Secure-3PSIDCC=AJi4QfGRUr_5nc-F7i2d0Sg_gheXsun4pL2klyug_49Q8K3YTaK-1waXL45FId2YQdwMR62AR6Q"
+        cookie: "VISITOR_INFO1_LIVE=12n5yxo0Lqw; CONSENT=PENDING+008; HSID=AXdXyVSPhSvhH4YoO; SSID=AKlU44cbkZJLnjSed; APISID=4A8j8imK3SFp1r1J/ANU9SJHU1pQjq0UQK; SAPISID=dcY_XMbPEAtU60g_/AFkVICi_nqTKJ1NiW; __Secure-3PAPISID=dcY_XMbPEAtU60g_/AFkVICi_nqTKJ1NiW; LOGIN_INFO=AFmmF2swRQIhAJ9yvsYT-eZ_8sZtBlzsUbSckJmGT_oELLSjh0ykpur5AiA2KBoiHBSN2B6UMQ5H5j9NmZ5RmKH5TF9hlf3LInPCiQ:QUQ3MjNmeExyWVFZa0I0NHVYZHJvQWYwaE1WcVdLaGhNVndzZ0xDZFROaGJvUEZMZkotM2lraGh5V010ZThaMDFTSl9VTUN5bkRBVk81eC1CUEhzcUxDc3FhZVhRTWttdHNOaHZrVERnXzZ0MFNyN2wxcWNCZWdTYnBXV1hxRzRzNWJBOUVHQ2Y5ajdBaVJidTBPb0lRYUFCMmdCQ2V4YVg0Z0NDaHNtdUw4YTMyUjdFbzd4LVJVMVE2ZmdGRkhXcVp6VWpoSHJqTDl1ZzFKQ2RHMGxJN2VjQU1SelpXX2ZNdw==; PREF=tz=Europe.London&f4=4000000&f6=40000000&f5=30000; SID=-wcNK0tWmZPAgdWIaMzudDaOrmdfAyUYP0ZddbW2XUXnPPSzxO2zV0lzIdjWzQU7cPNk9w.; __Secure-3PSID=-wcNK0tWmZPAgdWIaMzudDaOrmdfAyUYP0ZddbW2XUXnPPSzr_Pa9GWqBNAzFa5y6ZBhXQ.; YSC=_IVeda5iQXU; SIDCC=AJi4QfFq4qPJLFECjHR-ZMPGkM14s9xWjr-ST0f6ntHz4qgctOT9F5pCb7LNnKz8S9VCwHXEZsM; __Secure-3PSIDCC=AJi4QfGRUr_5nc-F7i2d0Sg_gheXsun4pL2klyug_49Q8K3YTaK-1waXL45FId2YQdwMR62AR6Q"
       }
+    }
   }
-}
 });
 const { DiscordTogether } = require('discord-together');
 
@@ -84,7 +90,7 @@ function sendErrorEmbed(channel, error, description) {
     .setThumbnail('https://hypixel.monster/assets/images/hypixel.png')              // Change this to yours!
     .setTimestamp()
     .setFooter(embedHelper.footer.text, embedHelper.footer.image.red)
-  return channel.send({ embeds: exampleEmbed});
+  return channel.send({ embeds: exampleEmbed });
 }
 // Minecraft Color Name to Hex
 function minecraftColorToHex(colorname) {
@@ -124,7 +130,7 @@ function minecraftColorToHex(colorname) {
   }
 }
 // Change games returned by the Hypixel API to clean ones
-String.prototype.toCleanGameType = function() {
+String.prototype.toCleanGameType = function () {
   switch (this.toString()) {
     case "BEDWARS":
       return "BedWars";
@@ -185,7 +191,7 @@ String.prototype.toCleanGameType = function() {
   }
 }
 // Foreach in objects
-var ObjectforEach = function(collection, callback, scope) {
+var ObjectforEach = function (collection, callback, scope) {
   if (Object.prototype.toString.call(collection) === '[object Object]') {
     for (var prop in collection) {
       if (Object.prototype.hasOwnProperty.call(collection, prop)) {
@@ -199,10 +205,10 @@ var ObjectforEach = function(collection, callback, scope) {
   }
 };
 // Capitalize first letter and lowercase the rest
-String.prototype.capitalizeFirst = function() {
+String.prototype.capitalizeFirst = function () {
   return this.toString().charAt(0).toUpperCase() + this.toString().slice(1).toLowerCase();
 }
-String.prototype.toTimeString = function() {
+String.prototype.toTimeString = function () {
   let num = this.toString();
   if (num < 60) return `${num}m`;
   let hours = (num / 60);
@@ -310,7 +316,7 @@ client.on('message', m => {
             .setFooter(embedHelper.footer.text, embedHelper.footer.image.green)
           if (user.player.socialMedia != undefined && user.player.socialMedia.links) {
             embed.addField(`\u200b`, `\u200b`);
-            ObjectforEach(user.player.socialMedia.links, function(value, prop, obj) {
+            ObjectforEach(user.player.socialMedia.links, function (value, prop, obj) {
               if (prop == "HYPIXEL") value = `[${value.split("/")[4].split(".")[0]}](${value})`;
               if (prop == "TWITTER") value = `[${value.split("/")[3]}](${value})`;
               if (prop == "INSTAGRAM") value = `[${value.split("/")[3]}](${value})`;
@@ -325,14 +331,14 @@ client.on('message', m => {
           setTimeout(() => cooldowns.hypixel.main.delete(m.author.id), cooldownT);
           return medit.edit("\u200b", embed);
         });
-      }).catch(e => function() {
+      }).catch(e => function () {
         medit.edit(`Hypixel API Error`);
         console.log(e);
       });
     });
   }
 
-  if (m.content.toLowerCase().startsWith(`${prefix}pit`)){
+  if (m.content.toLowerCase().startsWith(`${prefix}pit`)) {
     /* Cooldown */
     let cooldownT = 30 * 1000, cooldownG = cooldowns.hypixel.pit.get(m.author.id);
     if (cooldownG) return m.channel.send(`Please wait ${humanizeDuration(cooldownG - Date.now(), { round: true })} before running this command again`);
@@ -386,7 +392,7 @@ client.on('message', m => {
         .setFooter(embedHelper.footer.text, embedHelper.footer.image.green)
       if (!user.player.stats.Pit.pit_stats_ptl) {
         embed.setDescription(`**The Pit**\nCould not retrieve **The Pit** Stats for this user, maybe he/she never joined The Pit!`);
-        return m.channel.send({ embeds: [embed]});
+        return m.channel.send({ embeds: [embed] });
       }
       embed.addFields(
         { name: `**Kills**`, value: `${user.player.stats.Pit.pit_stats_ptl.kills}`, inline: true },
@@ -403,7 +409,7 @@ client.on('message', m => {
 
       cooldowns.hypixel.pit.set(m.author.id, Date.now() + cooldownT);
       setTimeout(() => cooldowns.hypixel.pit.delete(m.author.id), cooldownT);
-      return m.channel.send({ embeds: [embed]});
+      return m.channel.send({ embeds: [embed] });
     });
   }
 });
@@ -426,7 +432,7 @@ client.giveawaysManager = new GiveawaysManager(client, {
 });
 
 
-client.db = db; // mongo
+
 client.config = require("./botConfig");
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
@@ -482,7 +488,7 @@ client.on('guildMemberRemove', async member => {
 
   member.send(attachment)
 })
-client.on("message", async message => {
+client.on("messageCreate", async message => {
 
   const startTime = require("./commands/afk.js")
 
@@ -505,12 +511,12 @@ client.on("message", async message => {
     if (db.has(`afk-${message.mentions.members.first().id}+${message.guild.id}`)) {
       const endTime = Date.now();
       const timeTakenMs = endTime - startTime;
-      const timeTaken = ms(timeTakenMs, { long: true })
+      const timeTaken = timeTakenMs
       message.channel.send(`${message.mentions.members.first().user.tag}` + ` is currently afk, for the past ${timeTaken}. Reason: ` + db.get(`afk-${message.mentions.members.first().id}+${message.guild.id}.`))
-      .catch(err => {
+        .catch(err => {
           message.channel.send(`There has been a fatal error when running this command. Please use the y!report command with the following error:${err}`)
         })
-      
+
 
 
     } else return;
@@ -561,7 +567,7 @@ client.on("message", async message => {
       .setColor("GREEN");
     //send ping and embed message
     message.channel.send(`<@` + message.author.id + `>`);
-    message.channel.send({ embeds: [embed]});
+    message.channel.send({ embeds: [embed] });
     //set the new level
     client.points.set(rankkey, curLevel, `level`);
   }
@@ -635,7 +641,7 @@ client.on("message", async message => {
           .setImage("attachment://RankCard.png")
           .attachFiles(attachment)
         //send that embed
-        await message.channel.send({ embeds: [embed]});
+        await message.channel.send({ embeds: [embed] });
         //delete that temp message
         await tempmsg.delete();
         return;
@@ -665,14 +671,14 @@ client.on("message", async message => {
       }
     }
     //schick das embed
-    return message.channel.send({ embeds: [embed]});
-     function delay(delayInms) {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(2);
-      }, delayInms);
-    });
-  }
+    return message.channel.send({ embeds: [embed] });
+    function delay(delayInms) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve(2);
+        }, delayInms);
+      });
+    }
   }
 
 
@@ -686,19 +692,19 @@ client.on("message", async message => {
   if (message.content.toLowerCase().startsWith('y!jointest')) {
     client.emit('guildCreate', message.guild)
   }
-  if(client.config.blacklisted.includes(message.author.id)) return;
-  let set = db.fetch(`g_${message.guild.id}`);
+  if (client.config.blacklisted.includes(message.author.id)) return;
+  let set = client.db.get(`g_${message.guild.id}`);
   if (message.channel.id === set) {
-   
 
-    if(message.guild.me.hasPermission("MANAGE_MESSAGES")){
+
+    if (message.guild.me.hasPermission("MANAGE_MESSAGES")) {
       message.delete()
-    const embed = new Discord.MessageEmbed()
-      embed.setAuthor(message.author.username,message.author.displayAvatarURL({dynamic:true}))
-      if(message.content){
-      embed.addField("Message:", message.content)
+      const embed = new Discord.MessageEmbed()
+      embed.setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
+      if (message.content) {
+        embed.addField("Message:", message.content)
       }
-      if(message.attachments.size > 0) {
+      if (message.attachments.size > 0) {
         const img = message.attachments.first().url
         embed.setImage(img)
       }
@@ -707,16 +713,16 @@ client.on("message", async message => {
 
 
       client.guilds.cache.forEach(g => {
-      try {
-        client.channels.cache.get(db.fetch(`g_${g.id}`)).send({ embeds: [embed]});
-      } catch (e) {
-        return;
-      }
-    });
-  }
-  else return message.channel.send("I need the `MANAGE_MESSAGES` permission to run this in the best way possible");
+        try {
+          client.channels.cache.get(client.db.get(`g_${g.id}`)).send({ embeds: [embed] });
+        } catch (e) {
+          return;
+        }
+      });
+    }
+    else return message.channel.send("I need the `MANAGE_MESSAGES` permission to run this in the best way possible");
 
-}
+  }
 
 
 });
@@ -724,48 +730,53 @@ client.on("message", async message => {
 const fs = require("fs");
 
 client.on('ready', async () => {
-    console.log('Well done, prefix migration complete without errors.')
-    console.log("Hello World!")
-   const slashFiles = fs.readdirSync('./slash').filter(file => file.endsWith('.js'));
-    for (const file of slashFiles) {
-        const command = require(`./slash/${file}`);
-        client.api.applications(client.user.id).commands.post({ data: {
-            name: command.name,
-            description: command.description,
-            options: command.commandOptions
-        }})
-        if (command.global == true) {
-            client.api.applications(client.user.id).commands.post({ data: {
-                name: command.name,
-                description: command.description,
-                options: command.commandOptions
-            }})
+  console.log('Well done, prefix migration complete without errors.')
+  console.log("Hello World!")
+  const slashFiles = fs.readdirSync('./slash').filter(file => file.endsWith('.js'));
+  for (const file of slashFiles) {
+    const command = require(`./slash/${file}`);
+    client.api.applications(client.user.id).commands.post({
+      data: {
+        name: command.name,
+        description: command.description,
+        options: command.commandOptions
+      }
+    })
+    if (command.global == true) {
+      client.api.applications(client.user.id).commands.post({
+        data: {
+          name: command.name,
+          description: command.description,
+          options: command.commandOptions
         }
-        client.commands.set(command.name, command);
-        console.log(`Command POST : ${command.name} from ${file} (${command.global ? "global" : "guild"})`)
+      })
     }
-  
-    console.log("")
+    client.commands.set(command.name, command);
+    console.log(`Command POST : ${command.name} from ${file} (${command.global ? "global" : "guild"})`)
+  }
+
+  console.log("")
 
 });
 client.ws.on('INTERACTION_CREATE', async interaction => {
 
-    if (!client.commands.has(interaction.data.name)) return;
+  if (!client.commands.has(interaction.data.name)) return;
 
-    try {
-        client.commands.get(interaction.data.name).execute(interaction);
-    } catch (error) {
-        console.log(`Error from command ${interaction.data.name} : ${error.message}`);
-        console.log(`${error.stack}\n`)
-        client.api.interactions(interaction.id, interaction.token).callback.post({data: {
-			type: 4,
-			data: {
-					content: `Sorry, there was an error executing that command!`
-				}
-			}
-		})
-    }
-    
+  try {
+    client.commands.get(interaction.data.name).execute(interaction);
+  } catch (error) {
+    console.log(`Error from command ${interaction.data.name} : ${error.message}`);
+    console.log(`${error.stack}\n`)
+    client.api.interactions(interaction.id, interaction.token).callback.post({
+      data: {
+        type: 4,
+        data: {
+          content: `Sorry, there was an error executing that command!`
+        }
+      }
+    })
+  }
+
 })
 
 
@@ -774,7 +785,7 @@ const ascii = require("ascii-table");
 let table = new ascii("Commands");
 table.setHeading("Command", "Load status");
 table.setBorder('*')
-   
+
 fs.readdir("./events/", (err, files) => {
   if (err) return console.error(err);
   files.forEach(f => {
@@ -786,15 +797,15 @@ fs.readdir("./events/", (err, files) => {
 });
 
 fs.readdir("./commands/", (err, files) => {
-    if (err) return console.error(err);
-    files.forEach(f => {
-        if (!f.endsWith(".js")) return;
-        let command = require(`./commands/${f}`);
-        client.commands.set(command.help.name, command);
-        command.help.aliases.forEach(alias => {
-            client.aliases.set(alias, command.help.name);
-        });
+  if (err) return console.error(err);
+  files.forEach(f => {
+    if (!f.endsWith(".js")) return;
+    let command = require(`./commands/${f}`);
+    client.commands.set(command.help.name, command);
+    command.help.aliases.forEach(alias => {
+      client.aliases.set(alias, command.help.name);
     });
+  });
 });
 const player = fs.readdirSync('./player').filter(file => file.endsWith('.js'));
 for (const file of player) {
@@ -810,7 +821,7 @@ client.on("guildCreate", guild => {
     .setDescription(`Thank you for adding me to the server! My prefix here is y! but you can always change it using y!prefix <prefix> . Lets have a good time!`)
     .setColor("RANDOM")
     .setTimestamp()
-  guild.systemChannel.send({ embeds: [embed]})
+  guild.systemChannel.send({ embeds: [embed] })
   client.channels.cache.get(`829432199261716480`).send(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
 
 });
@@ -830,16 +841,16 @@ client.login(process.env.TOKEN);
 const port = 80;
 app.set('port', port);
 
-app.use(bodyParser.urlencoded({extended : true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(partials());
 app.set('view engine', 'ejs');
 app.use(express.static('static'));
 app.use(session({
-    secret: '48738924783748273742398747238',
-    resave: false,
-    saveUninitialized: false,
-    expires: 604800000,
+  secret: '48738924783748273742398747238',
+  resave: false,
+  saveUninitialized: false,
+  expires: 604800000,
 }));
 
 app.listen(port, () => console.info(`Listening on port ${port}!`));
@@ -851,78 +862,78 @@ app.listen(port, () => console.info(`Listening on port ${port}!`));
 require('./router')(app); // There is a router for Discord.js there, thanks to which Discord Oauth2 works.
 
 // First, when a visitor enters the home page, he should get the home page.
-  app.get('/', (req, res) => {
-    res.render('index', { user: req.session.user, req: req }); // this renders views/index.ejs
-  });
-  
+app.get('/', (req, res) => {
+  res.render('index', { user: req.session.user, req: req }); // this renders views/index.ejs
+});
+
 // The logged-in user can check his 'profile' settings.
-  app.get('/user', async (req, res) => {
-    if(!req.session.user)return res.redirect('/authorize'); // Of course, if he is not logged in, he must do so.
-    res.render('user', { user: req.session.user, req: req, db: db }); // this renders views/user.ejs
-  });
+app.get('/user', async (req, res) => {
+  if (!req.session.user) return res.redirect('/authorize'); // Of course, if he is not logged in, he must do so.
+  res.render('user', { user: req.session.user, req: req, db: db }); // this renders views/user.ejs
+});
 
 // Whether you like it or not, the dashboard is for server management. This part is from displaying authorized user servers.
-  app.get('/user/guilds', async (req, res) => {
-    if(!req.session.user)return res.redirect('/'); // Likewise, he must be logged in. If not, let him do it.
-    res.render('guilds', {db: db, session: session, req: req, user: req.session.user, bot: client}); // this renders views/guilds.ejs
-  });
-  
+app.get('/user/guilds', async (req, res) => {
+  if (!req.session.user) return res.redirect('/'); // Likewise, he must be logged in. If not, let him do it.
+  res.render('guilds', { db: db, session: session, req: req, user: req.session.user, bot: client }); // this renders views/guilds.ejs
+});
+
 // If we want to display information about an already selected server, create its house for it.
-  app.get('/guild/:id', async function (req, res) { // Param ":id" means something that can be your own, customizable. In this case it will be the server ID. For example: /guild/671767027240796176 is uPros guild manage page.
-    if(!req.session.user)return res.redirect('/'); // If the user is not logged in, let him do so.
-    if(!client.guilds.cache.get(req.params.id))return res.redirect('/user/guilds'); // If the bot is not on the server with the given ID, let's get the user back.
-    await client.guilds.cache.get(req.params.id).members.fetch(req.session.user.id);
-    if (!client.guilds.cache.get(req.params.id).members.cache.get(req.session.user.id).hasPermission('MANAGE_GUILD')); // Oh, I think he wanted to manage someone's server without permission on that server! Not so easy! Let's get him back!
-    res.render('guild', {db: db, session: session, req: req, user: req.session.user, bot: client}); // this renders views/guild.ejs
-  });
+app.get('/guild/:id', async function (req, res) { // Param ":id" means something that can be your own, customizable. In this case it will be the server ID. For example: /guild/671767027240796176 is uPros guild manage page.
+  if (!req.session.user) return res.redirect('/'); // If the user is not logged in, let him do so.
+  if (!client.guilds.cache.get(req.params.id)) return res.redirect('/user/guilds'); // If the bot is not on the server with the given ID, let's get the user back.
+  await client.guilds.cache.get(req.params.id).members.fetch(req.session.user.id);
+  if (!client.guilds.cache.get(req.params.id).members.cache.get(req.session.user.id).hasPermission('MANAGE_GUILD')); // Oh, I think he wanted to manage someone's server without permission on that server! Not so easy! Let's get him back!
+  res.render('guild', { db: db, session: session, req: req, user: req.session.user, bot: client }); // this renders views/guild.ejs
+});
 
 // If someone wants to edit the settings contained in the setup category, the browser will make a POST request there.
-  app.post('/edit/setup/:id', async (req, res) => {
-    if(!req.session.user)return res.redirect('/'); // If the user is not logged in, let him do so.
-    if(!client.guilds.cache.get(req.params.id).members.cache.get(req.session.user.id).hasPermission('MANAGE_GUILD'))return res.redirect('/user/guilds'); // Oh, I think he wanted to manage someone's server without permission on that server! Not so easy! Let's get him back!
-    await db.set(`prefix_${req.params.id}`, req.body.prefix.replace('\r\n', "")); // Set the bot prefix as the one we got in request body.
-    if(req.body.lang == "en"){
-      await db.set(`${req.params.id}.lang`, "en"); // If body.lang == en, set bot language as English.
-    }else if(req.body.lang == "pl"){
-      await db.set(`${req.params.id}.lang`, "pl"); // If body.lang == pl, set bot language as Polish.
-    }else{
-      await db.set(`${req.params.id}.lang`, "en"); // If body.lang != en && body.lang != pl, set bot language as English.
-    }
-    res.redirect('/guild/' + req.params.id); // Done! Let us return you to this server's page.
-  });
+app.post('/edit/setup/:id', async (req, res) => {
+  if (!req.session.user) return res.redirect('/'); // If the user is not logged in, let him do so.
+  if (!client.guilds.cache.get(req.params.id).members.cache.get(req.session.user.id).hasPermission('MANAGE_GUILD')) return res.redirect('/user/guilds'); // Oh, I think he wanted to manage someone's server without permission on that server! Not so easy! Let's get him back!
+  await db.set(`prefix_${req.params.id}`, req.body.prefix.replace('\r\n', "")); // Set the bot prefix as the one we got in request body.
+  if (req.body.lang == "en") {
+    await db.set(`${req.params.id}.lang`, "en"); // If body.lang == en, set bot language as English.
+  } else if (req.body.lang == "pl") {
+    await db.set(`${req.params.id}.lang`, "pl"); // If body.lang == pl, set bot language as Polish.
+  } else {
+    await db.set(`${req.params.id}.lang`, "en"); // If body.lang != en && body.lang != pl, set bot language as English.
+  }
+  res.redirect('/guild/' + req.params.id); // Done! Let us return you to this server's page.
+});
 
 // This part is only from the /api page rendered from the browser.
-  app.get('/api', async (req, res) => {
-    if(!req.session.user)return res.redirect('/authorize'); // If the user is not logged in, let him do so.
-    res.render('api', { user: req.session.user, req: req, db: db }); // this renders views/api.ejs
-  });
+app.get('/api', async (req, res) => {
+  if (!req.session.user) return res.redirect('/authorize'); // If the user is not logged in, let him do so.
+  res.render('api', { user: req.session.user, req: req, db: db }); // this renders views/api.ejs
+});
 
 // If the user wants to refresh their token from the /user page, they will send it here.
-  app.post('/token/regenerate', async (req, res) => {
-    if(!req.session.user)return res.redirect('/authorize'); // If the user is not logged in, let him do so.
-  
-    const generateRandomString = function(length=10){
-      return Math.random().toString(20).substr(2, length); // Generates random string.
-      }
-      await db.set(`${req.session.user.id}_token`, generateRandomString() + `${req.session.user.id}` + generateRandomString()); // Set-up a new token.
-      res.redirect('/user'); // Return user to the /user page
-  });
+app.post('/token/regenerate', async (req, res) => {
+  if (!req.session.user) return res.redirect('/authorize'); // If the user is not logged in, let him do so.
+
+  const generateRandomString = function (length = 10) {
+    return Math.random().toString(20).substr(2, length); // Generates random string.
+  }
+  await db.set(`${req.session.user.id}_token`, generateRandomString() + `${req.session.user.id}` + generateRandomString()); // Set-up a new token.
+  res.redirect('/user'); // Return user to the /user page
+});
 
 // If the user wants to refresh his token, but from the /api page, he will send it here.
-  app.post('/token/regenerate/api', async (req, res) => {
-    if(!req.session.user)return res.redirect('/authorize'); // If the user is not logged in, let him do so.
-  
-    const generateRandomString = function(length=10){
-      return Math.random().toString(20).substr(2, length);// Generates random string.
-      }
-      await db.set(`${req.session.user.id}_token`, generateRandomString() + `${req.session.user.id}` + generateRandomString()); // Set-up a new token.
-      res.redirect('/api'); // Return user to the /api page
-  });
+app.post('/token/regenerate/api', async (req, res) => {
+  if (!req.session.user) return res.redirect('/authorize'); // If the user is not logged in, let him do so.
+
+  const generateRandomString = function (length = 10) {
+    return Math.random().toString(20).substr(2, length);// Generates random string.
+  }
+  await db.set(`${req.session.user.id}_token`, generateRandomString() + `${req.session.user.id}` + generateRandomString()); // Set-up a new token.
+  res.redirect('/api'); // Return user to the /api page
+});
 
 
-  app.get('/invite', (req, res)=>{
-    res.redirect(config.inviteLink);
-  });
+app.get('/invite', (req, res) => {
+  res.redirect(config.inviteLink);
+});
 
 // \|/
 // API - for more advanced projects, in which the user can make a request from another project to yours and obtain / transfer information.
@@ -930,13 +941,13 @@ require('./router')(app); // There is a router for Discord.js there, thanks to w
 
 // Now let's go to the POST available without logging in.
 // Note, you can get here from outside the site. Other projects can make the request here.
-  app.post('/api/v1/example', async (req, res) => {
-    if(!req.headers.authorization)return res.send({"error":true,"message":"No API key provided."}); // Check that the API token was provided.
-    let token = req.headers.authorization; // token is "Authorization" header
-    if(token.length != 38)return res.send({"error":true,"message":"An invalid key provided."}); // If the token is not long enough, it is invalid.
-    let tokenOwner = token.slice(10,-10); // Determine who owns the token.
-    let tokenDb = await db.get(`${tokenOwner}_token`); // This is the user's token, if any.
-    if(tokenDb != token)return res.send({"error":true,"message":"An invalid key provided."}); // Check that this token is the same as this user.
-    res.send({error: 'false',message: `you post this in body: ${JSON.stringify(req.body)}`}); // If all went well, return the data, do something with the received etc.
-    //u can now do stuff with POSTED data and / or token's owner id
-  });
+app.post('/api/v1/example', async (req, res) => {
+  if (!req.headers.authorization) return res.send({ "error": true, "message": "No API key provided." }); // Check that the API token was provided.
+  let token = req.headers.authorization; // token is "Authorization" header
+  if (token.length != 38) return res.send({ "error": true, "message": "An invalid key provided." }); // If the token is not long enough, it is invalid.
+  let tokenOwner = token.slice(10, -10); // Determine who owns the token.
+  let tokenDb = await db.get(`${tokenOwner}_token`); // This is the user's token, if any.
+  if (tokenDb != token) return res.send({ "error": true, "message": "An invalid key provided." }); // Check that this token is the same as this user.
+  res.send({ error: 'false', message: `you post this in body: ${JSON.stringify(req.body)}` }); // If all went well, return the data, do something with the received etc.
+  //u can now do stuff with POSTED data and / or token's owner id
+});

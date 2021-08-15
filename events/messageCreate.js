@@ -1,15 +1,13 @@
-const { MessageFlags } = require("discord.js");
-
 module.exports = async (client, message) => {
     if (!message.guild || message.author.bot) return;
 
     if (message.channel.id === client.config.countChannel) require("../counter")(message, client);
-    client.prefix = client.db.fetch(`prefix_${message.guild.id}`) ? client.db.fetch(`prefix_${message.guild.id}`) : client.config.prefix;
+    client.prefix = client.db.get(`prefix_${message.guild.id}`) ? client.db.get(`prefix_${message.guild.id}`) : client.config.prefix;
     if (/<@!814174226037866537>|<@814174226037866537>/.test(message.content)) {
          console.log('Works!')
          message.channel.send(`Hello there! I'm Yarn, the All in 1 Discord Bot! My prefix in this server is ${client.prefix}`);
     };
-    if (!message.content.toLowerCase().startsWith(client.prefix.toLowerCase())) return;
+    if (!message.content.toLowerCase().startsWith(client.prefix)) return;
     let args = message.content.slice(client.prefix.length).trim().split(" ");
     let commandName = args.shift().toLowerCase();
     let command = client.commands.get(commandName) || client.commands.get(client.aliases.get(commandName));

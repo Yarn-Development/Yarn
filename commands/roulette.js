@@ -16,7 +16,7 @@ exports.execute = async (client, message, args) => {
 
   let money = parseInt(args[1]);
 
-  let moneydb = await client.db.fetch(`money_${message.guild.id}_${user.id}.pocket`)
+  let moneydb = await client.db.get(`money_${message.guild.id}_${user.id}.pocket`)
 
 
   let random = Math.floor(Math.random() * 37);

@@ -7,26 +7,26 @@ exports.execute = async (client, message, args) => {
 
   let user = message.mentions.users.first() || message.author;
 
-  let bal = await client.db.fetch(`money_${message.guild.id}_${user.id}.pocket`);
+  let bal = await client.db.get(`money_${message.guild.id}_${user.id}.pocket`);
   if (bal === null) bal = 0;
 
-  let bank = await client.db.fetch(`money_${message.guild.id}_${user.id}.bank`);
+  let bank = await client.db.get(`money_${message.guild.id}_${user.id}.bank`);
   if (bank === null) bank = 0;
 
-  let vip = await client.db.fetch(`bronze_${message.guild.id}_${user.id}`);
+  let vip = await client.db.get(`bronze_${message.guild.id}_${user.id}`);
     if(vip === null) vip = 'None'
     if(vip === true) vip = 'Bronze'
 
-  let shoes = await client.db.fetch(`nikes_${message.guild.id}_${user.id}`);
+  let shoes = await client.db.get(`nikes_${message.guild.id}_${user.id}`);
   if(shoes === null) shoes = 0;
 
-  let newcar = await client.db.fetch(`car_${message.guild.id}_${user.id}`);
+  let newcar = await client.db.get(`car_${message.guild.id}_${user.id}`);
   if(newcar === null) newcar = 0;
 
-  let newhouse = await client.db.fetch(`house_${message.guild.id}_${user.id}`);
+  let newhouse = await client.db.get(`house_${message.guild.id}_${user.id}`);
   if(newhouse === null) newhouse = 0;
 
-  let fish = await client.db.fetch(`fish_${message.guild.id}_${user.id}.fish`);
+  let fish = await client.db.get(`fish_${message.guild.id}_${user.id}.fish`);
 
   let moneyEmbed = new Discord.MessageEmbed()
   .setColor("RANDOM")
