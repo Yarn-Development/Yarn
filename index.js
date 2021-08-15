@@ -276,7 +276,7 @@ client.on('message', m => {
           }
           if (user.player.prefix != undefined) {
             let prefix = user.player.prefix;
-            tinodata.rank.displayName = `[${prefix.replace(/[\[\]]|(\�a)|(\�b)|(\�c)|(\�d)|(\�e)|(\�f)|(\�0)|(\�9)|(\�8)|(\�7)|(\�6)|(\�5)|(\�4)|(\�3)|(\�2)|(\�1)|(\�b)|(\�l)|(\�c)|(\�s)|(\�n)|(\�r)/gmi, "").capitalizeFirst()}]`;
+            tinodata.rank.displayName = `[${prefix.replace(/[\[\]]|(\§a)|(\§b)|(\§c)|(\§d)|(\§e)|(\§f)|(\§0)|(\§9)|(\§8)|(\§7)|(\§6)|(\§5)|(\§4)|(\§3)|(\§2)|(\§1)|(\§b)|(\§l)|(\§c)|(\§s)|(\§n)|(\§r)/gmi, "").capitalizeFirst()}]`;
             tinodata.rank.name = tinodata.rank.displayName.slice(1, tinodata.rank.displayName.length - 1).capitalizeFirst();
             tinodata.rank.color = minecraftColorToHex("RED");
           }
@@ -421,7 +421,7 @@ client.giveawaysManager = new GiveawaysManager(client, {
   default: {
     botsCanWin: false,
     embedColor: "#FF0000",
-    reaction: "<�"
+    reaction: "🎉"
   }
 });
 

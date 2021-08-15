@@ -25,7 +25,7 @@ got('https://www.reddit.com/r/YarnAddicts/random/.json')
 			embed.setImage(memeImage);
 			embed.setFooter(`👍 ${memeUpvotes} 💬 ${memeNumComments}`);
 
-			message.channel.send(embed);
+			message.channel.send({embeds:[embed]});
       }
 		})
 		.catch(console.error);

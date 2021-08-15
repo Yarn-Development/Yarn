@@ -1,5 +1,4 @@
 
-
 exports.execute = async(client,message,args) => {
   message.reply("Monke")
 }

@@ -31,7 +31,7 @@ module.exports.execute = async (client, message, args) => {
     .addField("Type of:", typeof(evaluated))
     .setTimestamp()
     .setFooter(`${message.author.tag}`, client.user.displayAvatarURL())
-    message.channel.send(embed);
+    message.channel.send({embeds:[embed]});
     
   } catch (e) {
     let errorembed = new Discord.MessageEmbed()
@@ -39,7 +39,7 @@ module.exports.execute = async (client, message, args) => {
     .setDescription(e)
     .setTimestamp()
     .setFooter(`${message.author.tag}`, client.user.displayAvatarURL())
-    message.channel.send(errorembed);
+    message.channel.send({embeds:[errorembed]});
   }
 }
 exports.help = {

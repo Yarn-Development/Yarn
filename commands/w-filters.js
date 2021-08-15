@@ -14,7 +14,7 @@
             array.push(filterName.charAt(0).toUpperCase() + filterName.slice(1) + " : " + (client.player.getQueue(message).filters[filterName] ? client.emotes.success : client.emotes.off));
         });
 
-        message.channel.send({
+        message.channel.send({embeds:[{
             embed: {
                 color: 'ORANGE',
                
@@ -25,7 +25,7 @@
                 timestamp: new Date(),
                 description: `List of all filters enabled or disabled.\nUse \`${client.config.prefix}filter\` to add a filter to a song.`,
             },
-        });
+        }]});
     }
     module.exports.help = {
     name: 'w-filters',

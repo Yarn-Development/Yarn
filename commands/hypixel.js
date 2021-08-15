@@ -180,7 +180,7 @@ const hypixel = '6566f98c-f567-41b7-8863-5387635bc51a'
         .setURL(url)
         .setThumbnail(skin)
 
-    return await message.channel.send(embed)
+    return await message.channel.send({embeds:[embed]})
 
 }
 

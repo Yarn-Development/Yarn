@@ -15,7 +15,7 @@ module.exports.execute = async (client, message, args) => {
    
     if(msg.image)embed.setImage(msg.image)
     
-    message.channel.send(embed)
+    message.channel.send({embeds:[embed]})
      
      
    }

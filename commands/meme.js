@@ -22,7 +22,7 @@ module.exports.execute = async (client, message, args) => {
 			embed.setImage(memeImage);
 			embed.setFooter(`👍 ${memeUpvotes} 💬 ${memeNumComments}`);
 
-			message.channel.send(embed);
+			message.channel.send({embeds:[embed]});
 		})
 		.catch(console.error);
 };

@@ -12,7 +12,7 @@ const { MessageEmbed } = require(`discord.js`);
             .setTitle(`Top 10 servers`)
             .setDescription(Map)
             .setColor("RANDOM")
-        message.channel.send(embed)
+        message.channel.send({embeds:[embed]})
     }
     }
     exports.help = {

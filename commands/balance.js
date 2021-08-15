@@ -23,7 +23,7 @@ exports.execute =  async(client, message, args) => {
   **Pocket:** ${bal} 🧶
   **Bank:** ${bank} 🧶
   **Total:** ${TotalMoney} 🧶`);
-  message.channel.send(moneyEmbed)
+  message.channel.send({embeds:[moneyEmbed]})
 	}
   exports.help = {
     name: "bal",

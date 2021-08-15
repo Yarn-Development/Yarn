@@ -13,7 +13,7 @@ const { Discord, Client, MessageEmbed } = require('discord.js')
         })
     
         
-        message.channel.send({embed});
+        message.channel.send({embeds:[embed]});
   }
   
   module.exports.help = {

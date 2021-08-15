@@ -51,7 +51,7 @@ exports.execute = async(client, message, args) => {
       .addField("Amount Robbed:", random + "🧶")
       .setColor("RANDOM")
       .setTimestamp();
-      message.channel.send(embed)
+      message.channel.send({embeds:[embed]})
     await client.db.add(`crimecommited_${user.id}`, 1);
     await client.db.add(`money_${message.guild.id}_${user.id}.pocket`, random);
     await client.db.set(`crime_${message.author.id}`, Date.now());

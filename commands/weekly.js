@@ -19,12 +19,12 @@ exports.execute =  async (client, message, args) => {
     let timeEmbed = new Discord.MessageEmbed()
     .setColor("#FFFFFF")
     .setDescription(` You have already collected your weekly reward\n\nCollect it again in ${time.days}d ${time.hours}h ${time.minutes}m ${time.seconds}s `);
-    message.channel.send(timeEmbed)
+    message.channel.send({embeds:[timeEmbed]})
   } else {
     let moneyEmbed = new Discord.MessageEmbed()
   .setColor("#FFFFFF")
   .setDescription(`You've collected your weekly reward of ${amount} 🧶`);
-  message.channel.send(moneyEmbed);
+  message.channel.send({embeds:[moneyEmbed]});
 
   await client.db.add(`money_${message.guild.id}_${user.id}.pocket`, amount);
   await client.db.set(`weekly_${message.guild.id}_${user.id}`, Date.now());

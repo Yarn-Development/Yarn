@@ -13,7 +13,7 @@ exports.execute = async (client, message, args) => {
         .setImage(avatar)
         .setColor("RANDOM")
 
-        message.channel.send(embed);
+        message.channel.send({embeds:[embed]});
 } 
 module.exports.help = {
     name: "avatar",

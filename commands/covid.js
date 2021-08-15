@@ -17,7 +17,7 @@ module.exports.execute = async (client, message, args) => {
         .setDescription('You are missing some args (ex: ymisc!covid all || ymisc!covid Canada)')
         .setTimestamp()
 
-        if(!args[0]) return message.channel.send(noArgs);
+        if(!args[0]) return message.channel.send({embeds:[noArgs]});
 
         if(args[0] === "all"){
             fetch(`https://covid19.mathdro.id/api`)
@@ -33,7 +33,7 @@ module.exports.execute = async (client, message, args) => {
                 .addField('Recovered', recovered)
                 .addField('Deaths', deaths)
 
-                message.channel.send(embed)
+                message.channel.send({embeds:[embed]})
             })
         } else {
             fetch(`https://covid19.mathdro.id/api/countries/${countries}`)
@@ -49,7 +49,7 @@ module.exports.execute = async (client, message, args) => {
                 .addField('Recovered', recovered)
                 .addField('Deaths', deaths)
 
-                message.channel.send(embed)
+                message.channel.send({embeds:[embed]})
             }).catch(e => {
                 return message.channel.send('Invalid country provided')
             })

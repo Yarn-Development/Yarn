@@ -13,7 +13,7 @@ exports.execute = async (client, message, args) => {
 
         let nikeses = await client.db.fetch(`nikes_${message.guild.id}_${user.id}`)
 
-        if (nikeses < 1) return message.channel.send(Embed2)
+        if (nikeses < 1) return message.channel.send({embeds:[Embed2]})
        
         await client.db.fetch(`nikes_${message.guild.id}_${user.id}`)
         await client.db.subtract(`nikes_${message.guild.id}_${user.id}`, 1)
@@ -23,7 +23,7 @@ exports.execute = async (client, message, args) => {
         .setDescription(`Sold Fresh Nikes For 600 🧶`);
 
         await client.db.add(`money_${message.guild.id}_${user.id}.pocket`, 600)
-        message.channel.send(Embed3)
+        message.channel.send({embeds:[Embed3]})
     } else if(args[0].toLowerCase() == 'car') {
         let Embed2 = new Discord.MessageEmbed()
         .setColor("#FFFFFF")
@@ -31,7 +31,7 @@ exports.execute = async (client, message, args) => {
 
        let cars = await db.fetch(`car_${message.guild.id}_${user.id}`)
 
-        if (cars < 1) return message.channel.send(Embed2)
+        if (cars < 1) return message.channel.send({embeds:[Embed2]})
        
         await client.db.fetch(`car_${message.guild.id}_${user.id}`)
         await client.db.subtract(`car_${message.guild.id}_${user.id}`, 1)
@@ -41,7 +41,7 @@ exports.execute = async (client, message, args) => {
         .setDescription(`Sold a Car For 800 🧶`);
 
         await client.db.add(`money_${message.guild.id}_${user.id}.pocket`, 800)
-        message.channel.send(Embed3)
+        message.channel.send({embeds:[Embed3]})
     } else if(args[0].toLowerCase() == 'mansion') {
         let Embed2 = new Discord.MessageEmbed()
         .setColor("#FFFFFF")
@@ -49,7 +49,7 @@ exports.execute = async (client, message, args) => {
 
         let houses = await db.fetch(`house_${message.guild.id}_${user.id}`)
 
-        if (houses < 1) return message.channel.send(Embed2)
+        if (houses < 1) return message.channel.send({embeds:[Embed2]})
        
         await client.db.fetch(`house_${message.guild.id}_${user.id}`)
         await client.db.subtract(`house_${message.guild.id}_${user.id}`, 1)
@@ -59,7 +59,7 @@ exports.execute = async (client, message, args) => {
         .setDescription(`Sold a Mansion For 1200 🧶`);
 
         await client.db.add(`money_${message.guild.id}_${user.id}.pocket`, 1200)
-        message.channel.send(Embed3)
+        message.channel.send({embeds:[Embed3]})
 		};
 
 	}

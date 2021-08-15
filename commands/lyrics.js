@@ -44,7 +44,7 @@ exports.execute = async(client,message,args) => {
 
 
 			embed.setDescription(lyrics);
-			message.channel.send(embed);
+			message.channel.send({embeds:[embed]});
 
 		} catch(e){
 		message.channel.send(`No lyrics found for ${songName}!`);

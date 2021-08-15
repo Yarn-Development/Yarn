@@ -10,7 +10,7 @@ exports.execute = async (client, message, args) => {
             .addField("Client Latency", `${trip}ms`, true)
             .setColor("#7289DA")
             .setTimestamp();
-        m.edit(embed);
+        m.edit({embeds:[embed]});
     });
 }
 

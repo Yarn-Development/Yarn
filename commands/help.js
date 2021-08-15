@@ -1,5 +1,5 @@
-const { MessageEmbed } = require("discord.js");
-const pagination = require('discord.js-pagination')
+const { MessageEmbed, MessageButton } = require("discord.js");
+const paginationEmbed = require('discordjs-button-pagination')
 
 // Destructure the package
 
@@ -91,17 +91,29 @@ const embedmusic = new MessageEmbed()
     .addField('Invite','[Invite Link](https://invite.yarnbot.xyz)')
     const pages = [embed, embedeco, embedmod, embedmusic, embedxp ,embedhyp ,embedgw ,embedgame, embedmisc, embedlinks];
 // Change pages when sending numbers.
-      const emojis = ['◀', '▶'];
-        const timeout = '100000'
+    let timeout = 10000 
+    const button1 = new MessageButton()
+    .setCustomId('previousbtn')
+    .setLabel('Previous')
+    .setStyle('DANGER');
 
-        pagination(message, pages, emojis, timeout)
+    const button2 = new MessageButton()
+    .setCustomId('nextbtn')
+    .setLabel('Next')
+    .setStyle('SUCCESS');
+    buttonList = [
+        button1,
+        button2
+    ]
+
+        paginationEmbed(message, pages, buttonList, timeout)
     }
     else {
             const command = message.client.commands.get(args.join(" ").toLowerCase()) || message.client.commands.find(x => x.aliases && x.aliases.includes(args.join(" ").toLowerCase()));
 
             if (!command) return message.channel.send(`${client.emotes.error} - I did not find this command !`);
 
-            message.reply.send({
+            message.channel.send({embeds:[{
                 embed: {
                     color: 'ORANGE',
                     author: { name: 'Extra Command info' },
@@ -114,7 +126,7 @@ const embedmusic = new MessageEmbed()
                     timestamp: new Date(),
                    
                 }
-            });
+            }]});
         };
 }
 exports.help = {

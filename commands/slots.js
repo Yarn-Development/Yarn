@@ -21,8 +21,8 @@ exports.execute = async (client, message, args) => {
     .setColor("#FFFFFF")
     .setDescription(`Specify an amount`);
 
-    if (!money) return message.channel.send(moneyhelp);
-    if (money > moneydb) return message.channel.send(moneymore);
+    if (!money) return message.channel.send({embeds:[moneyhelp]});
+    if (money > moneydb) return message.channel.send({embeds:[moneymore]});
 
     let number = []
     for (i = 0; i < 3; i++) { number[i] = Math.floor(Math.random() * slotItems.length); }
@@ -38,13 +38,13 @@ exports.execute = async (client, message, args) => {
         let slotsEmbed1 = new Discord.MessageEmbed()
             .setDescription(`${slotItems[number[0]]} | ${slotItems[number[1]]} | ${slotItems[number[2]]}\n\nYou won ${money} 🧶`)
             .setColor("#FFFFFF")
-        message.channel.send(slotsEmbed1)
+        message.channel.send({embeds:[slotsEmbed1]})
         await client.db.add(`money_${message.guild.id}_${user.id}.pocket`, money)
     } else {
         let slotsEmbed = new Discord.MessageEmbed()
             .setDescription(`${slotItems[number[0]]} | ${slotItems[number[1]]} | ${slotItems[number[2]]}\n\nYou lost ${money} 🧶`)
             .setColor("#FFFFFF")
-        message.channel.send(slotsEmbed)
+        message.channel.send({embeds:[slotsEmbed]})
         await client.db.subtract(`money_${message.guild.id}_${user.id}.pocket`, money)
 		}
 

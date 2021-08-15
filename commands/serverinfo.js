@@ -43,7 +43,7 @@ exports.execute = async(client, message, args) =>{
         .setFooter('Guild created at:')
         .setTimestamp(message.guild.createdAt);
 
-    return message.channel.send(serverembed);
+    return message.channel.send({embeds:[serverembed]});
 }
 exports.help = {
     name: "serverinfo",

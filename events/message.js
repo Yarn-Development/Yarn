@@ -9,8 +9,6 @@ module.exports = async (client, message) => {
          console.log('Works!')
          message.channel.send(`Hello there! I'm Yarn, the All in 1 Discord Bot! My prefix in this server is ${client.prefix}`);
     };
-    client.bl = client.db.fetch(`bl_${message.author.id}`) ? client.db.fetch(`bl_${message.author.id}`) : client.config.blacklisted;
-    if(client.bl.includes(message.author.id)) return;
     if (!message.content.toLowerCase().startsWith(client.prefix.toLowerCase())) return;
     let args = message.content.slice(client.prefix.length).trim().split(" ");
     let commandName = args.shift().toLowerCase();

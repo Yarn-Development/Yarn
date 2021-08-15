@@ -23,7 +23,7 @@ exports.execute =  async(client, message, args) => {
     let timeEmbed = new Discord.MessageEmbed()
     .setColor("#FFFFFF")
     .setDescription(`You've already begged recently\n\nBeg again in ${time.minutes}m ${time.seconds}s `);
-    message.channel.send(timeEmbed)
+    message.channel.send({embeds:[timeEmbed]})
   } else {
 
   await client.db.add(`money_${message.guild.id}_${user.id}.pocket`, amounts);

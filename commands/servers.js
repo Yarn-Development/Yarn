@@ -7,7 +7,7 @@ var roundedNumber = Math.ceil(number/100)*100
   embed.setTitle("Server Dominance");
   embed.setColor("BLURPLE");
   embed.setDescription(`Yarn is in ${client.guilds.cache.size} servers with around ${roundedNumber} users `);
-   return message.channel.send(embed)
+   return message.channel.send({embeds:[embed]})
 }
 exports.help= {
   name:'servers',

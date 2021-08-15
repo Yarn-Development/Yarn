@@ -21,7 +21,7 @@ module.exports.execute = async (client, message, args) => {
 			embed.setDescription('More info at ' + memeImage);
 			
 
-			message.channel.send(embed);
+			message.channel.send({embeds:[embed]});
 		})
 		.catch(console.error);
 };

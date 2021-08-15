@@ -15,7 +15,7 @@ exports.execute = async(client, message, args) => {
 
     switch(args[0]) {
     case 'bronze':
-        if (author < 3500) return message.channel.send(Embed)
+        if (author < 3500) return message.channel.send({embeds:[Embed]})
         
         await client.db.fetch(`bronze_${message.guild.id}_${user.id}`);
         await client.db.set(`bronze_${message.guild.id}_${user.id}`, true)
@@ -25,7 +25,7 @@ exports.execute = async(client, message, args) => {
         .setDescription(` Purchased Bronze VIP For 3500 🧶`);
 
         await client.db.subtract(`money_${message.guild.id}_${user.id}.pocket`, 3500)
-        message.channel.send(Embed2)
+        message.channel.send({embeds:[Embed2]})
     break;
 
     case 'nikes':
@@ -33,7 +33,7 @@ exports.execute = async(client, message, args) => {
         .setColor("#FFFFFF")
         .setDescription(` You need 600 🧶 to purchase some Nikes`);
 
-        if (author < 600) return message.channel.send(Embedn)
+        if (author < 600) return message.channel.send({embeds:[Embedn]})
        
         await client.db.fetch(`nikes_${message.guild.id}_${user.id}`)
         await client.db.add(`nikes_${message.guild.id}_${user.id}`, 1)
@@ -43,7 +43,7 @@ exports.execute = async(client, message, args) => {
         .setDescription(` Purchased Fresh Nikes For 600 🧶`);
 
         await client.db.subtract(`money_${message.guild.id}_${user.id}.pocket`, 600)
-        message.channel.send(Embed3)
+        message.channel.send({embeds:[Embed3]})
     break;
 
     case 'car':
@@ -51,7 +51,7 @@ exports.execute = async(client, message, args) => {
         .setColor("#FFFFFF")
         .setDescription(` You need 800 🧶 to purchase a new car`);
 
-        if (author < 800) return message.channel.send(Embed4)
+        if (author < 800) return message.channel.send({embeds:[Embed4]})
        
         await client.db.fetch(`car_${message.guild.id}_${user.id}`)
         await client.db.add(`car_${message.guild.id}_${user.id}`, 1)
@@ -61,7 +61,7 @@ exports.execute = async(client, message, args) => {
         .setDescription(` Purchased a New Car For 800 🧶`);
 
         await client.db.subtract(`money_${message.guild.id}_${user.id}.pocket`, 800)
-        message.channel.send(Embed5)
+        message.channel.send({embeds:[Embed5]})
     break;
 
     case "fish":
@@ -70,7 +70,7 @@ exports.execute = async(client, message, args) => {
         .setColor("#FFFFFF")
         .setDescription(` You need 50 🧶 to purchase a fishing rod`);
 
-        if (author < 50) return message.channel.send(Embed6);
+        if (author < 50) return message.channel.send({embeds:[Embed6]});
         let iffish = await client.db.get(`fish_${message.guild.id}_${user.id}`);
         if(iffish !== null) {
             if(iffish.rod === 1) return message.channel.send("You already have a fishing rod!");
@@ -84,7 +84,7 @@ exports.execute = async(client, message, args) => {
         .setDescription(` Purchased a Fishing rod For 50 🧶`);
 
         await client.db.subtract(`money_${message.guild.id}_${user.id}.pocket`, 50)
-        message.channel.send(Embed7)
+        message.channel.send({embeds:[Embed7]})
     break;
 
     case 'mansion':
@@ -92,7 +92,7 @@ exports.execute = async(client, message, args) => {
         .setColor("#FFFFFF")
         .setDescription(` You need 1200 🧶 to purchase a Mansion`);
 
-        if (author < 1200) return message.channel.send(Embed8)
+        if (author < 1200) return message.channel.send({embeds:[Embed8]})
        
         await client.db.fetch(`house_${message.guild.id}_${user.id}`)
         await client.db.add(`house_${message.guild.id}_${user.id}`, 1)
@@ -102,14 +102,14 @@ exports.execute = async(client, message, args) => {
         .setDescription(` Purchased a Mansion For 1200 🧶`);
 
         await client.db.subtract(`money_${message.guild.id}_${user.id}.pocket`, 1200)
-        message.channel.send(Embed9)
+        message.channel.send({embeds:[Embed9]})
     break;
 
     default:
         let embed3 = new Discord.MessageEmbed()
         .setColor("#FFFFFF")
         .setDescription(' Enter an item to buy')
-        message.channel.send(embed3)
+        message.channel.send({embeds:[Embed3]})
     break;
 
         }

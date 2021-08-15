@@ -23,7 +23,7 @@ exports.execute = async(client, message, args) => {
     let embed5 = new Discord.MessageEmbed()
   .setColor("#FFFFFF")
   .setDescription(`You have deposited ${args[0]} 🧶 into your bank`);
-  message.channel.send(embed5)
+  message.channel.send({embeds:[embed5]})
   
   } else {
 
@@ -32,7 +32,7 @@ exports.execute = async(client, message, args) => {
   .setDescription(`Specify an amount to deposit`);
   
   if (!args[0]) {
-      return message.channel.send(embed2)
+      return message.channel.send({embeds:[embed2]})
       .catch(err => console.log(err))
   }
   let embed3 = new Discord.MessageEmbed()
@@ -40,14 +40,14 @@ exports.execute = async(client, message, args) => {
   .setDescription(`You can't deposit negative money`);
 
   if (message.content.includes('-')) { 
-      return message.channel.send(embed3)
+      return message.channel.send({embeds:[embed3]})
   }
   let embed4 = new Discord.MessageEmbed()
   .setColor("#FFFFFF")
   .setDescription(`You don't have that much money`);
 
   if (member < args[0]) {
-      return message.channel.send(embed4)
+      return message.channel.send({embeds:[embed4]})
   }
 
   let embed5 = new Discord.MessageEmbed()
@@ -58,7 +58,7 @@ exports.execute = async(client, message, args) => {
   await client.db.add(`money_${message.guild.id}_${user.id}.bank`, parseInt(args[0]));
   
 
-  message.channel.send(embed5);
+  message.channel.send({embeds:[embed5]});
   
   
 		}

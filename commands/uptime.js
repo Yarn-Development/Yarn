@@ -34,7 +34,7 @@ exports.execute = async(client, message, args) =>{
         .setColor("#228B22")
         .addField('Uptime', uptime);
 
-    message.channel.send(serverembed);
+    message.channel.send({embeds:[serverembed]});
 
 }
 module.exports.help = {

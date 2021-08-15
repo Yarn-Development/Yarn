@@ -77,7 +77,7 @@ module.exports.execute = async(client, message, args) =>{
         .addField(`Roles [${member.roles.cache.filter(r => r.id !== message.guild.id).map(roles => `\`${roles.name}\``).length}]`,`${member.roles.cache.filter(r => r.id !== message.guild.id).map(roles => `<@&${roles.id }>`).join(" **|** ") || "No Roles"}`, true)
         .addField("Acknowledgements: ", `${acknowledgements}`, true);
         
-    message.channel.send({embed});
+    message.channel.send({embeds:[embed]});
 
 }
 exports.help = {

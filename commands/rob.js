@@ -23,7 +23,7 @@ if (author !== null && timeout - (Date.now() - author) > 0) {
     let timeEmbed = new Discord.MessageEmbed()
     .setColor("#FFFFFF")
     .setDescription(`You have already robbed someone\n\nTry again in ${time.minutes}m ${time.seconds}s `);
-    message.channel.send(timeEmbed)
+    message.channel.send({embeds:[timeEmbed]})
 
   } else {
 
@@ -33,7 +33,7 @@ if (author !== null && timeout - (Date.now() - author) > 0) {
 
 
   if (author2 < 200) {
-    return message.channel.send(moneyEmbed)
+    return message.channel.send({embeds:[moneyEmbed]})
   }
 
   let moneyEmbed2 = new Discord.MessageEmbed()
@@ -41,7 +41,7 @@ if (author !== null && timeout - (Date.now() - author) > 0) {
   .setDescription(`${user.username} does not have anything you can rob`);
 
   if (targetuser <= 0 || targetuser === null) {
-    return message.channel.send(moneyEmbed2)
+    return message.channel.send({embeds:[moneyEmbed2]})
   }
 
   let authorembed = new Discord.MessageEmbed()
@@ -49,7 +49,7 @@ if (author !== null && timeout - (Date.now() - author) > 0) {
   .setDescription(`You cannot rob yourself!`);
 
   if(user.id === message.author.id) {
-    return message.channel.send(authorembed)
+    return message.channel.send({embeds:[authorembed]})
   }
 
   let vip = await client.db.fetch(`bronze_${user.id}`)
@@ -62,7 +62,7 @@ if (author !== null && timeout - (Date.now() - author) > 0) {
    .setDescription(`You robbed ${user} and got away with ${random} 🧶`)
    .setColor("#FFFFFF")
 
-   message.channel.send(embed)
+   message.channel.send({embeds:[embed]})
 
 await client.db.subtract(`money_${message.guild.id}_${user.id}.pocket`, random);
 await client.db.add(`money_${message.guild.id}_${message.author.id}.pocket`, random);

@@ -19,7 +19,7 @@ exports.execute = async (client, message, args) => {
     let embed5 = new Discord.MessageEmbed()
   .setColor("#FFFFFF")
   .setDescription(`You have withdrawn ${args[0]} of your 🧶 from your bank`);
-  message.channel.send(embed5)
+  message.channel.send({embeds:[embed5]})
   
   } else {
 
@@ -28,28 +28,28 @@ exports.execute = async (client, message, args) => {
   .setDescription(`Specify an amount to withdraw`);
   
   if (!args[0]) {
-      return message.channel.send(embed2)
+      return message.channel.send({embeds:[embed2]})
   }
   let embed3 = new Discord.MessageEmbed()
   .setColor("#FFFFFF")
   .setDescription(`You can't withdraw negative money`);
 
   if (message.content.includes('-')) { 
-      return message.channel.send(embed3)
+      return message.channel.send({embeds:[embed3]})
   }
   let embed4 = new Discord.MessageEmbed()
   .setColor("#FFFFFF")
   .setDescription(`You don't have that much money in the bank`);
 
   if (member2 < args[0]) {
-      return message.channel.send(embed4)
+      return message.channel.send({embeds:[embed4]})
   }
 
   let embed5 = new Discord.MessageEmbed()
   .setColor("#FFFFFF")
   .setDescription(`You have withdrawn ${args[0]} 🧶 from your bank`);
 
-  message.channel.send(embed5)
+  message.channel.send({embeds:[embed5]})
   await client.db.subtract(`money_${message.guild.id}_${user.id}.bank`, parseInt(args[0]))
   await client.db.add(`money_${message.guild.id}_${user.id}.pocket`, parseInt(args[0]))
 		}

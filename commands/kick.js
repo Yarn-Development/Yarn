@@ -11,7 +11,7 @@ module.exports.execute = async (client, message, args) => {
   .addField("Example:" ,"ymod!kick @Aspekts spam")
 
     let member = message.mentions.members.first();
-    if(!member) return message.channel.send(xdemb)
+    if(!member) return message.channel.send({embeds:[xdemb]})
       if(member.id === message.author.id)
       return message.channel.send("You can't kick yourself. Ever. ");
    if (!member.kickable) 
@@ -39,7 +39,7 @@ module.exports.execute = async (client, message, args) => {
       .setTimestamp()
       .setFooter(member.id)
 
-      message.channel.send(kick)
+      message.channel.send({embeds:[kick]})
 
     message.delete();
     

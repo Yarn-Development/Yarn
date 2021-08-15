@@ -17,7 +17,7 @@ exports.execute = async (client, message, args) => {
         let timeEmbed = new Discord.MessageEmbed()
         .setColor("#FFFFFF")
         .setDescription(`You have already worked recently\n\nTry again in ${time.minutes}m ${time.seconds}s `);
-        message.channel.send(timeEmbed)
+        message.channel.send({embeds:[timeEmbed]})
       } else {
 
         let replies = ['Programmer','Builder','Waiter','Busboy','Chief','Mechanic']
@@ -31,7 +31,7 @@ exports.execute = async (client, message, args) => {
         let embed1 = new Discord.MessageEmbed()
         .setColor("#FFFFFF")
         .setDescription(`You worked as a ${replies[result]} and earned ${amount} 🧶`);
-        message.channel.send(embed1)
+        message.channel.send({embeds:[embed1]})
         
         await client.db.add(`money_${message.guild.id}_${user.id}.pocket`, amount)
         await client.db.set(`work_${message.guild.id}_${user.id}`, Date.now())

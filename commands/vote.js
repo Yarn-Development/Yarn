@@ -7,7 +7,7 @@ exports.execute = async (client, message, args) => {
     embed.setDescription('Voting is the second best way to support me and my development (after donating) and its free!')
     embed.setFooter("Thank You!")
     embed.setColor('RANDOM');
-    return message.channel.send(embed);
+    return message.channel.send({embeds:[embed]});
 }
 exports.help = {
     name: "vote",

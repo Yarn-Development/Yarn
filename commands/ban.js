@@ -36,7 +36,7 @@ module.exports.execute = async (client, message, args) => {
         .setFooter('Time kicked', client.user.displayAvatarURL())
         .setTimestamp()
 
-        message.channel.send(banembed);
+        message.channel.send({embeds:[banembed]});
 
 
     }

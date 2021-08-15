@@ -41,7 +41,7 @@ exports.execute = async (client, message, args) => {
   ? "You have too many fish! Please run the fishes command!" 
   : fish.join(", ")}`);
 
-  message.channel.send(moneyEmbed);
+  message.channel.send({embeds:[moneyEmbed]});
 	}
   module.exports.help = {
 	

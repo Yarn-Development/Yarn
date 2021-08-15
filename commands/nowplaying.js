@@ -12,7 +12,7 @@
 
         Object.keys(client.player.getQueue(message).filters).forEach((filterName) => client.player.getQueue(message).filters[filterName]) ? filters.push(filterName) : false;
 
-        message.channel.send({
+        message.channel.send({embeds:[{
             embed: {
                 color: 'RED',
                 author: { name: track.title },
@@ -35,7 +35,7 @@
                 thumbnail: { url: track.thumbnail },
                 timestamp: new Date(),
             },
-        });
+        }]});
     }
     module.exports.help = {
     name: 'nowplaying',

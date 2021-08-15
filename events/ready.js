@@ -22,7 +22,7 @@ module.exports = (client) => {
 .addField('Yarn Wrapped.', `Logged in successfully as ${client.user.tag}!`)
 .setFooter("This was ")
 .setTimestamp()
-client.channels.cache.get('829432185110790234').send(readyembed)
+client.channels.cache.get('829432185110790234').send({ embeds: [readyembed]})
   const status = [
     {
       activity: `over ${client.guilds.cache.size}/100 servers! #RoadtoVerification`,
