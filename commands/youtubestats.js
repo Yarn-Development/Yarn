@@ -39,9 +39,9 @@ exports.execute = async(client,message,args) => {
         }
 }
 exports.help = {
-    name:'time',
-    description:'Get the current time and UTC offset for a certain location.',
+    name:'youtubestats',
+    description:'Get information from a certain channel on youtube',
     aliases:[],
-    usage:'time [region/area]',
+    usage:'youtubestats [channel]',
     category:'Statistics'
 }

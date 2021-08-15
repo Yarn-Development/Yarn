@@ -9,9 +9,9 @@ exports.execute = async (client, message, args) => {
             .setTitle("Pong!")
             .addField("API Latency", `${gatewayLatency}ms`, true)
             .addField("Client Latency", `${trip}ms`, true)
-            .addField("Database Average Latency",`${ping.average}ms`,true)
-            .addField("Database Read Latency",`${ping.read}ms`,true)
-            .addField("Database Write Latency",`${ping.write}ms`,true)
+            .addField("DB Average Latency",`${ping.average}ms`,true)
+            .addField("DB Read Latency",`${ping.read}ms`,true)
+            .addField("DB Write Latency",`${ping.write}ms`,true)
             .setColor("#7289DA")
             .setTimestamp();
         m.edit({embeds:[embed]});
@@ -22,6 +22,6 @@ exports.help = {
     name: "ping",
     aliases: ["pong", "latency"],
     usage: `ping`,
-    description:"Displays current latency from api and Client."
+    description:"Displays current latency from api, database and Client."
   
 }
