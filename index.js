@@ -222,7 +222,7 @@ function pad(n) { return n < 10 ? '0' + n : n }
 
 
 
-client.on('message', m => {
+client.on('messageCreate', m => {
   if (m.author.bot) return;
   ;
 
@@ -489,15 +489,17 @@ client.on('guildMemberRemove', async member => {
   member.send(attachment)
 })
 client.on("messageCreate", async message => {
-
+  if (message.author.bot) return;
+  if (!message.guild) return;
+  if (message.channel.type === `dm`) return;
   const startTime = require("./commands/afk.js")
 
   //under if(message.author.bot)
 
-  if (db.has(`afk-${message.author.id}+${message.guild.id}`)) {
+  if (await client.db.has(`afk-${message.author.id}+${message.guild.id}`)) {
 
 
-    await db.delete(`afk-${message.author.id}+${message.guild.id}`)
+    await client.db.delete(`afk-${message.author.id}+${message.guild.id}`)
     message.channel.send(`Your afk status has been removed. Welcome Back! `).then(msg => {
       msg.delete({ timeout: 5000 })
     })
@@ -508,11 +510,11 @@ client.on("messageCreate", async message => {
   }
   //checking for mentions
   if (message.mentions.members.first()) {
-    if (db.has(`afk-${message.mentions.members.first().id}+${message.guild.id}`)) {
+    if (await client.db.has(`afk-${message.mentions.members.first().id}+${message.guild.id}`)) {
       const endTime = Date.now();
       const timeTakenMs = endTime - startTime;
-      const timeTaken = timeTakenMs
-      message.channel.send(`${message.mentions.members.first().user.tag}` + ` is currently afk, for the past ${timeTaken}. Reason: ` + db.get(`afk-${message.mentions.members.first().id}+${message.guild.id}.`))
+      const timeTaken = ms(timeTakenMs,{long:true})
+      message.channel.send(`${message.mentions.members.first().user.tag}` + ` is currently afk, for the past ${timeTaken}. Reason: ` + await client.db.get(`afk-${message.mentions.members.first().id}+${message.guild.id}.`))
         .catch(err => {
           message.channel.send(`There has been a fatal error when running this command. Please use the y!report command with the following error:${err}`)
         })
@@ -521,9 +523,6 @@ client.on("messageCreate", async message => {
 
     } else return;
   } else;
-  if (message.author.bot) return;
-  if (!message.guild) return;
-  if (message.channel.type === `dm`) return;
   //////////////////////////////////////////
   /////////////RANKING SYSTEM///////////////
   //////////////////////////////////////////

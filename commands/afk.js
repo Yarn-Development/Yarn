@@ -10,10 +10,10 @@ module.exports.execute = async (client, message, args) => {
   })
 
   let content = args.join(" ")
-  await db.set(`afk-${message.author.id}+${message.guild.id}`, content)
+  await client.db.set(`afk-${message.author.id}+${message.guild.id}`, content)
   if (!content) {
     content = 'AFK'
-    await db.set(`afk-${message.author.id}+${message.guild.id}`, content);
+    await client.db.set(`afk-${message.author.id}+${message.guild.id}`, content);
   };
 
   message.channel.send(`I have set you as afk\n**Reason :** ${content}\nSee you later!`)
