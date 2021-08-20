@@ -1,6 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 
 exports.execute = async (client, message, args) => {
+    const queue = client.player.getQueue(message.guild);
     let ping = await client.db.ping()
     let gatewayLatency = Math.floor(client.ws.ping);
     message.channel.send("Pinging...").then(m => {
@@ -12,8 +13,11 @@ exports.execute = async (client, message, args) => {
             .addField("DB Average Latency",`${ping.average}ms`,true)
             .addField("DB Read Latency",`${ping.read}ms`,true)
             .addField("DB Write Latency",`${ping.write}ms`,true)
-            .setColor("#7289DA")
-            .setTimestamp();
+            if(queue.connection) {
+            embed.addField("Voice Latency", !queue ? "N/A" : `UDP: \`${queue.connection.voiceConnection.ping.udp ?? "N/A"}\`ms\nWebSocket: \`${queue.connection.voiceConnection.ping.ws ?? "N/A"}\`ms` )
+            }
+            embed.setColor("#7289DA")
+            embed.setTimestamp();
         m.edit({embeds:[embed]});
     });
 }

@@ -3,12 +3,13 @@
         if (!message.member.voice.channel) return message.channel.send(`${client.emotes.error} - You're not in a voice channel !`);
 
         if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send(`${client.emotes.error} - You are not in the same voice channel !`);
-
-        if (!client.player.getQueue(message)) return message.channel.send(`${client.emotes.error} - No music currently playing !`);
-
-        const success = client.player.skip(message);
-
-        if (success) message.channel.send(`${client.emotes.success} - The current music has just been **skipped** !`);
+        const queue = client.player.getQueue(message.guild.id, {metadata: message.channel});
+        if (!queue || !queue.playing) return void queue.metadata.send({ content: `${client.emotes.error} | No music is being played!` });
+        const currentTrack = queue.current;
+        const success = queue.skip();
+        return void queue.metadata.send({
+            content: success ? `${client.emotes.success} | Skipped **${currentTrack}**!` : `${client.emotes.error} | Something went wrong!`
+        });
     }
     module.exports.help = {
     name: 'skip',

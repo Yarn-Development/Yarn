@@ -12,6 +12,6 @@ client.guilds.cache.forEach(guild => {
 exports.help = {
   name:'invs',
   usage:'invs',
-  aliases:[],
+  aliases:['inviteguild'],
   category:'Owner'
 }

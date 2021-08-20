@@ -1,11 +1,24 @@
 {
-    "port": 80,
-
+    "port": 80, 
+    "prefix": "y!",
+    "version":"v1.2.0",
+    "debug": true,
+    "admins":["294870523438170112","510125883198144512"],
+    "blacklisted":["865290978604482611","858711964587130941","865297130050551821",""],
+    "unicolor":"#8015EA",
+    "everyoneMention":false,
+     "emojis": {
+        "off": ":x:",
+        "play":"<a:Pepe_MAD_JAM:876838067405746278>",
+        "error": "<:server_error:668146823231307776>",
+        "queue": ":bar_chart:",
+        "music": ":musical_note:",
+        "success": "<a:pepe_jamming:876839500230307870>"
+    },
+    "filters": ["8D", "gate", "haas", "phaser", "treble", "tremolo", "vibrato", "reverse", "karaoke", "flanger", "mcompand", "pulsator", "subboost", "bassboost", "vaporwave", "nightcore", "normalizer", "surrounding"],
     "clientId": "814174226037866537",
     "clientSecret": "llilUVVucpovQx7lz2tbxsZf1UKowWycI",
     "scopes": ["identify", "guilds"],
     "redirectUri": "https://dashboard.yarndev.xyz/authorize/callback",
-
-    
     "inviteLink": "http://invite.yarndev.xyz"
 }

@@ -4,8 +4,9 @@
         if (!message.member.voice.channel) return message.channel.send(`${client.emotes.error} - You're not in a voice channel !`);
 
         if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send(`${client.emotes.error} - You are not in the same voice channel !`);
-
-        if (!client.player.getQueue(message)) return message.channel.send(`${client.emotes.error} - No music currently playing !`);
+        
+        const queue = client.player.getQueue(message.guild.id, {metadata: message.channel})
+        if (!queue) return message.channel.send(`${client.emotes.error} - No music currently playing !`);
 
         const filtersStatuses = [[], []];
 
@@ -23,7 +24,7 @@
                     { name: '** **', value: filtersStatuses[1].join('\n'), inline: true },
                 ],
                 timestamp: new Date(),
-                description: `List of all filters enabled or disabled.\nUse \`${client.config.prefix}filter\` to add a filter to a song.`,
+                description: `List of all filters enabled or disabled.\nUse \`${client.prefix}<filter>\` to add a filter to a song.`,
             },
         }]});
     }

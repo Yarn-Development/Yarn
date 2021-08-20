@@ -1,5 +1,5 @@
 const Meme = require("memer-api");
-const memer = new Meme("qpveZVDTqOA");
+const memer = new Meme(process.env.MEMEAPI);
 const Discord = require ("discord.js")
 exports.execute = async (client, message, args) => {
 const user1 = message.author;

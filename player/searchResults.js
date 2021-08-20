@@ -1,5 +1,5 @@
-module.exports = (client, message, query, tracks) => {
-    message.channel.send({embeds:[{
+module.exports = (queue,query,tracks) => {
+    queue.metadata.send({embeds:[{
         embed: {
             color: 'BLUE',
             author: { name: `Here are your search results for ${query}` },

@@ -13,7 +13,7 @@ exports.execute =  async(client, message, args) => {
   if (bal === null) bal = 0;
 
   let bank = await client.db.get(`money_${message.guild.id}_${user.id}.bank`);
-  if (bank === undefined) bank = 0;
+  if (bank === null) bank = 0;
 
   let TotalMoney = bank + bal;
 

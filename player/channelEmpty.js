@@ -1,3 +1,3 @@
-module.exports = (client, message, queue) => {
-    message.channel.send(`${client.emotes.error} - Music stopped as there is no more members in the voice channel !`);
-};
+module.exports = (queue) => {
+    queue.metadata.send("Looks like the party's over. I'll see myself out.")
+}

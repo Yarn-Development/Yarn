@@ -1,3 +1,3 @@
-module.exports = (client, message, track) => {
-    message.channel.send(`${client.emotes.music} - Now playing ${track.title} into ${message.member.voice.channel.name} ...`);
-};
+module.exports = (client,queue,track) => {
+    queue.metadata.send(`${client.emotes.play} | Now playing: **${track.title} - ${track.url}** in **${queue.connection.channel.name}**!`);
+}
