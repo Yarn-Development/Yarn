@@ -2,3 +2,4 @@
 botConfig.js
 node_modules/
 .env
+data/
