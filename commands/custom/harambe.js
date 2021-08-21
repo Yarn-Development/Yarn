@@ -1,9 +1,9 @@
 exports.execute = async (client, message, args) => {
-  message.reply("Monke");
+  message.reply('Monke');
 };
 exports.help = {
-  name: "harambe",
+  name: 'harambe',
   aliases: [],
-  category: "Custom",
-  usage: "harambe",
+  category: 'Custom',
+  usage: 'harambe',
 };

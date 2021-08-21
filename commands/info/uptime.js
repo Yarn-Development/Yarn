@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 let days = 0;
 let week = 0;
 
@@ -8,7 +8,7 @@ exports.execute = async (client, message, args) => {
   let hours = Math.floor(totalSeconds / 3600);
   totalSeconds %= 3600;
   let minutes = Math.floor(totalSeconds / 60);
-  let seconds = Math.floor(totalSeconds % 60);
+  const seconds = Math.floor(totalSeconds % 60);
 
   if (hours > 23) {
     days = days + 1;
@@ -30,14 +30,14 @@ exports.execute = async (client, message, args) => {
 
   uptime += `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
 
-  let serverembed = new Discord.MessageEmbed()
-    .setColor("#228B22")
-    .addField("Uptime", uptime);
+  const serverembed = new Discord.MessageEmbed()
+      .setColor('#228B22')
+      .addField('Uptime', uptime);
 
-  message.channel.send({ embeds: [serverembed] });
+  message.channel.send({embeds: [serverembed]});
 };
 module.exports.help = {
-  name: "uptime",
+  name: 'uptime',
   aliases: [],
-  usage: "uptime",
+  usage: 'uptime',
 };

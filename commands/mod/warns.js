@@ -11,8 +11,8 @@ exports.execute = async (client, message, args) => {
   message.channel.send(`**${user.username}** has *${warnings}* warning(s)`);
 };
 exports.help = {
-  name: "warns",
-  category: "Moderation",
-  aliases: ["warnings"],
-  usage: "warns @user",
+  name: 'warns',
+  category: 'Moderation',
+  aliases: ['warnings'],
+  usage: 'warns @user',
 };

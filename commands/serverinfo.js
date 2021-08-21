@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 
-exports.execute = async (client, message) => {
+exports.execute = async (client, message) =>{
   function checkBots(guild) {
     let botCount = 0;
     guild.members.cache.forEach((member) => {
@@ -20,7 +20,9 @@ exports.execute = async (client, message) => {
   function checkOnlineUsers(guild) {
     let onlineCount = 0;
     guild.members.cache.forEach((member) => {
-      if (member.user.presence.status === 'online') onlineCount++;
+      if (member.user.presence.status === 'online') {
+        onlineCount++;
+      }
     });
     return onlineCount;
   }

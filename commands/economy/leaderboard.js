@@ -1,67 +1,67 @@
-cord = require("discord.js");
-const { ReactionCollector } = require("discord.js-collector");
+cord = require('discord.js');
+const {ReactionCollector} = require('discord.js-collector');
 
 exports.execute = async (client, message, args) => {
-  let money = await client.db.startsWith(`money_${message.guild.id}`, {
-    sort: ".data",
+  const money = await client.db.startsWith(`money_${message.guild.id}`, {
+    sort: '.data',
   });
-  let contentm = "";
+  let contentm = '';
 
   for (let i = 0; i < money.length; i++) {
-    let user =
-      client.users.cache.get(money[i].ID.split("_")[1]) || "Unregistered user";
+    const user =
+      client.users.cache.get(money[i].ID.split('_')[1]) || 'Unregistered user';
     contentm += `${i + 1}. ${user} ~ ${money[i].data.pocket}\n`;
   }
 
-  let bank = await client.db.startsWith(`money_${message.guild.id}`, {
-    sort: ".data",
+  const bank = await client.db.startsWith(`money_${message.guild.id}`, {
+    sort: '.data',
   });
-  let contentb = "";
+  let contentb = '';
 
   for (let i = 0; i < bank.length; i++) {
-    let user =
-      client.users.cache.get(bank[i].ID.split("_")[2]) || "Unregistered user";
+    const user =
+      client.users.cache.get(bank[i].ID.split('_')[2]) || 'Unregistered user';
     contentb += `${i + 1}. ${user} ~ ${money[i].data.bank}\n`;
   }
 
-  let nike = await client.db.startsWith(`nikes_${message.guild.id}`, {
-    sort: ".data",
+  const nike = await client.db.startsWith(`nikes_${message.guild.id}`, {
+    sort: '.data',
   });
-  let contentn = "";
+  let contentn = '';
 
   for (let i = 0; i < nike.length; i++) {
-    let user =
-      client.users.cache.get(nike[i].ID.split("_")[2]) || "Unregistered user";
+    const user =
+      client.users.cache.get(nike[i].ID.split('_')[2]) || 'Unregistered user';
     contentn += `${i + 1}. ${user} ~ ${nike[i].data}\n`;
   }
 
-  let car = await client.db.startsWith(`car_${message.guild.id}`, {
-    sort: ".data",
+  const car = await client.db.startsWith(`car_${message.guild.id}`, {
+    sort: '.data',
   });
-  let contentc = "";
+  const contentc = '';
 
   for (let i = 0; i < car.length; i++) {
-    let user =
-      client.users.cache.get(car[i].ID.split("_")[2]) || "Unregistered user";
+    const user =
+      client.users.cache.get(car[i].ID.split('_')[2]) || 'Unregistered user';
     contentm += `${i + 1}. ${user} ~ ${car[i].data}\n`;
   }
 
-  let house = await client.db.startsWith(`house_${message.guild.id}`, {
-    sort: ".data",
+  const house = await client.db.startsWith(`house_${message.guild.id}`, {
+    sort: '.data',
   });
-  let contentma = "";
+  let contentma = '';
 
   for (let i = 0; i < house.length; i++) {
-    let user =
-      client.users.cache.get(house[i].ID.split("_")[2]) || "Unregistered user";
+    const user =
+      client.users.cache.get(house[i].ID.split('_')[2]) || 'Unregistered user';
     contentma += `${i + 1}. ${user} ~ ${house[i].data}\n`;
   }
 
   const pages = {
-    "741742588998058074": {
-      id: "money",
+    '741742588998058074': {
+      id: 'money',
       clearReactions: true,
-      content: "",
+      content: '',
       embed: {
         description: `**${message.guild.name}'s 🧶 Leaderboard**\n\n${contentm}`,
       },
@@ -70,10 +70,10 @@ exports.execute = async (client, message, args) => {
       },
     },
 
-    "💰": {
-      id: "bank",
+    '💰': {
+      id: 'bank',
       clearReactions: true,
-      content: "",
+      content: '',
       embed: {
         description: `**${message.guild.name}'s Bank Leaderboard**\n\n${contentb}`,
       },
@@ -83,10 +83,10 @@ exports.execute = async (client, message, args) => {
       },
     },
 
-    "👟": {
-      id: "nike",
+    '👟': {
+      id: 'nike',
       clearReactions: true,
-      content: "",
+      content: '',
       embed: {
         description: `**${message.guild.name}'s Nike Leaderboard**\n\n${contentn}`,
       },
@@ -95,10 +95,10 @@ exports.execute = async (client, message, args) => {
       },
     },
 
-    "🚙": {
-      id: "car",
+    '🚙': {
+      id: 'car',
       clearReactions: true,
-      content: "",
+      content: '',
       embed: {
         description: `**${message.guild.name}'s Car Leaderboard**\n\n${contentc}`,
       },
@@ -107,10 +107,10 @@ exports.execute = async (client, message, args) => {
       },
     },
 
-    "🏠": {
-      id: "mansion",
+    '🏠': {
+      id: 'mansion',
       clearReactions: true,
-      content: "",
+      content: '',
       embed: {
         description: `**${message.guild.name}'s Mansion Leaderboard**\n\n${contentma}`,
       },
@@ -121,13 +121,13 @@ exports.execute = async (client, message, args) => {
   };
 
   const botMessage = await message.reply(
-    `React with 💰 to see the money leaderboard. 
+      `React with 💰 to see the money leaderboard. 
     React with 👟 to see nikes leaderboard. 
     React with 🚙 to see car leaderboard. 
-    React with 🏠 mansion to see mansion leaderboard`
+    React with 🏠 mansion to see mansion leaderboard`,
   );
 
-  ReactionCollector.menu({ botMessage, user: message.author, pages });
+  ReactionCollector.menu({botMessage, user: message.author, pages});
 
   //   const embed = new Discord.MessageEmbed()
   //   .setDescription(`**Input a Leaderboard Option**\n\n
@@ -229,9 +229,9 @@ exports.execute = async (client, message, args) => {
   //   }
 };
 module.exports.help = {
-  name: "leaderboard",
-  description: "Get the leaderboard!",
-  aliases: ["lb"],
-  category: "Economy",
-  usage: "leaderboard",
+  name: 'leaderboard',
+  description: 'Get the leaderboard!',
+  aliases: ['lb'],
+  category: 'Economy',
+  usage: 'leaderboard',
 };

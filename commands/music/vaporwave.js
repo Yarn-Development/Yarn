@@ -1,45 +1,49 @@
-exports.execute = async (client, message, args) => {
-  if (!message.member.voice.channel)
+exports.execute = async (client, message) => {
+  if (!message.member.voice.channel) {
     return message.channel.send(
-      `${client.emotes.error} - You're not in a voice channel !`
+        `${client.emotes.error} - You're not in a voice channel !`,
     );
+  }
 
   if (
     message.guild.me.voice.channel &&
     message.member.voice.channel.id !== message.guild.me.voice.channel.id
-  )
+  ) {
     return message.channel.send(
-      `${client.emotes.error} - You are not in the same voice channel !`
+        `${client.emotes.error} - You are not in the same voice channel !`,
     );
+  }
 
   const queue = await client.player.getQueue(message.guild, {
     metadata: message.channel,
   });
-  if (!queue)
+  if (!queue) {
     return message.channel.send(
-      `${client.emotes.error} - No music currently playing !`
+        `${client.emotes.error} - No music currently playing !`,
     );
+  }
 
   try {
     queue.setFilters({
-      vaporwave: !queue.getFiltersEnabled().includes("vaporwave"),
+      vaporwave: !queue.getFiltersEnabled().includes('vaporwave'),
     });
 
-    if (queue.getFiltersEnabled().includes("vaporwave"))
+    if (queue.getFiltersEnabled().includes('vaporwave')) {
       queue.metadata.send(
-        `${client.emotes.music} - I'm **adding** the filter to the music, please wait... Note : the longer the music is, the longer this will take.`
+          `${client.emotes.music} - I'm **adding** the filter to the music, please wait... Note : the longer the music is, the longer this will take.`,
       );
-    else
+    } else {
       queue.metadata.send(
-        `${client.emotes.music} - I'm **disabling** the filter on the music, please wait... Note : the longer the music is playing, the longer this will take.`
+          `${client.emotes.music} - I'm **disabling** the filter on the music, please wait... Note : the longer the music is playing, the longer this will take.`,
       );
+    }
   } catch (e) {
     console.log(e);
   }
 };
 module.exports.help = {
-  name: "vaporwave",
+  name: 'vaporwave',
   aliases: [],
-  category: "Music",
-  usage: "vaporwave",
+  category: 'Music',
+  usage: 'vaporwave',
 };

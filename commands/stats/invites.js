@@ -1,6 +1,6 @@
-const Discord = require("discord.js");
 
-(exports.execute = async (client, message, args) => {
+
+exports.execute = async (client, message) => {
   const { guild } = message;
 
   guild.fetchInvites().then((invites) => {

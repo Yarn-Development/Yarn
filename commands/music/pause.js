@@ -1,39 +1,44 @@
 exports.execute = async (client, message) => {
-  if (!message.member.voice.channel)
+  if (!message.member.voice.channel) {
     return message.channel.send(
-      `${client.emotes.error} - You're not in a voice channel !`
+        `${client.emotes.error} - You're not in a voice channel !`,
     );
+  }
 
   if (
     message.guild.me.voice.channel &&
     message.member.voice.channel.id !== message.guild.me.voice.channel.id
-  )
+  ) {
     return message.channel.send(
-      `${client.emotes.error} - You are not in the same voice channel !`
+        `${client.emotes.error} - You are not in the same voice channel !`,
     );
+  }
 
-  if (!client.player.getQueue(message))
+  if (!client.player.getQueue(message)) {
     return message.channel.send(
-      `${client.emotes.error} - No music currently playing !`
+        `${client.emotes.error} - No music currently playing !`,
     );
+  }
 
-  if (client.player.getQueue(message).paused)
+  if (client.player.getQueue(message).paused) {
     return message.channel.send(
-      `${client.emotes.error} - The music is already paused !`
+        `${client.emotes.error} - The music is already paused !`,
     );
+  }
 
   const success = client.player.pause(message);
 
-  if (success)
+  if (success) {
     message.channel.send(
-      `${client.emotes.success} - Song ${
-        client.player.getQueue(message).playing.title
-      } paused !`
+        `${client.emotes.success} - Song ${
+          client.player.getQueue(message).playing.title
+        } paused !`,
     );
+  }
 };
 module.exports.help = {
-  name: "pause",
+  name: 'pause',
   aliases: [],
-  category: "Music",
-  usage: "pause",
+  category: 'Music',
+  usage: 'pause',
 };
