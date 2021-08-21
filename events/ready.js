@@ -1,10 +1,8 @@
-const Discord = require("discord.js")
-const got = require('got');
+const Discord = require("discord.js");
+const got = require("got");
 
 module.exports = (client) => {
-
-
-    console.log(`${client.user.tag} is online!`);
+  console.log(`${client.user.tag} is online!`);
   console.log(`
 ╔██╗   ██╗ █████╗ ██████╗ ███╗  ██╗
 ╚██╗ ██╔╝██╔══██╗██╔══██╗████╗  ██║
@@ -13,16 +11,18 @@ module.exports = (client) => {
    ██║   ██║  ██║██║  ██║██║ ╚████║
    ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝
                                    
-  `)
-	
-			let version = client.config.version
-	const readyembed = new Discord.MessageEmbed()
-.setTitle("Online!")
-.setThumbnail(client.user.displayAvatarURL())
-.addField('Yarn Wrapped.', `Logged in successfully as ${client.user.tag}!`)
-.setFooter("This was ")
-.setTimestamp()
-client.channels.cache.get('829432185110790234').send({ embeds: [readyembed]})
+  `);
+
+  let version = client.config.version;
+  const readyembed = new Discord.MessageEmbed()
+    .setTitle("Online!")
+    .setThumbnail(client.user.displayAvatarURL())
+    .addField("Yarn Wrapped.", `Logged in successfully as ${client.user.tag}!`)
+    .setFooter("This was ")
+    .setTimestamp();
+  client.channels.cache
+    .get("829432185110790234")
+    .send({ embeds: [readyembed] });
   const status = [
     {
       activity: `over ${client.guilds.cache.size}/100 servers! #RoadtoVerification`,
@@ -53,12 +53,12 @@ client.channels.cache.get('829432185110790234').send({ embeds: [readyembed]})
       type: "WATCHING",
     },
     {
-      activity:`the bot uprising`,
-      type:"COMPETING",
+      activity: `the bot uprising`,
+      type: "COMPETING",
     },
     {
-      activity:`the newest Yarn Update, to ${version}`,
-      type:`COMPETING`
+      activity: `the newest Yarn Update, to ${version}`,
+      type: `COMPETING`,
     },
   ];
   setInterval(async function () {
@@ -69,5 +69,4 @@ client.channels.cache.get('829432185110790234').send({ embeds: [readyembed]})
       type: random.type,
     });
   }, 20000);
-		
-	}
+};

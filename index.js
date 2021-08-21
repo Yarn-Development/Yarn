@@ -16,7 +16,7 @@ const ints = new Intents([
   Intents.FLAGS.GUILD_MESSAGES,
   Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
   Intents.FLAGS.GUILD_VOICE_STATES,
-  Intents.FLAGS.DIRECT_MESSAGES
+  Intents.FLAGS.DIRECT_MESSAGES,
 ]);
 const client = new Discord.Client(
   { intents: ints },
@@ -30,7 +30,7 @@ client.db.on("ready", async () => {
 const ms = require("ms");
 client.config = require("./config.json");
 const canvacord = require("canvacord");
-const { Player } = require('discord-player');
+const { Player } = require("discord-player");
 client.player = new Player(client, {
   enableLive: true,
   leaveOnEnd: true,
@@ -38,12 +38,12 @@ client.player = new Player(client, {
     filter: "audioonly",
     requestOptions: {
       headers: {
-        cookie: process.env.COOKIE
-      }
-    }
-  }
+        cookie: process.env.COOKIE,
+      },
+    },
+  },
 });
-const { DiscordTogether } = require("discord-together")
+const { DiscordTogether } = require("discord-together");
 client.discordTogether = new DiscordTogether(client);
 const config = require("./config.json");
 client.emotes = client.config.emojis;
@@ -69,7 +69,7 @@ client.snipes = new Discord.Collection();
 let universalColor = client.config.unicolor.toUpperCase();
 let imageLink =
   "https://marketplace.canva.com/EAD2962NKnQ/2/0/800w/canva-rainbow-gradient-pink-and-purple-zoom-virtual-background-98aZLNQxJXg.jpg";
- prefix = client.prefix; // Change this to yours!
+prefix = client.prefix; // Change this to yours!
 client.on("guildMemberAdd", async (member) => {
   if (member.guild.id != "658976660703543297") return;
   let image = await welcomeCanvas
@@ -490,30 +490,35 @@ let table = new ascii("Commands");
 table.setHeading("Command", "Load status");
 table.setBorder("*");
 
-const events = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+const events = fs
+  .readdirSync("./events")
+  .filter((file) => file.endsWith(".js"));
 for (const file of events) {
-    const event = require(`./events/${f}`);
-    client.on(file.split(".")[0], event.bind(null, client));
-  };
+  const event = require(`./events/${f}`);
+  client.on(file.split(".")[0], event.bind(null, client));
+}
 
-
-fs.readdirSync('./commands').forEach(dirs => {
-  const commands = fs.readdirSync(`./commands/${dirs}`).filter(files => files.endsWith('.js'));
+fs.readdirSync("./commands").forEach((dirs) => {
+  const commands = fs
+    .readdirSync(`./commands/${dirs}`)
+    .filter((files) => files.endsWith(".js"));
 
   for (const file of commands) {
-      const command = require(`./commands/${dirs}/${file}`);
+    const command = require(`./commands/${dirs}/${file}`);
     client.commands.set(command.help.name, command);
     command.help.aliases.forEach((alias) => {
       client.aliases.set(alias, command.help.name);
     });
-  };
+  }
 });
-const player = fs.readdirSync('./player').filter(file => file.endsWith('.js'));
+const player = fs
+  .readdirSync("./player")
+  .filter((file) => file.endsWith(".js"));
 for (const file of player) {
   console.log(`Loading discord-player event ${file}`);
   const event = require(`./player/${file}`);
   client.player.on(file.split(".")[0], event.bind(null, client));
-};
+}
 client.on("guildCreate", (guild) => {
   const channel = "695957739255627777";
 

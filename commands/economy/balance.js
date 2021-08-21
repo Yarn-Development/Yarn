@@ -1,13 +1,10 @@
 const Discord = require("discord.js");
 
-
-
-exports.execute =  async(client, message, args) => {
-
-  let user = message.mentions.users.first() || message.author
+exports.execute = async (client, message, args) => {
+  let user = message.mentions.users.first() || message.author;
   client.users.cache.get(args[0]) ||
-  (args.join(" ").toLowerCase(), message.guild) || 
-  message.author;
+    (args.join(" ").toLowerCase(), message.guild) ||
+    message.author;
 
   let bal = await client.db.get(`money_${message.guild.id}_${user.id}.pocket`);
   if (bal === null) bal = 0;
@@ -17,18 +14,16 @@ exports.execute =  async(client, message, args) => {
 
   let TotalMoney = bank + bal;
 
-  let moneyEmbed = new Discord.MessageEmbed()
-  .setColor("#FFFFFF")
-  .setDescription(`**${user}'s Balance**\n
+  let moneyEmbed = new Discord.MessageEmbed().setColor("#FFFFFF")
+    .setDescription(`**${user}'s Balance**\n
   **Pocket:** ${bal} 🧶
   **Bank:** ${bank} 🧶
   **Total:** ${TotalMoney} 🧶`);
-  message.channel.send({embeds:[moneyEmbed]})
-	}
-  exports.help = {
-    name: "bal",
-    category:'Economy',
-    aliases: ["money", "credits", "balance"],
-    usage: `bal`
-}
-
+  message.channel.send({ embeds: [moneyEmbed] });
+};
+exports.help = {
+  name: "bal",
+  category: "Economy",
+  aliases: ["money", "credits", "balance"],
+  usage: `bal`,
+};
