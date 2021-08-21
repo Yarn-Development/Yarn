@@ -1,5 +1,5 @@
 ;
-const warnings = require('./warns');
+const warnings = require('../warns');
 
 
 exports.execute = async (client, message, args) => {

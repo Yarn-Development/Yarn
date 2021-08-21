@@ -130,7 +130,7 @@ client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
   if (!message.guild) return;
   if (message.channel.type === `dm`) return;
-  const startTime = require("./commands/afk.js");
+  const startTime = require("./commands/misc/afk.js");
 
   //under if(message.author.bot)
 
@@ -490,26 +490,23 @@ let table = new ascii("Commands");
 table.setHeading("Command", "Load status");
 table.setBorder("*");
 
-fs.readdir("./events/", (err, files) => {
-  if (err) return console.error(err);
-  files.forEach((f) => {
-    if (!f.endsWith(".js")) return;
+const events = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+for (const file of events) {
     const event = require(`./events/${f}`);
-    let eventName = f.split(".")[0];
-    client.on(eventName, event.bind(null, client));
-  });
-});
+    client.on(file.split(".")[0], event.bind(null, client));
+  };
 
-fs.readdir("./commands/", (err, files) => {
-  if (err) return console.error(err);
-  files.forEach((f) => {
-    if (!f.endsWith(".js")) return;
-    let command = require(`./commands/${f}`);
+
+fs.readdirSync('./commands').forEach(dirs => {
+  const commands = fs.readdirSync(`./commands/${dirs}`).filter(files => files.endsWith('.js'));
+
+  for (const file of commands) {
+      const command = require(`./commands/${dirs}/${file}`);
     client.commands.set(command.help.name, command);
     command.help.aliases.forEach((alias) => {
       client.aliases.set(alias, command.help.name);
     });
-  });
+  };
 });
 const player = fs.readdirSync('./player').filter(file => file.endsWith('.js'));
 for (const file of player) {
