@@ -1,8 +1,8 @@
 ##  Yarn 🧶
 [![Discord Bots](https://top.gg/api/widget/status/814174226037866537.svg)](https://top.gg/bot/814174226037866537)
 [![CodeFactor](https://www.codefactor.io/repository/github/aspekts/yarn/badge)](https://www.codefactor.io/repository/github/aspekts/yarn)
-[![Discord](https://img.shields.io/discord/658976660703543297?label=discord&logo=discord&style=for-the-badge)](https://discord.gg/GxGTHBC)
-[![](https://img.shields.io/badge/discord.js-v13.1.0-blue.svg?logo=npm)](https://github.com/discordjs)
+[![Discord]https://img.shields.io/discord/658976660703543297?logo=discord](https://discord.gg/GxGTHBC)
+[![Discord.js](https://img.shields.io/badge/discord.js-v13.1.0-blue.svg?logo=npm)](https://github.com/discordjs)
 
 **This bot was created by Aspekts#4616**
 
