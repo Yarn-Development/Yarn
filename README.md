@@ -1,4 +1,5 @@
-## Yarn 🧶
+[![logo](https://i.imgur.com/LvVPfLI.png)](https://yarndev.xyz/)
+
 
 [![Discord Bots](https://top.gg/api/widget/status/814174226037866537.svg)](https://top.gg/bot/814174226037866537)
 [![CodeFactor](https://www.codefactor.io/repository/github/aspekts/yarn/badge)](https://www.codefactor.io/repository/github/aspekts/yarn)
@@ -47,6 +48,17 @@ Alternatively, new people can also use Glitch, in which you can use this link to
 
 [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/AspektsAIOBot/https://github.com/aspekts/AspektsAllin1Bot)
 
-However, if you are more experienced, I would recommend using heroku. You can deploy to heroku using the link below.
+However, if you are more experienced, you can use heroku. You can deploy to heroku using the link below.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/aspekts/AspektsAllin1Bot)
+
+The best practice however, would be to use a Virtual Private Server. Therefore from your VPS you can clone the repository, and contribute using the following command:
+```py
+# cloning the repository
+$ git clone https://github.com/aspekts/Yarn.git
+
+# go into the repository
+$ cd Yarn
+```
+
+
