@@ -1,6 +1,6 @@
 <img width="200" height="200" align="left" style="float: left; margin: 0 10px 0 0;" alt="Yarn" src="https://cdn.discordapp.com/avatars/814174226037866537/12b5ffa9e8f6f11c25a04818027a18b5.webp?size=1024">
 
-# Yarn
+# Yarn 🧶
 
 > [![Discord Bots](https://top.gg/api/widget/status/814174226037866537.svg)](https://top.gg/bot/814174226037866537)
 > [![CodeFactor](https://www.codefactor.io/repository/github/aspekts/yarn/badge)](https://www.codefactor.io/repository/github/aspekts/yarn)
@@ -60,7 +60,7 @@ However, if you are more experienced, you can use heroku. You can deploy to hero
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/aspekts/AspektsAllin1Bot)
 
 The best practice however, would be to use a Virtual Private Server. Therefore from your VPS you can clone the repository, and contribute using the following command:
-```py
+```bash
 # cloning the repository
 $ git clone https://github.com/aspekts/Yarn.git
 
