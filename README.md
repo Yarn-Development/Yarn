@@ -1,12 +1,19 @@
-[![logo](https://i.imgur.com/LvVPfLI.png)](https://yarndev.xyz/)
+<img width="200" height="200" align="left" style="float: left; margin: 0 10px 0 0;" alt="Yarn" src="https://cdn.discordapp.com/avatars/814174226037866537/12b5ffa9e8f6f11c25a04818027a18b5.webp?size=1024">
+
+# Yarn
+
+> [![Discord Bots](https://top.gg/api/widget/status/814174226037866537.svg)](https://top.gg/bot/814174226037866537)
+> [![CodeFactor](https://www.codefactor.io/repository/github/aspekts/yarn/badge)](https://www.codefactor.io/repository/github/aspekts/yarn)
+> [![Discord](https://img.shields.io/discord/658976660703543297?logo=discord)](https://discord.gg/GxGTHBC)
+> [![Discord.js](https://img.shields.io/badge/discord.js-v13.1.0-blue.svg?logo=npm)](https://github.com/discordjs)
+
+> A Multipurpose Discord Bot Written wih Mongoose and Discord.js v13.
+
+> **This bot was created by Aspekts#4616**
 
 
-[![Discord Bots](https://top.gg/api/widget/status/814174226037866537.svg)](https://top.gg/bot/814174226037866537)
-[![CodeFactor](https://www.codefactor.io/repository/github/aspekts/yarn/badge)](https://www.codefactor.io/repository/github/aspekts/yarn)
-[![Discord](https://img.shields.io/discord/658976660703543297?logo=discord)](https://discord.gg/GxGTHBC)
-[![Discord.js](https://img.shields.io/badge/discord.js-v13.1.0-blue.svg?logo=npm)](https://github.com/discordjs)
 
-**This bot was created by Aspekts#4616**
+
 
 ## Knowledge requirements
 
