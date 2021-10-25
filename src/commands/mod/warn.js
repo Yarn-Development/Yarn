@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 
 exports.execute = async (client, message, args, data) => {
-	if (!message.member.hasPermission("MANAGE_SERVER")) {
+	if (!message.member.permissions.has("MANAGE_SERVER")) {
 		return message.channel.send("You can't use that");
 	}
 

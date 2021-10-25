@@ -3,10 +3,10 @@ const Discord = require("discord.js");
 // ban command
 
 module.exports.execute = async (client, message, args, data) => {
-	if (!message.member.hasPermission("BAN_MEMBERS")) {
+	if (!message.member.permissions.has("BAN_MEMBERS")) {
 		return message.channel.send("You can't use that!");
 	}
-	if (!message.guild.me.hasPermission("BAN_MEMBERS")) {
+	if (!message.guild.me.permissions.has("BAN_MEMBERS")) {
 		return message.channel.send("I don't have the right permissions.");
 	}
 

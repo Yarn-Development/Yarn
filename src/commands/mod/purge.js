@@ -2,7 +2,7 @@ exports.execute = async (client, message, args, data) => {
 	const deleteCount = parseInt(args[0], 10);
 
 	// get the delete count, as an actual number.
-	if (!message.member.hasPermission("MANAGE_MESSAGES")) {
+	if (!message.member.permissions.has("MANAGE_MESSAGES")) {
 		message.channel.send("You don't have the permissions to use this command!");
 	}
 	else {

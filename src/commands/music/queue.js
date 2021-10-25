@@ -14,9 +14,9 @@ exports.execute = async (client, message, args, data) => {
 		);
 	}
 
-	const queue = client.player.getQueue(message);
+	const queue = client.player.getQueue(message.guild.id);
 
-	if (!client.player.getQueue(message)) {
+	if (!client.player.getQueue(message.guild.id)) {
 		return message.channel.send(
 			`${client.emotes.error} - No songs currently playing !`,
 		);
@@ -24,7 +24,7 @@ exports.execute = async (client, message, args, data) => {
 
 	message.channel.send(
 		`**Server queue - ${message.guild.name} ${client.emotes.queue} ${
-			client.player.getQueue(message).loopMode ? "(looped)" : ""
+			client.player.getQueue(message.guild.id).loopMode ? "(looped)" : ""
 		}**\nCurrent : ${queue.playing.title} | ${queue.playing.author}\n\n` +
       (queue.tracks
       	.map((track, i) => {

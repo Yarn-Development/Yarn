@@ -14,13 +14,13 @@ exports.execute = async (client, message, args, data) => {
 		);
 	}
 
-	if (!client.player.getQueue(message)) {
+	if (!client.player.getQueue(message.guild.id)) {
 		return message.channel.send(
 			`${client.emotes.error} - No music currently playing !`,
 		);
 	}
 
-	if (!client.player.getQueue(message).paused) {
+	if (!client.player.getQueue(message.guild.id).paused) {
 		return message.channel.send(
 			`${client.emotes.error} - The music is already playing !`,
 		);
@@ -31,7 +31,7 @@ exports.execute = async (client, message, args, data) => {
 	if (success) {
 		message.channel.send(
 			`${client.emotes.success} - Song ${
-				client.player.getQueue(message).playing.title
+				client.player.getQueue(message.guild.id).playing.title
 			} resumed !`,
 		);
 	}

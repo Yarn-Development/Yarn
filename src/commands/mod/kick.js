@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 module.exports.execute = async (client, message, args, data) => {
 	if (
-		!message.member.hasPermission("KICK_MEMBERS") &&
+		!message.member.permissions.has("KICK_MEMBERS") &&
     message.author.id !== "291221132256870400"
 	) {
 		return message.channel.send(

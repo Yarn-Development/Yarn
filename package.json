@@ -2,7 +2,7 @@
   "name": "yarn",
   "version": "1.0.3",
   "description": "Discord bot made in discord.js",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
     "start": "forever index.js"
   },

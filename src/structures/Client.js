@@ -9,7 +9,7 @@ class YarnClient extends Client {
 		super(...options);
 		this.config = config;
 		this.filters = this.config.filters;
-		this.emotes = this.config.emotes;
+		this.emotes = this.config.emojis;
 		this.interactions = new Collection();
 		this.events = new Collection();
 		this.commands = new Collection();
@@ -51,10 +51,10 @@ class YarnClient extends Client {
 				});
 			}
 		});
-		readdirSync("./src/interactions/").forEach(dir => {
-			const interactionfolder = readdirSync(`./src/interactions/${dir}/`)
+		fs.readdirSync("./src/interactions/").forEach(dir => {
+			const interactionfolder = fs.readdirSync(`./src/interactions/${dir}/`)
 			for(let folder of interactionfolder) {
-				const interactions = readdirSync(`./src/interactions/${dir}/${folder}`)
+				const interactions = fs.readdirSync(`./src/interactions/${dir}/${folder}`)
 			for (let file of interactions) {
 				let pull = require(`../interactions/${dir}/${folder}/${file}`);
 	
@@ -68,6 +68,9 @@ class YarnClient extends Client {
 				} 
 			  }
 			}
+		});
+		this.on("ready", async () => {
+			await this.application.commands.set(slash)
 		});
 		const player = fs.readdirSync("./src/player").filter((file) => file.endsWith(".js"));
 		for (const file of player) {

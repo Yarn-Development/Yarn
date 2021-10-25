@@ -84,7 +84,7 @@ client.on("messageCreate", async (message) => {
 				const img = message.attachments.first().url;
 				embed.setImage(img);
 			}
-			embed.setColor("NONE");
+			embed.setColor("BLACK");
 			embed.setFooter(
 				`Server: ${message.guild.name} || Members: ${message.guild.memberCount}`,
 			);
@@ -194,7 +194,7 @@ app.get('/guild/:id', async function(req, res) {
     !client.guilds.cache
         .get(req.params.id)
         .members.cache.get(req.session.user.id)
-        .hasPermission('MANAGE_GUILD')
+        .permissions.has('MANAGE_GUILD')
   ); // Oh, I think he wanted to manage someone's server without permission on that server! Not so easy! Let's get him back!
   res.render('guild', {
     db: db,
@@ -212,7 +212,7 @@ app.post('/edit/setup/:id', async (req, res) => {
     !client.guilds.cache
         .get(req.params.id)
         .members.cache.get(req.session.user.id)
-        .hasPermission('MANAGE_GUILD')
+        .permissions.has('MANAGE_GUILD')
   ) {
     return res.redirect('/user/guilds');
   } // Oh, I think he wanted to manage someone's server without permission on that server! Not so easy! Let's get him back!

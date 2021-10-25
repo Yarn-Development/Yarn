@@ -13,20 +13,20 @@ exports.execute = async (client, message, args, data) => {
 			`${client.emotes.error} - You are not in the same voice channel !`,
 		);
 	}
-
-	if (!client.player.getQueue(message)) {
+	const queue = client.player.getQueue(message.guild.id);
+	if (!queue) {
 		return message.channel.send(
 			`${client.emotes.error} - No music currently playing !`,
 		);
 	}
 
-	if (client.player.getQueue(message).tracks.length <= 1) {
+	if (queue.tracks.length <= 1) {
 		return message.channel.send(
 			`${client.emotes.error} - There is only one song in the queue.`,
 		);
 	}
 
-	client.player.clearQueue(message);
+	await queue.clear();
 
 	message.channel.send(
 		`${client.emotes.success} - The queue has just been **removed** !`,
@@ -34,7 +34,7 @@ exports.execute = async (client, message, args, data) => {
 };
 module.exports.help = {
 	name: "clear-queue",
-	aliases: ["cq"],
+	aliases: ["cq","clear"],
 	category: "Music",
 	usage: "clear-queue",
 };

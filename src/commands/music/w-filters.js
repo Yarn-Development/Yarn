@@ -34,7 +34,7 @@ exports.execute = async (client, message, args, data) => {
 			filterName.charAt(0).toUpperCase() +
         filterName.slice(1) +
         " : " +
-        (client.player.getQueue(message).filters[filterName] ?
+        (client.player.getQueue(message.guild.id).filters[filterName] ?
         	client.emotes.success :
         	client.emotes.off),
 		);

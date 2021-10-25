@@ -1,10 +1,10 @@
 exports.execute = async (client, message, args, data) => {
 	const toBan = await client.users.fetch(args[0]);
 
-	if (!message.member.hasPermission("BAN_MEMBERS")) {
+	if (!message.member.permissions.has("BAN_MEMBERS")) {
 		return message.channel.send("You need permissions!");
 	}
-	if (!message.guild.me.hasPermission("BAN_MEMBERS")) {
+	if (!message.guild.me.permissions.has("BAN_MEMBERS")) {
 		return message.channel.send("Bot need permissions!");
 	}
 

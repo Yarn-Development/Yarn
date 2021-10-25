@@ -14,7 +14,7 @@ exports.execute = async (client, message, args, data) => {
 		);
 	}
 
-	if (!client.player.getQueue(message)) {
+	if (!client.player.getQueue(message.guild.id)) {
 		return message.channel.send(
 			`${client.emotes.error} - No music currently playing !`,
 		);
@@ -25,7 +25,7 @@ exports.execute = async (client, message, args, data) => {
 	if (success) {
 		message.channel.send(
 			`${client.emotes.success} - Queue shuffled **${
-				client.player.getQueue(message).tracks.length
+				client.player.getQueue(message.guild.id).tracks.length
 			}** song(s) !`,
 		);
 	}

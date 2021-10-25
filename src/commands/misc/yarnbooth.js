@@ -13,11 +13,11 @@ exports.execute = async (client, message, args, data) => {
 		);
 	}
 	if (args[0] == "disable") {
-		client.db.delete(`g_${message.guild.id}`, channel.id);
+		client.yarnbooth.delete(`g_${message.guild.id}`, channel.id);
 		message.channel.send(`YarnBooth successfully disabled in ${channel}.`);
 	}
 	else {
-		client.db.set(`g_${message.guild.id}`, `${channel.id}`);
+		client.yarnbooth.set(`g_${message.guild.id}`, `${channel.id}`);
 		message.channel.send(`YarnBooth Set to ${channel}!`);
 	}
 };

@@ -13,15 +13,15 @@ exports.execute = async (client, message, args, data) => {
 			`${client.emotes.error} - You are not in the same voice channel !`,
 		);
 	}
-
-	if (!client.player.getQueue(message)) {
+	const queue = client.player.getQueue(message.guild.id)
+	if (!queue) {
 		return message.channel.send(
 			`${client.emotes.error} - No music currently playing !`,
 		);
 	}
 
 	if (args.join(" ").toLowerCase() === "queue") {
-		if (client.player.getQueue(message).loopMode) {
+		if (client.player.getQueue(message.guild.id).loopMode) {
 			client.player.setLoopMode(message, false);
 			return message.channel.send(
 				`${client.emotes.success} - Repeat mode **disabled** !`,
@@ -34,7 +34,7 @@ exports.execute = async (client, message, args, data) => {
 			);
 		}
 	}
-	else if (client.player.getQueue(message).repeatMode) {
+	else if (client.player.getQueue(message.guild.id).repeatMode) {
 		client.player.setRepeatMode(message, false);
 		return message.channel.send(
 			`${client.emotes.success} - Repeat mode **disabled** !`,

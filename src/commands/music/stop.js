@@ -14,7 +14,7 @@ exports.execute = async (client, message, args, data) => {
 		);
 	}
 
-	if (!client.player.getQueue(message)) {
+	if (!client.player.getQueue(message.guild.id)) {
 		return message.channel.send(
 			`${client.emotes.error} - No music currently playing !`,
 		);

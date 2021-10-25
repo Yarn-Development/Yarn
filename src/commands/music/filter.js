@@ -1,64 +1,29 @@
 exports.execute = async (client, message, args, data) => {
-	if (!message.member.voice.channel) {
-		return message.channel.send(
-			`${client.emotes.error} - You're not in a voice channel !`,
-		);
-	}
+	const queue = client.player.getQueue(message.guild.id);
 
-	if (
-		message.guild.me.voice.channel &&
-    message.member.voice.channel.id !== message.guild.me.voice.channel.id
-	) {
-		return message.channel.send(
-			`${client.emotes.error} - You are not in the same voice channel !`,
-		);
-	}
+	if (!queue || !queue.playing) return message.channel.send(`No music currently playing ${message.author}... try again ? ${client.emotes.error}`);
 
-	const queue = await client.player.createQueue(message.guild, {
-		metadata: message.channel,
-	});
-	if (!queue) {
-		return message.channel.send(
-			`${client.emotes.error} - No music currently playing !`,
-		);
-	}
+	const actualFilter = queue.getFiltersEnabled()[0];
 
-	if (!args[0]) {
-		return queue.metadata.send(
-			`${client.emotes.error} - Please specify a valid filter to enable or disable !`,
-		);
-	}
-	const filters = client.config.filters;
-	const filter = args[0];
+	if (!args[0]) return message.channel.send(`Please specify a valid filter to enable or disable ${message.author}... try again ? ❌\n${actualFilter ? `Filter currently active ${actualFilter} (${client.config.app.px}filter ${actualFilter} to disable it).\n` : ''}`);
 
-	if (!filters.includes(filter)) {
-		return queue.metadata.send(
-			`${client.emotes.error} - This filter doesn't exist, try for example (8D, vibrato, pulsator...) !`,
-		);
-	}
+	const filters = [];
 
-	const filtersUpdated = queue.getFiltersEnabled().includes(filter) ?
-		false :
-		true;
-	try {
-		queue.setFilters({
-			filter: !queue.getFiltersEnabled().includes(filter),
-		});
+	queue.getFiltersEnabled().map(x => filters.push(x));
+	queue.getFiltersDisabled().map(x => filters.push(x));
 
-		if (filtersUpdated) {
-			queue.metadata.send(
-				`${client.emotes.music} - I'm **adding** the filter to the music, please wait... Note : the longer the music is, the longer this will take.`,
-			);
-		}
-		else {
-			queue.metadata.send(
-				`${client.emotes.music} - I'm **disabling** the filter on the music, please wait... Note : the longer the music is playing, the longer this will take.`,
-			);
-		}
-	}
-	catch (e) {
-		console.log(e);
-	}
+	const filter = filters.find((x) => x.toLowerCase() === args[0].toLowerCase());
+
+	if (!filter) return message.channel.send(`This filter doesn't exist ${message.author}... try again ? ${client.emotes.error}\n${actualFilter ? `Filter currently active ${actualFilter}.\n` : ''}List of available filters ${filters.map(x => `**${x}**`).join(', ')}.`);
+
+	const filtersUpdated = {};
+
+	filtersUpdated[filter] = queue.getFiltersEnabled().includes(filter) ? false : true;
+
+	await queue.setFilters(filtersUpdated);
+
+	message.channel.send(`The filter ${filter} is now **${queue.getFiltersEnabled().includes(filter) ? 'enabled' : 'disabled'}** ${client.emotes.sucess}\n*Reminder the longer the music is, the longer this will take.*`);
+
 };
 module.exports.help = {
 	name: "filter",

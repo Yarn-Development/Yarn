@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 exports.execute = async (client, message, args, data) => {
 	if (!message.member.voice.channel) {
-		return message.InlineReply(
+		return message.reply(
 			"Please join a voice channel to commence the chess game!",
 		);
 	}

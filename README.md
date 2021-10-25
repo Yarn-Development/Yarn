@@ -7,7 +7,7 @@
 > [![Discord](https://img.shields.io/discord/658976660703543297?logo=discord)](https://discord.gg/GxGTHBC)
 > [![Discord.js](https://img.shields.io/badge/discord.js-v13.1.0-blue.svg?logo=npm)](https://github.com/discordjs)
 
-> A Multipurpose Discord Bot Written wih Mongoose and Discord.js v13.
+> A Multipurpose Discord Bot Written with Mongoose and Discord.js v13.
 
 > **This bot was created by Aspekts#4616**
 
@@ -31,7 +31,7 @@
 
 ## How do you set this discord bot up?
 
-[`Disord Developer Portal`] First things first, we need to create the application that'll be used to make the bot.
+[`Discord Developer Portal`] First things first, we need to create the application that'll be used to make the bot.
 [Head to this site](https://discord.com/developers/applications) and then click on create application.
 <img src="https://i.imgur.com/4TzAGW4.jpg" alt="DiscDevApp"> It should look like this, or something similar. Afterwards, head to the bot section. You should see something like this:
 <img src="https://i.imgur.com/nmuUWYS.png"> After this, go ahead and click on add bot. Congratulations! You have finally made yourself a bot! But thats not it! Copy your token from the bot like so:
@@ -51,7 +51,7 @@ To do this first, click on the button below to get this code into your own repl
 
 [![Use on Repl.it](https://repl.it/badge/github/aspekts/AspektsAllin1Bot)](https://repl.it/github/aspekts/AspektsAllin1Bot)
 
-Alternatively, new people can also use Glitch, in which you can use this link to deploy this code to Glitch
+Alternatively, new people can also use Glitch, in which you can use this link to deploy this code to Glitch.
 
 [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/AspektsAIOBot/https://github.com/aspekts/AspektsAllin1Bot)
 
@@ -59,7 +59,7 @@ However, if you are more experienced, you can use heroku. You can deploy to hero
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/aspekts/AspektsAllin1Bot)
 
-The best practice however, would be to use a Virtual Private Server. Therefore from your VPS you can clone the repository, and contribute using the following command:
+The best practice however, would be to use a Virtual Private Server. Therefore from your VPS you can clone the repository, and contribute using the following command, for linux distros:
 ```bash
 # cloning the repository
 $ git clone https://github.com/aspekts/Yarn.git

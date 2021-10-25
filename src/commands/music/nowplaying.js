@@ -14,7 +14,7 @@ exports.execute = async (client, message, args, data) => {
 		);
 	}
 
-	if (!client.player.getQueue(message)) {
+	if (!client.player.getQueue(message.guild.id)) {
 		return message.channel.send(
 			`${client.emotes.error} - No music currently playing !`,
 		);
@@ -23,8 +23,8 @@ exports.execute = async (client, message, args, data) => {
 	const track = client.player.nowPlaying(message);
 	const filters = [];
 
-	Object.keys(client.player.getQueue(message).filters).forEach(
-		(filterName) => client.player.getQueue(message).filters[filterName],
+	Object.keys(client.player.getQueue(message.guild.id).filters).forEach(
+		(filterName) => client.player.getQueue(message.guild.id).filters[filterName],
 	) ?
 		filters.push(filterName) :
 		false;
@@ -59,17 +59,17 @@ exports.execute = async (client, message, args, data) => {
 
 						{
 							name: "Volume",
-							value: client.player.getQueue(message).volume,
+							value: client.player.getQueue(message.guild.id).volume,
 							inline: true,
 						},
 						{
 							name: "Repeat mode",
-							value: client.player.getQueue(message).repeatMode ? "Yes" : "No",
+							value: client.player.getQueue(message.guild.id).repeatMode ? "Yes" : "No",
 							inline: true,
 						},
 						{
 							name: "Currently paused",
-							value: client.player.getQueue(message).paused ? "Yes" : "No",
+							value: client.player.getQueue(message.guild.id).paused ? "Yes" : "No",
 							inline: true,
 						},
 

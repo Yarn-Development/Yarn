@@ -20,43 +20,43 @@ module.exports.execute = async (client, message, args, data) => {
 		return (~~(Math.random() * 16)).toString(16);
 	});
 
-	if (message.member.hasPermission("KICK_MEMBERS")) {
+	if (message.member.permissions.has("KICK_MEMBERS")) {
 		permissions.push("Kick Members");
 	}
 
-	if (message.member.hasPermission("BAN_MEMBERS")) {
+	if (message.member.permissions.has("BAN_MEMBERS")) {
 		permissions.push("Ban Members");
 	}
 
-	if (message.member.hasPermission("ADMINISTRATOR")) {
+	if (message.member.permissions.has("ADMINISTRATOR")) {
 		permissions.push("Administrator");
 	}
 
-	if (message.member.hasPermission("MANAGE_MESSAGES")) {
+	if (message.member.permissions.has("MANAGE_MESSAGES")) {
 		permissions.push("Manage Messages");
 	}
 
-	if (message.member.hasPermission("MANAGE_CHANNELS")) {
+	if (message.member.permissions.has("MANAGE_CHANNELS")) {
 		permissions.push("Manage Channels");
 	}
 
-	if (message.member.hasPermission("MENTION_EVERYONE")) {
+	if (message.member.permissions.has("MENTION_EVERYONE")) {
 		permissions.push("Mention Everyone");
 	}
 
-	if (message.member.hasPermission("MANAGE_NICKNAMES")) {
+	if (message.member.permissions.has("MANAGE_NICKNAMES")) {
 		permissions.push("Manage Nicknames");
 	}
 
-	if (message.member.hasPermission("MANAGE_ROLES")) {
+	if (message.member.permissions.has("MANAGE_ROLES")) {
 		permissions.push("Manage Roles");
 	}
 
-	if (message.member.hasPermission("MANAGE_WEBHOOKS")) {
+	if (message.member.permissions.has("MANAGE_WEBHOOKS")) {
 		permissions.push("Manage Webhooks");
 	}
 
-	if (message.member.hasPermission("MANAGE_EMOJIS")) {
+	if (message.member.permissions.has("MANAGE_EMOJIS")) {
 		permissions.push("Manage Emojis");
 	}
 

@@ -1,5 +1,5 @@
 exports.execute = async (client, message, args, data) => {
-	if (!message.member.hasPermission("MANAGE_ROLES")) {
+	if (!message.member.permissions.has("MANAGE_ROLES")) {
 		return message.channel.send("You are not allowed to run this command");
 	}
 
