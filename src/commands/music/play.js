@@ -38,7 +38,7 @@ exports.execute = async (client, message, args, data) => {
 	}
 
 	await queue.metadata.send({
-		content: `⏱ | Loading your ${
+		content: `⏱ | Processing your ${
 			searchResult.playlist ? "playlist" : "track"
 		}...`,
 	});
