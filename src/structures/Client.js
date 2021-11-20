@@ -52,25 +52,25 @@ class YarnClient extends Client {
 			}
 		});
 		fs.readdirSync("./src/interactions/").forEach(dir => {
-			const interactionfolder = fs.readdirSync(`./src/interactions/${dir}/`)
-			for(let folder of interactionfolder) {
-				const interactions = fs.readdirSync(`./src/interactions/${dir}/${folder}`)
-			for (let file of interactions) {
-				let pull = require(`../interactions/${dir}/${folder}/${file}`);
-	
-				if (pull.name) {
-					this.interactions.set(pull.name, pull);
-					if (["MESSAGE", "USER"].includes(file.type)) delete file.description;
-					/*  Context menus use the message and user type, but dont use a description unlike slash commands, which use the CHAT_INPUT type, and has a description. Be sure to decipher between the two.
+			const interactionfolder = fs.readdirSync(`./src/interactions/${dir}/`);
+			for(const folder of interactionfolder) {
+				const interactions = fs.readdirSync(`./src/interactions/${dir}/${folder}`);
+				for (const file of interactions) {
+					const pull = require(`../interactions/${dir}/${folder}/${file}`);
+
+					if (pull.name) {
+						this.interactions.set(pull.name, pull);
+						if (["MESSAGE", "USER"].includes(file.type)) delete file.description;
+						/*  Context menus use the message and user type, but dont use a description unlike slash commands, which use the CHAT_INPUT type, and has a description. Be sure to decipher between the two.
 						See: https://discord.js.org/#/docs/main/stable/typedef/ApplicationCommandType
 					*/
-					slash.push(pull);
-				} 
+						slash.push(pull);
+					}
 			  }
 			}
 		});
 		this.on("ready", async () => {
-			await this.application.commands.set(slash)
+			await this.application.commands.set(slash);
 		});
 		const player = fs.readdirSync("./src/player").filter((file) => file.endsWith(".js"));
 		for (const file of player) {

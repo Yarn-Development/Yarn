@@ -34,7 +34,7 @@ exports.execute = async (client, message, args, data) => {
 };
 module.exports.help = {
 	name: "clear-queue",
-	aliases: ["cq","clear"],
+	aliases: ["cq", "clear"],
 	category: "Music",
 	usage: "clear-queue",
 };

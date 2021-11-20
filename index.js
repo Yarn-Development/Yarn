@@ -9,7 +9,7 @@ const session = require("express-session");
 const Discord = require("discord.js");
 const YarnClient = require("./src/structures/Client.js");
 const client = new YarnClient(
-	{ intents: 14023 },
+	{ intents: 14287 },
 	{ allowedMentions: { parse: ["users", "roles"], repliedUser: true } },
 );
 client.setup();

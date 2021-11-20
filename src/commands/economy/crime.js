@@ -6,8 +6,8 @@ exports.execute = async (client, message, args, data) => {
 
 	const timeout = 60000;
 
-	const author = data.user.wallet
-	let multiplier = 1;
+	const author = data.user.wallet;
+	const multiplier = 1;
 	const randoma = Math.floor(Math.random() * 200) + 1;
 	const random = randoma * multiplier;
 
@@ -49,10 +49,10 @@ exports.execute = async (client, message, args, data) => {
 				.setColor("RANDOM")
 				.setTimestamp();
 			message.channel.send({ embeds: [embed] });
-			const val = client.eco.get(`crimecommitted_${user.id}`)
-			await client.eco.add(`crimecommited_${user.id}`, val+1);
-			author = author + random
-			await data.user.save().catch((err)=> console.log(`[DB] UserSave Error: ${err}`))
+			const val = client.eco.get(`crimecommitted_${user.id}`);
+			await client.eco.add(`crimecommited_${user.id}`, val + 1);
+			author = author + random;
+			await data.user.save().catch((err)=> console.log(`[DB] UserSave Error: ${err}`));
 			await client.eco.set(`crime_${message.author.id}`, Date.now());
 		}
 	}

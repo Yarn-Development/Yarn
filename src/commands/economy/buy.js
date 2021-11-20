@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 exports.execute = async (client, message, args, data) => {
 	const user = message.author;
-	const author = data.user.wallet
+	const author = data.user.wallet;
 	switch (args[0]) {
 
 	case "nikes":
@@ -13,14 +13,14 @@ exports.execute = async (client, message, args, data) => {
 		if (author < 600) return message.channel.send({ embeds: [Embedn] });
 
 		const val = await client.eco.get(`nikes_${message.guild.id}_${user.id}`);
-		await client.eco.set(`nikes_${message.guild.id}_${user.id}`, val+1);
+		await client.eco.set(`nikes_${message.guild.id}_${user.id}`, val + 1);
 
 		const Embed3 = new Discord.MessageEmbed()
 			.setColor("#FFFFFF")
 			.setDescription(" Purchased Fresh Nikes For 600 🧶");
 
-			author = author - 600
-			await data.user.save().catch((err)=> console.log(`[DB] UserSave Error: ${err}`))
+		author = author - 600;
+		await data.user.save().catch((err)=> console.log(`[DB] UserSave Error: ${err}`));
 		message.channel.send({ embeds: [Embed3] });
 		break;
 
@@ -32,14 +32,14 @@ exports.execute = async (client, message, args, data) => {
 		if (author < 800) return message.channel.send({ embeds: [Embed4] });
 
 		const val1 = await client.eco.get(`car_${message.guild.id}_${user.id}`);
-		await client.eco.set(`car_${message.guild.id}_${user.id}`, val1+1);
+		await client.eco.set(`car_${message.guild.id}_${user.id}`, val1 + 1);
 
 		const Embed5 = new Discord.MessageEmbed()
 			.setColor("#FFFFFF")
 			.setDescription(" Purchased a New Car For 800 🧶");
 
-			author = author - 800
-			await data.user.save().catch((err)=> console.log(`[DB] UserSave Error: ${err}`))
+		author = author - 800;
+		await data.user.save().catch((err)=> console.log(`[DB] UserSave Error: ${err}`));
 		message.channel.send({ embeds: [Embed5] });
 		break;
 
@@ -56,16 +56,16 @@ exports.execute = async (client, message, args, data) => {
 				return message.channel.send("You already have a fishing rod!");
 			}
 		}
-		const val2 = await client.eco.get(`fish_${message.guild.id}_${user.id}`)
-		await client.eco.set(`fish_${message.guild.id}_${user.id}.rod`, val2+1);
+		const val2 = await client.eco.get(`fish_${message.guild.id}_${user.id}`);
+		await client.eco.set(`fish_${message.guild.id}_${user.id}.rod`, val2 + 1);
 		await client.eco.set(`fish_${message.guild.id}_${user.id}.fish`, []);
 
 		const Embed7 = new Discord.MessageEmbed()
 			.setColor("#FFFFFF")
 			.setDescription(" Purchased a Fishing rod For 50 🧶");
 
-			author = author - 50
-			await data.user.save().catch((err)=> console.log(`[DB] UserSave Error: ${err}`))
+		author = author - 50;
+		await data.user.save().catch((err)=> console.log(`[DB] UserSave Error: ${err}`));
 		message.channel.send({ embeds: [Embed7] });
 		break;
 
@@ -77,14 +77,14 @@ exports.execute = async (client, message, args, data) => {
 		if (author < 1200) return message.channel.send({ embeds: [Embed8] });
 
 		const val3 = await client.eco.get(`house_${message.guild.id}_${user.id}`);
-		await client.eco.set(`house_${message.guild.id}_${user.id}`, val3+1);
+		await client.eco.set(`house_${message.guild.id}_${user.id}`, val3 + 1);
 
 		const Embed9 = new Discord.MessageEmbed()
 			.setColor("#FFFFFF")
 			.setDescription(" Purchased a Mansion For 1200 🧶");
 
-			author = author - 1200
-			await data.user.save().catch((err)=> console.log(`[DB] UserSave Error: ${err}`))
+		author = author - 1200;
+		await data.user.save().catch((err)=> console.log(`[DB] UserSave Error: ${err}`));
 		message.channel.send({ embeds: [Embed9] });
 		break;
 

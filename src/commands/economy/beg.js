@@ -6,7 +6,7 @@ exports.execute = async (client, message, args, data) => {
 	const timeout = 60000;
 
 	const amounta = Math.floor(Math.random() * 30) + 1;
-	const multiplier = 2
+	const multiplier = 2;
 	const amounts = amounta * multiplier;
 
 	const beg = await client.eco.get(`beg_${message.guild.id}_${user.id}`);
