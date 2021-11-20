@@ -75,7 +75,7 @@
     "ws": "^7.5.3"
   },
   "engines": {
-    "node": "12.x"
+    "node": "16.x"
   },
   "repository": {
     "type": "git",
